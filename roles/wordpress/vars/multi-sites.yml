@@ -1,0 +1,31 @@
+---
+sites:
+  - {
+      url: "http://sky36.vn",
+      name: "sky36",
+      server_name: "sky36.vn www.sky36.vn",
+      repo: "git clone git@bitbucket.org:toancauxanh/sky36.git",
+      branch: "feat/demo-branch",
+      db: "sky36",
+      themes: "sky36",
+      wp_content_path: "{{root_path}}/sky36/wp-latest/wp-content",
+      wp_theme_path: "{{root_path}}/sky36/wp-latest/wp-content/themes/sky36",
+      wp_root_path: "{{root_path}}/sky36/wp-latest",
+      wp_user: "sky36",
+      wp_pass: "Sky@@@36",
+    }
+
+  - {
+      url: "http://fansipan.vn",
+      name: "fansipan",
+      server_name: "fansipan.vn www.fansipan.vn",
+      repo: "git clone git@bitbucket.org:toancauxanh/fansipan.git",
+      branch: "staging",
+      db: "fansipan",
+      themes: "fansipan",
+      wp_content_path: "{{root_path}}/fansipan/wp-latest/wp-content",
+      wp_theme_path: "{{root_path}}/fansipan/wp-latest/wp-content/themes/fansipan",
+      wp_root_path: "{{root_path}}/fansipan/wp-latest",
+      wp_user: "fansipan",
+      wp_pass: "Fansipan@@123",
+    }

@@ -1,0 +1,20 @@
+---
+# tasks file for php
+- name: Install epel-release repository
+  yum:
+    name: epel-release
+
+- name: Install REMI repo.
+  yum:
+   name: http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+   state: present
+
+- name: Ensure PHP packages are installed.
+  package:
+    name: "{{ php_packages }}"
+    state: present
+    enablerepo: "{{ php_enablerepo | default(omit, true) }}"
+  notify: restart php-fpm
+
+- name: Enabled php-fpm on boot.
+  service: "name={{php_fpm_daemon}} state=started enabled=yes"

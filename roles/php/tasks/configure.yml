@@ -1,0 +1,14 @@
+---
+# tasks file for php
+- name: Edit php.ini
+  template:
+    src: php.ini.j2
+    dest: "{{ php_conf_paths }}"
+    mode: 0644
+
+- name: Edit www.conf
+  template:
+    src: www.conf.j2
+    dest: "{{ php_fpm_pool_conf_path }}"
+    mode: 0644
+  notify: restart php-fpm

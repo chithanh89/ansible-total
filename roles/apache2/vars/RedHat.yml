@@ -1,0 +1,13 @@
+---
+# vars file for apache2
+apache_service: httpd
+apache_daemon: httpd
+apache_daemon_path: /usr/sbin/
+apache_server_root: /etc/httpd
+apache_conf_path: /etc/httpd/conf.d
+APACHE_LOG_DIR: /var/log/httpd
+__apache_packages:
+  - httpd
+  - httpd-devel
+  - mod_ssl
+  - openssh

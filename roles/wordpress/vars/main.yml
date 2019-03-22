@@ -1,0 +1,4 @@
+---
+# vars file for wordpress
+keyfile: /usr/share/nginx/html/id_rsa
+multi_site: false

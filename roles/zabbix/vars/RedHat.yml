@@ -1,0 +1,7 @@
+---
+# vars file for zabbix
+zb_pkg:
+- zabbix-server-mysql
+- zabbix-web-mysql
+- zabbix-agent
+- zabbix-get

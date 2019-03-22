@@ -1,0 +1,6 @@
+---
+# handlers file for base
+- name: start firewalld
+  service:
+    name: firewalld
+    state: started

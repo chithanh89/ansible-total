@@ -1,0 +1,88 @@
+user  {{ nginx_user }};
+
+error_log  {{ nginx_error_log }};
+pid        {{ nginx_pidfile }};
+
+{% block worker %}
+worker_processes  {{ nginx_worker_processes }};
+{% endblock %}
+
+{% if nginx_extra_conf_options %}
+{{ nginx_extra_conf_options }}
+{% endif %}
+
+{% block events %}
+events {
+    worker_connections  {{ nginx_worker_connections }};
+    multi_accept {{ nginx_multi_accept }};
+}
+{% endblock %}
+
+http {
+    {% block http_begin %}{% endblock %}
+
+{% block http_basic %}
+    include       {{ nginx_mime_file_path }};
+    default_type  application/octet-stream;
+
+    server_names_hash_bucket_size {{ nginx_server_names_hash_bucket_size }};
+
+    client_max_body_size {{ nginx_client_max_body_size }};
+    proxy_max_temp_file_size 2048m;
+    log_format  main  {{ nginx_log_format|indent(23) }};
+
+    access_log  {{ nginx_access_log }};
+
+    sendfile        {{ nginx_sendfile }};
+    tcp_nopush      {{ nginx_tcp_nopush }};
+    tcp_nodelay     {{ nginx_tcp_nodelay }};
+
+    keepalive_timeout  {{ nginx_keepalive_timeout }};
+    keepalive_requests {{ nginx_keepalive_requests }};
+
+    server_tokens {{ nginx_server_tokens }};
+{% if nginx_proxy_cache_path %}
+    proxy_cache_path {{ nginx_proxy_cache_path }};
+{% endif %}
+{% endblock %}
+
+{% block http_gzip %}
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/css text/x-component application/x-javascript application/javascript text/javascript text/x-js text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/bmp application/java application/msword application/vnd.ms-fontobject application/x-msdownload image/x-icon application/json application/vnd.ms-access application/vnd.ms-project application/x-font-otf application/vnd.ms-opentype application/vnd.oasis.opendocument.database application/vnd.oasis.opendocument.chart application/vnd.oasis.opendocument.formula application/vnd.oasis.opendocument.graphics application/vnd.oasis.opendocument.spreadsheet application/vnd.oasis.opendocument.text audio/ogg application/pdf application/vnd.ms-powerpoint application/x-shockwave-flash image/tiff application/x-font-ttf audio/wav application/vnd.ms-write application/font-woff application/font-woff2 application/vnd.ms-excel;
+    gzip_disable "msie6";
+{% endblock %}
+
+{% if nginx_extra_http_options %}
+    {{ nginx_extra_http_options|indent(4, False) }}
+{% endif %}
+
+{% block http_upstream %}
+{% for upstream in nginx_upstreams %}
+    upstream {{ upstream.name }} {
+{% if upstream.strategy is defined %}
+        {{ upstream.strategy }};
+{% endif %}
+{% for server in upstream.servers %}
+        server {{ server }};
+{% endfor %}
+{% if upstream.keepalive is defined %}
+        keepalive {{ upstream.keepalive }};
+{% endif %}
+    }
+{% endfor %}
+{% endblock %}
+
+{% block http_includes %}
+    include {{ nginx_conf_path }}/*.conf;
+{% if nginx_conf_path != nginx_vhost_path %}
+    include {{ nginx_vhost_path }}/*;
+{% endif %}
+{% endblock %}
+
+    {% block http_end %}{% endblock %}
+}

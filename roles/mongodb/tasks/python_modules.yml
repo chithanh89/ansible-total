@@ -1,0 +1,9 @@
+---
+# tasks file for mongodb
+- name: python_modules | Installing Python Modules
+  pip:
+    name: pymongo
+    state: present
+  become: true
+  register: result
+  until: result is successful

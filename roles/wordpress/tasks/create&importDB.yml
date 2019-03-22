@@ -1,0 +1,57 @@
+---
+# tasks file for wordpress
+- name: Create user mysql
+  mysql_user:
+    name: "{{item.wp_user}}"
+    password: "{{item.wp_pass}}"
+    priv: '*.*:ALL'
+    state: present
+  with_items: "{{sites}}"
+
+#- name: check if DB exists
+#  shell: mysql -e 'SHOW DATABASES;' | grep {{wp_db}}
+#  register: wpdbstatus
+#  failed_when: wpdbstatus.rc == 2
+
+- name: Create databases
+  mysql_db:
+    login_user: "{{item.wp_user}}"
+    login_password: "{{item.wp_pass}}"
+    name: "{{item.db}}"
+    state: present
+  with_items: "{{sites}}"
+  register: wpdbcreate
+
+- name: Creates directory for storing downloads
+  file: path="{{db_path}}/{{item.name}}" state=directory mode=0700 owner=root
+  with_items: "{{sites}}"
+
+- name: Copy database to db path
+  copy:
+    src: files/{{item.db}}.zip
+    dest: "{{db_path}}/{{item.name}}"
+  with_items: "{{sites}}"
+
+- name: Extract database file
+  unarchive:
+    src: "{{db_path}}/{{item.name}}/{{item.db}}.zip"
+    dest: "{{db_path}}/{{item.name}}"
+    remote_src: yes
+  with_items: "{{sites}}"
+
+- name: Import DB UserStore & Registry
+  mysql_db:
+    login_user: "{{item.wp_user}}"
+    login_password: "{{item.wp_pass}}"
+    name: "{{item.db}}"
+    state: import
+    target: "{{db_path}}/{{item.name}}/{{item.db}}.sql"
+  with_items: "{{sites}}"
+  when: wpdbcreate is changed
+
+- name: Update url in database
+  shell: >
+    mysql -u root -NBe
+    'UPDATE {{item.db}}.ggwp_options set option_value="{{item.url}}" where option_id in (1, 2);'
+  with_items: "{{sites}}"
+  notify: restart mysql

@@ -1,0 +1,9 @@
+---
+# defaults file for nodejs
+nodejs_version: "8.x"
+npm_config_prefix: "/usr/local/lib/npm"
+npm_config_unsafe_perm: "false"
+nodejs_npm_global_packages:
+  - name: yarn
+    version: 1.12.3
+nodejs_package_json_path: ""

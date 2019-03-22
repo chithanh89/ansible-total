@@ -1,0 +1,24 @@
+- name: Creates domain root directory
+  file: path="{{root_path}}/{{item.name}}" state=directory mode=0755 owner=nginx
+  with_items: "{{sites}}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Creates domain root directory
+  file: path="{{root_path}}/{{item.name}}" state=directory mode=0755 owner=www-data
+  with_items: "{{sites}}"
+  when: ansible_os_family == 'Debian'
+
+- name: Add vhost domain configured
+  template:
+    src: "{{nginx_vhost_template}}"
+    dest: "{{nginx_vhost_path}}/{{item.name}}.conf"
+    mode: 0644
+  with_items: "{{sites}}"
+
+- name: Remove default config
+  file: path="{{nginx_vhost_path}}/default.conf" state=absent
+  when: ansible_os_family == 'RedHat'
+
+- name: Remove default config
+  file: path="{{nginx_vhost_path}}/default" state=absent
+  when: ansible_os_family == 'Debian'

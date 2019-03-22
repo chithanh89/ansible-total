@@ -1,0 +1,24 @@
+---
+# vars file for php
+php_packages:
+  - php
+  - php-mysqlnd
+  - php-cli
+  - php-common
+  - php-devel
+  - php-fpm
+  - php-gd
+  - php-mbstring
+  - php-pdo
+  - php-pear
+  - php-xml
+  - php-xmlrpc
+  - php-ldap
+  - php-bcmath
+php_conf_paths: /etc/php.ini
+php_extension_conf_paths: /etc/php.d
+php_fpm_daemon: php-fpm
+php_fpm_conf_path: "/etc/fpm"
+php_fpm_pool_conf_path: "/etc/php-fpm.d/www.conf"
+php_fpm_pool_user: nginx
+php_fpm_pool_group: nginx

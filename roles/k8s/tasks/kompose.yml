@@ -1,0 +1,24 @@
+---
+- name: Check that Kompose file exists
+  stat:
+   path: /home/kompose
+  register: stat_kompose
+
+- name: Download kompose
+  get_url:
+    url: https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-linux-amd64
+    dest: /home
+    mode: 0755
+  when: stat_kompose.stat.exists == False
+  register: download_kompose
+
+- name: Change name
+  command: mv /home/kompose-linux-amd64 /home/kompose
+  when: download_kompose is changed
+
+- name: Move kompose
+  copy:
+    src: /home/kompose
+    dest: /usr/local/bin/kompose
+    remote_src: yes
+  when: download_kompose is changed

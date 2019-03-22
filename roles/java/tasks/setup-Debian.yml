@@ -1,0 +1,5 @@
+
+- name: Ensure Java is installed.
+  apt:
+    name: "{{ java_packages }}"
+    state: present

@@ -1,0 +1,7 @@
+---
+- name: Disable firewalld
+  command: "{{item}}"
+  with_items:
+    - systemctl stop firewalld
+    - systemctl disable firewalld
+  notify: restart docker

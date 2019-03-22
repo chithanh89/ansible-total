@@ -1,0 +1,15 @@
+- include_tasks: set_facts.yml
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == "Debian"
+
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include_tasks: python_modules.yml
+
+- include_tasks: users.yml
+  when: mongodb_create_users
+
+- include_tasks: config.yml
+  when: mongodb_config_mongodb

@@ -1,0 +1,17 @@
+---
+# tasks file for k8s
+- ufw:
+    rule: allow
+    port: 6443
+    proto: tcp
+
+- ufw:
+    rule: allow
+    port: 10250
+    proto: tcp
+
+- ufw:
+    rule: allow
+    port: 8472
+    proto: udp
+  when: kubernetes_role == 'node'

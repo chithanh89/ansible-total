@@ -1,0 +1,3 @@
+---
+# vars file for base
+packages: wget,curl,vim,nano,git,zip,unzip,net-tools,epel-release

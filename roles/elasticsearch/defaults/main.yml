@@ -1,0 +1,5 @@
+---
+# defaults file for elasticsearch
+elasticsearch_version: '6.x'
+elasticsearch_network_host: localhost
+elasticsearch_http_port: 9200

@@ -1,0 +1,2 @@
+- name: Install Server Basics
+  apt: pkg={{ packages }} state=present update_cache=yes

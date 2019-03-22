@@ -1,0 +1,20 @@
+- hosts: all
+  become_user: root
+  roles:
+   - base
+   - apache2
+   - mysql
+#   - php
+   - zabbix
+#   - nginx
+#   - nodejs
+#   - composer
+#   - wordpress
+#   - haproxy
+#   - redis
+   - zabbix-agent
+#   - elasticsearch
+#   - kibana
+#   - logstash
+#   - filebeat
+#   - firewall

@@ -1,0 +1,40 @@
+---
+# tasks file for wordpress
+- name: Remove node_module in repos
+  file:
+    path: "{{item.wp_theme_path}}/node_modules"
+    state: absent
+  with_items: "{{sites}}"
+
+- name: Install "yarn" node.js package.
+  npm:
+    name: yarn
+    global: yes
+    state: latest
+  when: ansible_os_family == 'Debian'
+
+#- name: Install "pngquant-bin" node.js package.
+#  yarn:
+#    name: pngquant-bin
+#    path: "{{item.wp_theme_path}}"
+#  with_items: "{{sites}}"
+#  when: ansible_os_family == 'RedHat'
+
+- name: Run composer
+  composer:
+    command: install
+    working_dir: "{{item.wp_theme_path}}"
+  with_items: "{{sites}}"
+
+- name: Install packages based on package.json.
+  yarn:
+    path: "{{item.wp_theme_path}}"
+    state: present
+  with_items: "{{sites}}"
+
+- name: Yarn run build
+  command: yarn run build chdir="{{item.wp_theme_path}}"
+  with_items: "{{sites}}"
+  notify:
+    - restart php-fpm
+    - reload nginx

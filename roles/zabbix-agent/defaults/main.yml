@@ -1,0 +1,5 @@
+---
+# defaults file for zabbix-agent
+zb_conf_paths: /etc/zabbix/zabbix_agentd.conf
+zb_host: ""
+zb_server: 192.168.1.200

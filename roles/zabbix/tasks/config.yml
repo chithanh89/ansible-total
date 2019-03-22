@@ -1,0 +1,12 @@
+- name: Setup Zabbix Server Config
+  template:
+    src: "./zabbix_server.conf.j2"
+    dest: "/etc/zabbix/zabbix_server.conf"
+    mode: 0755
+  notify: start zabbix-server
+
+- name: Ensure Zabbix is started and enabled on boot.
+  service: "name={{ item }} state=started enabled=yes"
+  with_items:
+    - "zabbix-server"
+    - "zabbix-agent"

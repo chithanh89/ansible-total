@@ -1,0 +1,11 @@
+- name: Install php packages
+  apt:
+    name: "{{php5}}"
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install php packages
+  yum:
+    name: "{{php5}}"
+    state: present
+  when: ansible_os_family == 'RedHat'

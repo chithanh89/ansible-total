@@ -1,0 +1,6 @@
+---
+# tasks file for redis
+- name: Ensure Redis is installed.
+  apt:
+    name: "{{ redis_package }}"
+    state: present

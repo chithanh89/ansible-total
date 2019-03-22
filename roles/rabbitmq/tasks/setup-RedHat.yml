@@ -1,0 +1,12 @@
+---
+# tasks file for rabbitmq
+- name: Add RabbitMQ repos
+  template:
+    src: rabbitmq.repo.j2
+    dest: /etc/yum.repos.d/rabbitmq.repo
+    mode: 0700
+
+- name: Ensure RabbitMQ is installed.
+  yum:
+    name: "{{rabbitmq_package}}"
+    state: latest

@@ -1,0 +1,45 @@
+---
+# defaults file for php
+# Pass in a comma-separated list of repos to use (e.g. "remi,epel"). Used only
+# for RHEL/CentOS.
+php_enablerepo: "remi-php72"
+
+# Default PHP version to install on Debian-based OSes.
+php_version_debian: "7.2"
+
+# PHP package state; use 'present' to make sure it's installed, or 'latest' if
+# you want to upgrade or switch versions using a new repo.
+php_packages_state: present
+
+# Whether to install recommended packages. Used only for Debian/Ubuntu.
+php_install_recommends: true
+
+# Set this to false if you're not using PHP with Apache/Nginx/etc.
+php_enable_webserver: true
+
+# PHP-FPM configuration.
+php_enable_php_fpm: false
+php_fpm_listen: "127.0.0.1:9000"
+php_fpm_listen_allowed_clients: "127.0.0.1"
+php_fpm_pm_max_children: 50
+php_fpm_pm_start_servers: 5
+php_fpm_pm_min_spare_servers: 5
+php_fpm_pm_max_spare_servers: 5
+# If this is set to false, none of the following options will have any effect.
+# Any and all changes to /etc/php.ini will be your responsibility.
+php_use_managed_ini: true
+
+php_expose_php: "On"
+php_memory_limit: "256M"
+php_max_execution_time: "60"
+php_max_input_time: "60"
+php_max_input_vars: "1000"
+php_realpath_cache_size: "32K"
+
+php_file_uploads: "On"
+php_upload_max_filesize: "64M"
+php_max_file_uploads: "20"
+
+php_post_max_size: "32M"
+php_date_timezone: "Asia/Ho_Chi_Minh"
+php_allow_url_fopen: "On"

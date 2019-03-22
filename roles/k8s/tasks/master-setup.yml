@@ -1,0 +1,54 @@
+---
+- name: Initialize Kubernetes master with kubeadm init.
+  shell: >
+    kubeadm init
+    --pod-network-cidr={{ kubernetes_pod_network_cidr }}
+    --apiserver-advertise-address={{ kubernetes_apiserver_advertise_address | default(ansible_default_ipv4.address) }}
+    --ignore-preflight-errors={{ kubernetes_ignore_preflight_errors }}
+    {{ kubernetes_kubeadm_init_extra_opts }} >> cluster_initialized.txt
+  register: kubeadmin_init
+  failed_when: false
+  when: not kubernetes_init_stat.stat.exists
+
+- name: Print the init output to screen.
+  debug:
+    var: kubeadmin_init.stdout
+    verbosity: 2
+  when: not kubernetes_init_stat.stat.exists
+
+- name: Ensure .kube directory exists.
+  file:
+    path: ~/.kube
+    state: directory
+
+- name: Symlink the kubectl admin.conf to ~/.kube/conf.
+  file:
+    src: /etc/kubernetes/admin.conf
+    dest: ~/.kube/config
+    state: link
+
+- name: Configure Flannel networking.
+  shell: kubectl apply -f "{{kubernetes_flannel_manifest_file}}" >> pod_network_setup.txt
+  register: flannel_result
+  changed_when: "'created' in flannel_result.stdout"
+
+# TODO: Check if taint exists with something like `kubectl describe nodes`
+# instead of using kubernetes_init_stat.stat.exists check.
+- name: Allow pods on master node (if configured).
+  command: "kubectl taint nodes --all node-role.kubernetes.io/master-"
+  when:
+    - kubernetes_allow_pods_on_master
+    - not kubernetes_init_stat.stat.exists
+
+#- name: Check if Kubernetes Dashboard UI service already exists.
+#  shell: kubectl get services --namespace kube-system | grep -q kubernetes-dashboard
+#  changed_when: false
+#  failed_when: false
+#  register: kubernetes_dashboard_service
+#  when: kubernetes_enable_web_ui
+
+#- name: Enable the Kubernetes Web Dashboard UI (if configured).
+#  command: "kubectl create -f {{ kubernetes_web_ui_manifest_file }}"
+#  when:
+#    - kubernetes_enable_web_ui
+#    - kubernetes_dashboard_service is failed

@@ -1,0 +1,22 @@
+---
+# tasks file for firewall
+- name: Open firewall ports for http
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+
+- name: Open firewall ports for https
+  firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+
+- name: Open firewall ports for zabbix-agent
+  firewalld:
+    port: 10050/tcp
+    permanent: yes
+    state: enabled
+
+- name : Reload firewalld
+  command: firewall-cmd --reload

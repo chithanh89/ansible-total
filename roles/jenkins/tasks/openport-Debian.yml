@@ -1,0 +1,10 @@
+---
+- name: Open jenkins port
+  ufw:
+    rule: allow
+    port: 8080
+    proto: tcp
+
+- name: Reload firewall
+  ufw:
+    state: reloaded

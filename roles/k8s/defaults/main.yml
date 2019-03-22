@@ -1,0 +1,39 @@
+---
+kubernetes_packages:
+  - name: kubelet
+    state: present
+  - name: kubectl
+    state: present
+  - name: kubeadm
+    state: present
+  - name: kubernetes-cni
+    state: present
+
+kubernetes_role: master
+kompose_state: true
+selinux_state: true
+kuber_dashboard: true
+
+kubernetes_kubelet_extra_args: ""
+kubernetes_kubeadm_init_extra_opts: ""
+
+kubernetes_allow_pods_on_master: true
+kubernetes_enable_web_ui: true
+kubernetes_web_ui_manifest_file: https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+
+kubernetes_pod_network_cidr: '10.244.0.0/16'
+kubernetes_apiserver_advertise_address: ''
+kubernetes_version_kubeadm: 'stable-{{ kubernetes_version }}'
+kubernetes_ignore_preflight_errors: 'all'
+
+kubernetes_apt_release_channel: main
+# Note that xenial repo is used for all Debian derivatives at this time.
+kubernetes_apt_repository: "deb http://apt.kubernetes.io/ kubernetes-xenial {{ kubernetes_apt_release_channel }}"
+kubernetes_apt_ignore_key_error: false
+
+kubernetes_yum_arch: x86_64
+
+# Flannel config files.
+kubernetes_flannel_manifest_file_rbac: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+kubernetes_flannel_manifest_file: https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+#https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml

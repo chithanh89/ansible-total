@@ -1,0 +1,56 @@
+---
+# tasks file for wordpress
+#- name: Download wordpress packages
+#  command: wget http://wordpress.org/latest.tar.gz -P /tmp
+
+#- name: Extract wordpress package
+#  unarchive:
+#    src: /tmp/latest.tar.gz
+#    dest: /tmp
+#    remote_src: yes
+
+#- name: Sync wordpress directory to root directory
+#  command: rsync -avP "{{downloaded_path/}}" "{{domain_path}}"
+
+- name: Install libpng-devel
+  yum: name=libpng-devel state=latest
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure deploy key is present on the server.
+  copy:
+    src: /home/ct/.ssh/id_rsa
+    dest: "/usr/share/nginx/html"
+    mode: 0600
+
+- name: Clone source from repos
+  git:
+    repo: "{{item.repo}}"
+    dest: "{{root_path}}/{{item.name}}"
+    version: "{{item.branch}}"
+    accept_hostkey: yes
+    key_file: "{{keyfile}}"
+    update: yes
+    force: yes
+  with_items: "{{sites}}"
+
+- name: Set permission
+  file: dest="{{item.wp_content_path}}" mode=0777 recurse=yes
+  with_items: "{{sites}}"
+
+- name: Add wp-config
+  template:
+    src: wp-config.php.j2
+    dest: "{{item.wp_root_path}}/wp-config.php"
+    mode: 0700
+    owner: nginx
+  with_items: "{{sites}}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Add wp-config
+  template:
+    src: wp-config.php.j2
+    dest: "{{item.wp_root_path}}/wp-config.php"
+    mode: 0700
+    owner: www-data
+  with_items: "{{sites}}"
+  when: ansible_os_family == 'Debian'

@@ -1,0 +1,26 @@
+- name: check if DB exists
+  shell: mysql -e 'SHOW DATABASES;' | grep {{item}}
+  with_items:
+    - "{{ DB1 }}"
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create databases
+  mysql_db: name={{item}} state=present
+  with_items:
+    - "{{ DB1 }}"
+  register: dbcreate
+
+- name: Create zabbix user
+  mysql_user:
+    name: zabbix
+    password: Zabbix@123
+    host: localhost
+    priv: 'zabbixdb.*:ALL'
+    state: present
+
+- name: Import DB UserStore & Registry
+  mysql_db: name={{item}} state=import target="{{zbdbpath}}/create.sql.gz"
+  with_items:
+    - "{{ DB1 }}"
+  when: dbcreate is changed

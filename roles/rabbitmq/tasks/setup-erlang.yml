@@ -1,0 +1,28 @@
+---
+# tasks file for rabbitmq
+- name: Download erlang deb package
+  get_url:
+    url: "{{erlang_deb_url}}"
+    dest: /tmp
+  when: ansible_os_family == 'Debian'
+
+- name: Install erlang deb packages
+  apt:
+    deb: /tmp/{{erlang_deb_file}}
+  when: ansible_os_family == 'Debian'
+
+- name: Download erlang package
+  get_url:
+    url: "{{erlang_rpm_url}}"
+    dest: /tmp
+  when: ansible_os_family == 'RedHat'
+
+- name: Add erlang repos
+  command: rpm -Uvh /tmp/{{erlang_rpm_file}}
+  when: ansible_os_family == 'RedHat'
+
+- name: Install erlang packages
+  yum:
+    name: "{{erlang_package}}"
+    state: present
+  when: ansible_os_family == 'RedHat'

@@ -1,0 +1,3 @@
+---
+- name: Join node to Kubernetes master
+  command: kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml

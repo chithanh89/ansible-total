@@ -1,0 +1,14 @@
+---
+# tasks file for wordpress
+- name: Creates directory for storing downloads
+  file: path="{{backup_db_path}}/{{item.name}}" state=directory mode=0700 owner=root
+  with_items: "{{sites}}"
+
+- name: Dump databases
+  mysql_db:
+    login_user: "{{item.wp_user}}"
+    login_password: "{{item.wp_pass}}"
+    state: dump
+    name: "{{item.db}}"
+    target: "{{backup_db_path}}/{{item.name}}/{{ item.db }}-{{ansible_date_time.date}}.sql"
+  with_items: "{{sites}}"

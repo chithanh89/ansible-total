@@ -1,0 +1,8 @@
+- name: Install Server Basics
+  yum: pkg={{ packages }} state=latest update_cache=true
+
+- name: Set selinux
+  selinux:
+    policy: targeted
+    state: permissive
+  notify: start firewalld

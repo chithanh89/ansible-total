@@ -1,0 +1,29 @@
+---
+# tasks file for wordpress
+- name: Creates download directory
+  file: path="{{download_path}}" state=directory mode=0755 owner=root
+
+- name: Download wp-cli packages
+  get_url:
+    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    dest: "{{download_path}}"
+    mode: 0755
+
+- name: Move execute files
+  copy:
+    src: "{{download_path}}/wp-cli.phar"
+    dest: /usr/local/bin/wp
+    mode: 0755
+    remote_src: yes
+
+- name: Setup plugins
+  command: wp plugin install contact-form-7 --activate --allow-root
+  args:
+    chdir: "{{item.wp_root_path}}"
+  with_items: "{{sites}}"
+
+- name: Setup plugins
+  command: wp plugin install easy-wp-smtp --activate --allow-root
+  args:
+    chdir: "{{item.wp_root_path}}"
+  with_items: "{{sites}}"

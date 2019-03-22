@@ -1,0 +1,79 @@
+---
+- name: Setup gcc pcre-static pcre-devel
+  yum: pkg="{{RedHat_packs}}" state=present
+
+- name: Download source code
+  get_url:
+    url: http://www.haproxy.org/download/1.8/src/haproxy-1.8.14.tar.gz
+    dest: /tmp
+
+- name: Extract source code
+  unarchive:
+    src: "/tmp/{{source_code}}"
+    dest: "/tmp"
+    remote_src: yes
+
+- name: Compile source code
+  command: chdir="{{haproxy_download_path}}" make TARGET=generic ARCH=native CPU=x86_64 -j8
+  register: compile
+
+- name: Ensure HAProxy is installed.
+  command: chdir="{{haproxy_download_path}}" make install state=installed
+
+- name: Ensure group haproxy exists
+  group:
+    name: "{{haproxy_group}}"
+    state: present
+
+- name: Add the user haproxy
+  user:
+    name: "{{haproxy_user}}"
+    group: "{{haproxy_group}}"
+
+- name: Create haproxy folder
+  file: path="{{item}}" state=directory mode=0700 owner=root
+  with_items:
+    - /etc/haproxy
+    - /run/haproxy
+    - /var/lib/haproxy
+
+- name: Add haproxy symlink to /usr/local/bin.
+  file:
+    src: /usr/local/sbin/haproxy
+    dest: /usr/sbin/haproxy
+    state: link
+    mode: 0755
+
+- name: Add haproxy init script.
+  become: true
+  template:
+    src: haproxy.service.j2
+    dest: /etc/systemd/system/haproxy.service
+    mode: 0755
+  notify: reload systemd
+
+- name: Add haproxy symlink
+  file:
+    src: /etc/systemd/system/haproxy.service
+    dest: /etc/systemd/system/multi-user.target.wants/haproxy.service
+    state: link
+    mode: 0755
+
+- name: Ensure HAProxy is enabled
+  lineinfile:
+    dest: /etc/default/haproxy
+    regexp: "^ENABLED.+$"
+    line: "ENABLED=1"
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Copy HAProxy configuration in place.
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    mode: 0644
+    validate: haproxy -f %s -c -q
+  notify: restart haproxy
+
+- name: Ensure HAProxy is started and enabled on boot.
+  service: name=haproxy state=started enabled=yes

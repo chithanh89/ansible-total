@@ -1,0 +1,11 @@
+---
+kubelet_environment_file_path: /etc/sysconfig/kubelet
+kubernetes_packages:
+  - name: kubelet
+    state: present
+  - name: kubectl
+    state: present
+  - name: kubeadm
+    state: present
+  - name: kubernetes-cni
+    state: present

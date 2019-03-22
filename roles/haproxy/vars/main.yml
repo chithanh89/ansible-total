@@ -1,0 +1,4 @@
+---
+# vars file for haproxy
+RedHat_packs: gcc,pcre-static,pcre-devel
+Debian_packs: python-software-properties,software-properties-common

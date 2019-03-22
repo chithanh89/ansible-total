@@ -1,0 +1,16 @@
+---
+sites:
+  - {
+      url: "http://greenglobal.vn",
+      name: "greenglobal",
+      server_name: "greenglobal.vn www.greenglobal.vn",
+      repo: "git clone git@bitbucket.org:toancauxanh/greenglobal.git",
+      branch: "feat/deploy-live",
+      db: "greenglobal",
+      themes: "gg2019",
+      wp_content_path: "{{root_path}}/greenglobal/wp-latest/wp-content",
+      wp_theme_path: "{{root_path}}/greenglobal/wp-latest/wp-content/themes/gg2019",
+      wp_root_path: "{{root_path}}/greenglobal/wp-latest",
+      wp_user: "greenglobal",
+      wp_pass: "GG@@2019",
+    }

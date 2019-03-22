@@ -1,0 +1,12 @@
+---
+# tasks file for zabbix-agent
+- name: Gather facts from remote server
+  setup:
+    filter: ansible_nodename
+
+- name: Add template configured
+  template:
+    src: zabbix_agentd.conf.j2
+    dest: "{{zb_conf_paths}}"
+    mode: 0700
+  notify: restart zabbix-agent

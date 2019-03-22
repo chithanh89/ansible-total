@@ -1,0 +1,5 @@
+---
+# defaults file for wordpress
+db_path: /home/db
+backup_db_path: /home/backup-db
+download_path: /home/downloads

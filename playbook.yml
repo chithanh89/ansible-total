@@ -1,0 +1,9 @@
+- hosts: web_server
+  become_user: root
+  roles:
+   - base
+   - java
+   - docker
+   - jenkins
+   - zabbix-agent
+   - firewall
