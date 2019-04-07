@@ -1,0 +1,3 @@
+---
+# vars file for mongodb
+mongo_admin_pass: "Abc1234@@"

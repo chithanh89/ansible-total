@@ -8,13 +8,16 @@ mongodb_admin_user:
 
 mongodb_apt_keyserver: keyserver.ubuntu.com
 mongodb_apt_gpg_key: 9DA31620334BD75D9DCB49F368818C72E52529D4
-mongodb_apt_repo_debian: "{{ 'deb https://repo.mongodb.org/apt/' + ansible_distribution|lower + ' ' + ansible_distribution_release + '/mongodb-org/' + mongodb_version + ' main' }}"
+mongodb_apt_key_id:
+  "3.6": "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
+  "4.0": "9DA31620334BD75D9DCB49F368818C72E52529D4"
+#mongodb_apt_repo_debian: "{{ 'deb https://repo.mongodb.org/apt/' + ansible_distribution|lower + ' ' + ansible_distribution_release + '/mongodb-org/' + mongodb_version + ' main' }}"
 mongodb_apt_repo_ubuntu: "{{ 'deb https://repo.mongodb.org/apt/' + ansible_distribution|lower + ' ' + ansible_distribution_release + '/mongodb-org/' + mongodb_version + ' multiverse' }}"
 # Defines the binding IP address for MongoDB to listen on
 # Ensure to change from default (127.0.0.1) if setting up replication
 mongodb_bind_ip:
-  # - 0.0.0.0
-  - 127.0.0.1
+  - 0.0.0.0
+#  - 127.0.0.1
 # Defines the path to the MongoDB configuration file
 mongodb_config: /etc/mongod.conf
 # Defines if MongoDB should be configured
@@ -52,4 +55,4 @@ mongodb_users:
       # - readWriteAnyDatabase
     state: present
 # Define MongoDB version to install
-mongodb_version: "4.0"
+mongodb_version: "3.6"

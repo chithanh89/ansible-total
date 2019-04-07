@@ -1,4 +1,6 @@
 - include_tasks: set_facts.yml
+- include_vars: "{{ ansible_os_family }}.yml"
+- include_vars: security.yml
 
 - include_tasks: setup-Debian.yml
   when: ansible_os_family == "Debian"

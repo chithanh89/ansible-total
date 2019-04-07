@@ -1,18 +1,19 @@
-- hosts: all
+- hosts: web_server
   become_user: root
   roles:
    - base
-   - apache2
-   - mysql
+   - mongodb
+#   - apache2
+#   - mysql
 #   - php
-   - zabbix
+#   - zabbix
 #   - nginx
 #   - nodejs
 #   - composer
 #   - wordpress
 #   - haproxy
 #   - redis
-   - zabbix-agent
+#   - zabbix-agent
 #   - elasticsearch
 #   - kibana
 #   - logstash
