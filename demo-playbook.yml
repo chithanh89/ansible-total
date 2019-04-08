@@ -1,4 +1,4 @@
-- hosts: web_server
+- hosts: all
   become_user: root
   roles:
    - base
