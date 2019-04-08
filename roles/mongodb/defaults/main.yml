@@ -21,7 +21,7 @@ mongodb_bind_ip:
 # Defines the path to the MongoDB configuration file
 mongodb_config: /etc/mongod.conf
 # Defines if MongoDB should be configured
-mongodb_config_mongodb: false
+mongodb_config_mongodb: true
 # Defines if MongoDB users should be created.
 mongodb_create_users: false
 # Defines the listen port for MongoDB

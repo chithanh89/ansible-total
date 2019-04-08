@@ -3,7 +3,7 @@ sleep(200);
 
 {% if groups['mongo_nodes'] is defined %}
 {% for host in groups['mongo_nodes'] %}
-rs.add("{{ hostvars['mongo_nodes'].ansible_host}}");
+rs.add("{{ hostvars['mongo_nodes'] }}");
 sleep(200);
 {% endfor %}
 {% endif %}
