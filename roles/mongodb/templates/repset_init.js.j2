@@ -1,10 +1,14 @@
-rs.initiate();
-sleep(200);
-
-{% if groups['mongo_nodes'] is defined %}
-{% for host in groups['mongo_nodes'] %}
-rs.add("{{ hostvars['mongo_nodes'] }}");
-sleep(200);
+rs.initiate()
+sleep(10000)
+{% if groups['mongo_replicas'] is defined %}
+{% for host in groups['mongo_replicas'] %}
+rs.add("{{ hostvars[host].ansible_hostname }}:{{mongodb_port}}")
+sleep(5000)
 {% endfor %}
 {% endif %}
-printjson(rs.status());
+printjson(rs.status())
+use admin
+sleep(1000)
+db.createUser({user: "adminuser", pwd: "Abcd1234@@", roles:[{role: "root", db: "admin"}]})
+sleep(2000)
+exit
