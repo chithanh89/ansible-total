@@ -9,6 +9,6 @@ sleep(5000)
 printjson(rs.status())
 use admin
 sleep(1000)
-db.createUser({user: "adminuser", pwd: "Abcd1234@@", roles:[{role: "root", db: "admin"}]})
+db.createUser({user: "adminuser", pwd: "{{mongo_admin_pass}}", roles:[{role: "root", db: "admin"}]})
 sleep(2000)
 exit
