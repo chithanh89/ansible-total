@@ -1,4 +1,5 @@
 - include_tasks: set_facts.yml
+- include_tasks: hostname.yml
 - include_vars: "{{ ansible_os_family }}.yml"
 - include_vars: security.yml
 
@@ -15,3 +16,6 @@
 
 - include_tasks: config.yml
   when: mongodb_config_mongodb
+
+- include_tasks: replicate.yml
+  when: mongodb_replication

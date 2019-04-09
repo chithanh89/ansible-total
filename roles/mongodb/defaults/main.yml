@@ -21,7 +21,7 @@ mongodb_bind_ip:
 # Defines the path to the MongoDB configuration file
 mongodb_config: /etc/mongod.conf
 # Defines if MongoDB should be configured
-mongodb_config_mongodb: false
+mongodb_config_mongodb: true
 # Defines if MongoDB users should be created.
 mongodb_create_users: false
 # Defines the listen port for MongoDB
@@ -34,7 +34,7 @@ mongodb_redhat_repo_info:
   enabled: yes
   gpgkey: "{{ 'https://www.mongodb.org/static/pgp/server-' + mongodb_version + '.asc' }}"
 # Defines if MongoDB replication is configured
-mongodb_replication: false
+mongodb_replication: true
 # Defines the Ansible group which contains the hosts to setup replication
 mongodb_replication_group: mongodb_cluster
 # Defines the keyFile to setup replication if using authentication
@@ -55,4 +55,4 @@ mongodb_users:
       # - readWriteAnyDatabase
     state: present
 # Define MongoDB version to install
-mongodb_version: "3.6"
+mongodb_version: "4.0"
