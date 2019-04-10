@@ -1,11 +1,3 @@
-mongodb_admin_user:
-  name: admin
-  password: admin
-  database: admin
-  roles:
-    - userAdminAnyDatabase
-  state: present
-
 mongodb_apt_keyserver: keyserver.ubuntu.com
 mongodb_apt_gpg_key: 9DA31620334BD75D9DCB49F368818C72E52529D4
 mongodb_apt_key_id:
@@ -23,7 +15,7 @@ mongodb_config: /etc/mongod.conf
 # Defines if MongoDB should be configured
 mongodb_config_mongodb: true
 # Defines if MongoDB users should be created.
-mongodb_create_users: false
+mongodb_create_users: true
 # Defines the listen port for MongoDB
 mongodb_port: 27017
 mongodb_redhat_repo_info:
@@ -46,13 +38,5 @@ mongodb_replication_set: rs0
 # Defines the system log for MongoDB
 mongodb_systemlog_path: /var/log/mongodb/mongod.log
 # Defines the users to create if mongodb_create_users is true
-mongodb_users:
-  - name: testuser
-    password: testuser
-    database: test
-    roles:
-      - readWrite
-      # - readWriteAnyDatabase
-    state: present
 # Define MongoDB version to install
 mongodb_version: "4.0"

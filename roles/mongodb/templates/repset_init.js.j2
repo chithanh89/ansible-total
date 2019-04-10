@@ -1,18 +1,9 @@
-rs.initiate(
-  {
-    _id : "rs0",
-    members: [
-      { _id : 0, host : "master:27017", priority: 2 },
-      { _id : 1, host : "node1:27017", priority: 1 },
-      { _id : 2, host : "node2:27017", priority: 1 }
-    ]
-  }
-)
+rs.initiate()
+sleep(10000)
+{% if groups['mongo_replicas'] is defined %}
+{% for host in groups['mongo_replicas'] %}
+rs.add("{{ hostvars[host].ansible_hostname }}:{{mongodb_port}}")
 sleep(5000)
-use admin
-sleep(3000)
-db.createUser({user: "admin", pwd: "{{mongo_admin_pass}}", roles:[{role: "userAdminAnyDatabase", db: "admin"}]})
-sleep(5000)
-db.createUser({user: "thanhhc", pwd: "{{mongo_admin_pass}}", roles:[{role: "clusterAdmin", db: "admin"}]})
-sleep(5000)
+{% endfor %}
+{% endif %}
 exit
