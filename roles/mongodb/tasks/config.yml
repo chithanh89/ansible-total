@@ -8,6 +8,14 @@
   register: mongodb_configured
 #  notify: restart mongod
 
+- name: Copy key file for authentication to remote host
+  copy:
+    src: files/keyFile
+    dest: "{{mongodb_dbPath}}"
+    owner: mongodb
+    group: mongodb
+    mode: 0400
+
 - name: Restart MongoDB
   command: systemctl restart mongod
 

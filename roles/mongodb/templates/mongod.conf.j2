@@ -32,8 +32,8 @@ replication:
   replSetName: {{ mongodb_replication_set }}
 
 security:
-  authorization: disabled
-#  keyFile: {{ mongodb_replication_keyfile }}
+  authorization: enabled
+  keyFile: {{ mongodb_replication_keyfile }}
 {% endif %}
 
 #operationProfiling:
