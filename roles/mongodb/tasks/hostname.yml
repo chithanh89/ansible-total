@@ -18,3 +18,13 @@
     state: present
   when: hostvars[item].ansible_host is defined
   with_items: "{{ groups.all }}"
+
+#- name: restart machine
+#  reboot:
+#    reboot_timeout: 600
+#  async: 0
+#  poll: 0
+#  ignore_errors: True
+
+#- name: Waiting for server to come back up
+#  local_action: wait_for host="{{ inventory_hostname }}" port=22 state=started

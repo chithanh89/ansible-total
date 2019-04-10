@@ -1,3 +1,4 @@
 ---
 # vars file for mongodb
-mongo_admin_pass: Abc1234@@
+mongo_admin_pass: Abcd1234@@
+#oplog_pass: Abcd4321@@

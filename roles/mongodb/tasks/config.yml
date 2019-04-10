@@ -6,7 +6,7 @@
     dest: "{{ mongodb_config }}"
   become: true
   register: mongodb_configured
-  notify: restart mongod
+#  notify: restart mongod
 
 - name: Restart MongoDB
   command: systemctl restart mongod
