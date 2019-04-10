@@ -9,7 +9,7 @@
   args:
       chdir: /home
       executable: /bin/bash
-#  run_once: true
+  run_once: true
   retries: 3
   delay: 3
   register: result
