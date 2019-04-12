@@ -2,10 +2,10 @@
 # defaults file for php
 # Pass in a comma-separated list of repos to use (e.g. "remi,epel"). Used only
 # for RHEL/CentOS.
-php_enablerepo: "remi-php72"
+php_enablerepo: "remi-php73"
 
 # Default PHP version to install on Debian-based OSes.
-php_version_debian: 7.2
+php_version_debian: "7.3"
 
 # PHP package state; use 'present' to make sure it's installed, or 'latest' if
 # you want to upgrade or switch versions using a new repo.
