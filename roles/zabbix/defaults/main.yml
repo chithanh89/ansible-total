@@ -10,6 +10,7 @@ zb_repo:
   "xenial": zabbix-release_4.0-2+xenial_all.deb
 php5:
 - php
+- php-fpm
 - php-fileinfo
 - php-cli
 - php-gd
