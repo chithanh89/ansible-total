@@ -338,7 +338,7 @@ disable_classes =
 ; be increased on systems where PHP opens many files to reflect the quantity of
 ; the file operations performed.
 ; http://php.net/realpath-cache-size
-;realpath_cache_size = 4096k
+;realpath_cache_size = {{php_realpath_cache_size}}
 
 ; Duration of time, in seconds for which to cache realpath information for a given
 ; file or directory. For systems with rarely changing files, consider increasing this
@@ -371,7 +371,7 @@ zend.enable_gc = On
 ; threat in any way, but it makes it possible to determine whether you use PHP
 ; on your server or not.
 ; http://php.net/expose-php
-expose_php = On
+expose_php = {{php_expose_php}}
 
 ;;;;;;;;;;;;;;;;;;;
 ; Resource Limits ;
@@ -380,7 +380,7 @@ expose_php = On
 ; Maximum execution time of each script, in seconds
 ; http://php.net/max-execution-time
 ; Note: This directive is hardcoded to 0 for the CLI SAPI
-max_execution_time = 360
+max_execution_time = {{php_max_execution_time}}
 
 ; Maximum amount of time each script may spend parsing request data. It's a good
 ; idea to limit this time on productions servers in order to eliminate unexpectedly
@@ -390,18 +390,18 @@ max_execution_time = 360
 ; Development Value: 60 (60 seconds)
 ; Production Value: 60 (60 seconds)
 ; http://php.net/max-input-time
-max_input_time = 60
+max_input_time = {{php_max_input_time}}
 
 ; Maximum input variable nesting level
 ; http://php.net/max-input-nesting-level
 ;max_input_nesting_level = 64
 
 ; How many GET/POST/COOKIE input variables may be accepted
-; max_input_vars = 1000
+; max_input_vars = {{php_max_input_vars}}
 
 ; Maximum amount of memory a script may consume (128MB)
 ; http://php.net/memory-limit
-memory_limit = 256M
+memory_limit = {{php_memory_limit}}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Error handling and logging ;
@@ -669,7 +669,7 @@ auto_globals_jit = On
 ; Its value may be 0 to disable the limit. It is ignored if POST data reading
 ; is disabled through enable_post_data_reading.
 ; http://php.net/post-max-size
-post_max_size = 20M
+post_max_size = {{php_post_max_size}}
 
 ; Automatically add files before PHP document.
 ; http://php.net/auto-prepend-file
@@ -813,7 +813,7 @@ cgi.fix_pathinfo=0
 
 ; Whether to allow HTTP file uploads.
 ; http://php.net/file-uploads
-file_uploads = On
+file_uploads = {{php_file_uploads}}
 
 ; Temporary directory for HTTP uploaded files (will use system default if not
 ; specified).
@@ -822,10 +822,10 @@ file_uploads = On
 
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
-upload_max_filesize = 50M
+upload_max_filesize = {{php_upload_max_filesize}}
 
 ; Maximum number of files that can be uploaded via a single request
-max_file_uploads = 50
+max_file_uploads = {{php_max_file_uploads}}
 
 ;;;;;;;;;;;;;;;;;;
 ; Fopen wrappers ;
@@ -899,7 +899,7 @@ cli_server.color = On
 [Date]
 ; Defines the default timezone used by the date functions
 ; http://php.net/date.timezone
-date.timezone = Asia/Ho_Chi_Minh
+date.timezone = {{php_date_timezone}}
 
 ; http://php.net/date.default-latitude
 ;date.default_latitude = 31.7667

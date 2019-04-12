@@ -1,31 +1,38 @@
 ---
-# vars file for php
-php_packages:
-  - php{{ php_version_debian }}
-  - php{{ php_version_debian }}-mysql
-  - php{{ php_version_debian }}-cli
-  - php{{ php_version_debian }}-dev
-  - php{{ php_version_debian }}-fpm
-  - php{{ php_version_debian }}-zip
+__php_packages:
+  - php{{ php_default_version_debian }}-common
+  - php{{ php_default_version_debian }}-cli
+  - php{{ php_default_version_debian }}-dev
+  - php{{ php_default_version_debian }}-fpm
+  - php{{ php_default_version_debian }}-mysql
+  - php{{ php_default_version_debian }}-bcmath
   - libpcre3-dev
-  - libapache2-mod-php
-  - php{{ php_version_debian }}-gd
-  - php{{ php_version_debian }}-curl
-  - php{{ php_version_debian }}-imap
-  - php{{ php_version_debian }}-json
-  - php{{ php_version_debian }}-xml
-  - php{{ php_version_debian }}-mbstring
-  - php-ldap
-  - php-bcmath
+  - libapache2-mod-php{{ php_default_version_debian }}
+  - php{{ php_default_version_debian }}-gd
+  - php{{ php_default_version_debian }}-curl
+  - php{{ php_default_version_debian }}-imap
+  - php{{ php_default_version_debian }}-json
+  - php{{ php_default_version_debian }}-opcache
+  - php{{ php_default_version_debian }}-xml
+  - php{{ php_default_version_debian }}-mbstring
+  - php-sqlite3
+  - php-apcu
+__php_webserver_daemon: "apache2"
 
-php_conf_paths: /etc/php/{{ php_version_debian }}/fpm/php.ini
-php_extension_conf_paths:
-  - /etc/php/{{ php_version_debian }}/fpm/conf.d
-  - /etc/php/{{ php_version_debian }}/apache2/conf.d
-  - /etc/php/{{ php_version_debian }}/cli/conf.d
+# Vendor-specific configuration paths on Debian/Ubuntu make my brain asplode.
+__php_conf_paths:
+  - /etc/php/{{ php_default_version_debian }}/fpm
+  - /etc/php/{{ php_default_version_debian }}/apache2
+  - /etc/php/{{ php_default_version_debian }}/cli
 
-php_fpm_daemon: php{{ php_version_debian }}-fpm
-php_fpm_conf_path: "/etc/php/{{ php_version_debian }}/fpm"
-php_fpm_pool_conf_path: "{{ php_fpm_conf_path }}/pool.d/www.conf"
-php_fpm_pool_user: www-data
-php_fpm_pool_group: www-data
+__php_extension_conf_paths:
+  - /etc/php/{{ php_default_version_debian }}/fpm/conf.d
+  - /etc/php/{{ php_default_version_debian }}/apache2/conf.d
+  - /etc/php/{{ php_default_version_debian }}/cli/conf.d
+
+__php_fpm_daemon: php{{ php_default_version_debian }}-fpm
+__php_fpm_conf_path: "/etc/php/{{ php_default_version_debian }}/fpm"
+__php_fpm_pool_conf_path: "{{ __php_fpm_conf_path }}/pool.d/www.conf"
+
+__php_fpm_pool_user: www-data
+__php_fpm_pool_group: www-data
