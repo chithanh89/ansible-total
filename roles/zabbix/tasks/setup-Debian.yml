@@ -4,6 +4,7 @@
   get_url:
    url: "{{ zb_url_deb[ansible_distribution_release] }}"
    dest: /tmp
+   timeout: 60
   register: zb_repo_deb
 
 - name: Install Zabbix repos.

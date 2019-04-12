@@ -8,6 +8,7 @@ php_packages:
   - php{{ php_version_debian }}-fpm
   - php{{ php_version_debian }}-zip
   - libpcre3-dev
+  - libapache2-mod-php
   - php{{ php_version_debian }}-gd
   - php{{ php_version_debian }}-curl
   - php{{ php_version_debian }}-imap

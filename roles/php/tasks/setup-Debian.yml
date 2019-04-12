@@ -17,5 +17,8 @@
   register: php_package_install
   notify: restart php-fpm
 
+- name: Enable mod php-cgi
+  shell: a2enmod actions fastcgi alias proxy_fcgi
+
 - name: Enabled php-fpm on boot.
   service: "name={{php_fpm_daemon}} state=started enabled=yes"
