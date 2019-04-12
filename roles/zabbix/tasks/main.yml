@@ -2,7 +2,7 @@
 # tasks file for zabbix
 - include_vars: "{{ ansible_os_family }}.yml"
 - include_vars: security.yml
-- include_tasks: install-php5.4.yml
+#- include_tasks: install-php5.4.yml
 - include_tasks: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 - include_tasks: setup-RedHat.yml

@@ -4,7 +4,7 @@ storage:
   dbPath: {{ mongodb_dbPath }}
   journal:
     enabled: true
-#  engine:
+  engine: wiredTiger
 #  mmapv1:
 #  wiredTiger:
 
@@ -32,8 +32,8 @@ replication:
   replSetName: {{ mongodb_replication_set }}
 
 security:
-  authorization: disabled
-#  keyFile: {{ mongodb_replication_keyfile }}
+  authorization: enabled
+  keyFile: {{ mongodb_replication_keyfile }}
 {% endif %}
 
 #operationProfiling:

@@ -1,3 +1,19 @@
 ---
 # vars file for mongodb
-mongo_admin_pass: Abc1234@@
+mongodb_admin_user:
+  name: admin
+  password: admin
+  database: admin
+  roles:
+    - root
+    - userAdminAnyDatabase
+  state: present
+
+mongodb_users:
+  - name: thanhhc
+    password: thanhhc
+    database: admin
+    roles:
+      - clusterAdmin
+      - readWriteAnyDatabase
+    state: present

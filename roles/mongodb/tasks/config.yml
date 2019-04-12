@@ -6,7 +6,22 @@
     dest: "{{ mongodb_config }}"
   become: true
   register: mongodb_configured
-  notify: restart mongod
+#  notify: restart mongod
+
+- name: Copy key file for authentication to remote host
+  copy:
+    src: files/keyFile
+    dest: "{{mongodb_dbPath}}"
+    owner: mongodb
+    group: mongodb
+    mode: 0400
 
 - name: Restart MongoDB
   command: systemctl restart mongod
+
+- name: Waits for port 27017 of any IP, don't start checking for 10 seconds
+  wait_for:
+    host: 0.0.0.0
+    port: 27017
+    delay: 10
+    state: started

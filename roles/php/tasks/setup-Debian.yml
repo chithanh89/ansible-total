@@ -1,21 +1,15 @@
 ---
-# tasks file for php
-- name: Install software common
-  apt: name=software-properties-common
+- name: Update apt cache.
+  apt: update_cache=yes cache_valid_time=86400
 
 - name: Add php repository
   apt_repository:
     repo: ppa:ondrej/php
 
-- name: Update apt cache.
-  apt: update_cache=yes cache_valid_time=86400
-
 - name: Ensure PHP packages are installed.
   apt:
     name: "{{ php_packages }}"
-    state: present
+    state: "{{ php_packages_state }}"
+    install_recommends: "{{ php_install_recommends }}"
   register: php_package_install
-  notify: restart php-fpm
-
-- name: Enabled php-fpm on boot.
-  service: "name={{php_fpm_daemon}} state=started enabled=yes"
+  notify: restart apache

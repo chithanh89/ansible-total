@@ -1,5 +1,11 @@
 ---
 # tasks file for base
+- name: new variable with current date time
+  set_fact: temp="{{lookup('pipe','date \"+%Y-%m-%d %H:%M\"')}}"
+  
+- name: print variable
+  debug: msg="Current date and time is {{temp}}"
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 

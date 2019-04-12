@@ -1,15 +1,23 @@
 ---
 # tasks file for zabbix
-- name: Install the Zabbix repo.
-  apt:
-   deb: "{{zb_url_deb}}"
+- name: Download Zabbix repo.
+  get_url:
+   url: "{{ zb_url_deb[ansible_distribution_release] }}"
+   dest: /tmp
+   timeout: 60
   register: zb_repo_deb
 
-- name: Ensure Zabbix packages are installed.
+- name: Install Zabbix repos.
+  apt:
+    deb: "/tmp/{{ zb_repo[ansible_distribution_release] }}"
+    state: present
+  when: zb_repo_deb is changed
+
+- name: Install Zabbix packages.
   apt:
     name: "{{ zb_pkg }}"
     state: present
-  when: zb_repo_deb is changed
+    update_cache: true
 
 - name: Setup Zabbix Apache Config
   template:

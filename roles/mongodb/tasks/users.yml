@@ -37,10 +37,12 @@
     roles: "{{ item['roles']|join(',') }}"
     state: "{{ item['state'] }}"
   become: true
+  no_log: True
   loop: "{{ mongodb_users }}"
   when: >
     not mongod_admin_user_check['stat']['exists'] and
     not mongod_admin_user_created['changed']
+
 - name: users | Creating MongoDB Users
   mongodb_user:
     database: "{{ item['database'] }}"
@@ -51,12 +53,14 @@
     roles: "{{ item['roles']|join(',') }}"
     state: "{{ item['state'] }}"
   become: true
+  no_log: True
   failed_when: false
   loop: "{{ mongodb_users }}"
   when: >
     (not mongod_admin_user_check['stat']['exists'] and
     mongod_admin_user_created['changed']) or
     mongod_admin_user_check['stat']['exists']
+    
 - name: users | Marking As MongoDB Admin User Created
   file:
     path: /var/log/mongod_admin_set

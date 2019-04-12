@@ -6,9 +6,4 @@ rs.add("{{ hostvars[host].ansible_hostname }}:{{mongodb_port}}")
 sleep(5000)
 {% endfor %}
 {% endif %}
-printjson(rs.status())
-use admin
-sleep(1000)
-db.createUser({user: "adminuser", pwd: "Abcd1234@@", roles:[{role: "root", db: "admin"}]})
-sleep(2000)
 exit

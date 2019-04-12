@@ -9,3 +9,4 @@ APACHE_LOG_DIR: /var/log/apache2
 __apache_packages:
   - apache2
   - apache2-utils
+  - libapache2-mod-fastcgi
