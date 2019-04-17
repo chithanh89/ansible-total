@@ -1,0 +1,5 @@
+---
+# defaults file for cerebro
+cerebro_version: 0.8.3
+cerebro_dir: /home/cerebro-{{cerebro_version}}/bin
+cerebro_url: https://github.com/lmenezes/cerebro/releases/download/v{{cerebro_version}}/cerebro-{{cerebro_version}}.zip
