@@ -1,14 +1,24 @@
 ---
 # tasks file for elasticsearch
-- name: Configure Elasticsearch.
+- name: Configure Elasticsearch cluster roles "Master".
   template:
-    src: elasticsearch-cluster.yml.j2
+    src: elasticsearch-cluster-master.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml
     owner: root
     group: elasticsearch
     mode: 0660
   notify: restart elasticsearch
-  when: cluster
+  when: "'master' in inventory_hostname and cluster"
+
+- name: Configure Elasticsearch cluster roles "Node".
+  template:
+    src: elasticsearch-cluster-node.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  notify: restart elasticsearch
+  when: "'node' in inventory_hostname and cluster"
 
 - name: Configure Elasticsearch.
   template:

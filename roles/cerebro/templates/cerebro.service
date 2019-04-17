@@ -1,0 +1,13 @@
+[Unit]
+Description=Cerebro
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart={{cerebro_dir}}/cerebro "-Dpidfile.path=/var/run/cerebro.pid"
+Restart=always
+WorkingDirectory={{cerebro_dir}}
+
+[Install]
+WantedBy=multi-user.target

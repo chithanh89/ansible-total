@@ -1,0 +1,35 @@
+---
+# tasks file for cerebro
+- name: Download Cerebro release
+  get_url:
+    url: "{{cerebro_url}}"
+    dest: /tmp
+    owner: root
+    group: root
+  register: cerebro
+
+- name: Extract Cerebro
+  unarchive:
+    src: /tmp/cerebro-{{cerebro_version}}.zip
+    dest: /home
+    owner: root
+    group: root
+    remote_src: yes
+
+- name: Add service script
+  template:
+    src: cerebro.service
+    dest: /etc/systemd/system/cerebro.service
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Reload daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Start and enable cerebro on boot
+  systemd:
+    name: cerebro
+    state: restarted
+    enabled: yes
