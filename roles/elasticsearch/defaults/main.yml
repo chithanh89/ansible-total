@@ -5,4 +5,4 @@ elasticsearch_network_host: 0.0.0.0
 elasticsearch_http_port: 9200
 cluster_name: 'es-cluster'
 cluster: true
-minimum_master_nodes: 1
+minimum_master_nodes: 2
