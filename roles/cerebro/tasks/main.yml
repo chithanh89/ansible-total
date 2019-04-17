@@ -1,5 +1,9 @@
 ---
 # tasks file for cerebro
+- name: Check Cerebro file
+  stat: path=/tmp/cerebro-{{cerebro_version}}.zip
+  register: file_cerebro
+
 - name: Download Cerebro release
   get_url:
     url: "{{cerebro_url}}"
@@ -7,6 +11,7 @@
     owner: root
     group: root
   register: cerebro
+  when: not file_cerebro.stat.exists
 
 - name: Extract Cerebro
   unarchive:
