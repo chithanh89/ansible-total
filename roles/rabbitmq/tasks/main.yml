@@ -8,6 +8,8 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
+- include_tasks: config.yml
+
 - name: Ensure rabbitmq is started and enabled (if configured).
   service:
     name: "{{ rabbitmq_daemon }}"
