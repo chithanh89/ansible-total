@@ -6,3 +6,4 @@ elasticsearch_http_port: 9200
 cluster_name: 'es-cluster'
 cluster: true
 minimum_master_nodes: 2
+es_backup_dir: /home/elasticsearch/backup
