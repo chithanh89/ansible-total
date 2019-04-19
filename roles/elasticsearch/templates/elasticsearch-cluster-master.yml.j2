@@ -23,6 +23,8 @@ cluster.name: {{cluster_name}}
 node.master: true
 #define nodes 2 and 3 as data nodes:
 node.data: false
+#define nodes 2 and 3 as ingest nodes:
+node.ingest: false
 # ------------------------------------ Node ------------------------------------
 #
 # Use a descriptive name for the node:
@@ -38,6 +40,10 @@ node.name: {{ansible_hostname}}
 # Path to directory where to store the data (separate multiple locations by comma):
 #
 path.data: /var/lib/elasticsearch
+#
+# Path to directory where to store the backup data (separate multiple locations by comma):
+#
+path.repo: {{es_backup_dir}}
 #
 # Path to log files:
 #

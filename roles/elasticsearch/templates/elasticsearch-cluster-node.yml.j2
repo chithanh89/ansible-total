@@ -39,6 +39,10 @@ node.name: {{ansible_hostname}}
 #
 path.data: /var/lib/elasticsearch
 #
+# Path to directory where to store the backup data (separate multiple locations by comma):
+#
+path.repo: {{es_backup_dir}}
+#
 # Path to log files:
 #
 path.logs: /var/log/elasticsearch

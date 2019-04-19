@@ -1,5 +1,13 @@
 ---
 # tasks file for elasticsearch
+- name: Create backup directory for Elasticsearch.
+  file:
+    path: "{{es_backup_dir}}"
+    state: directory
+    mode: 0700
+    owner: elasticsearch
+    group: elasticsearch
+
 - name: Configure Elasticsearch cluster roles "Master".
   template:
     src: elasticsearch-cluster-master.yml.j2
