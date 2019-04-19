@@ -1,15 +1,21 @@
-[mongo_master]
+[rabbit_master]
 master ansible_host=192.168.2.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 
-[mongo_replicas]
+[rabbit_replicas]
 node1 ansible_host=192.168.2.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 node2 ansible_host=192.168.2.57 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 
-#[es]
-#master ansible_host=192.168.2.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
-#node1 ansible_host=192.168.2.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
-#node2 ansible_host=192.168.2.57 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+[es_master]
+master ansible_host=192.168.2.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+master1 ansible_host=192.168.2.58 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+[es_node]
+node1 ansible_host=192.168.2.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+node2 ansible_host=192.168.2.57 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 
-[mongo:children]
-mongo_master
-mongo_replicas
+[rabbit:children]
+rabbit_master
+rabbit_replicas
+
+[es:children]
+es_master
+es_node

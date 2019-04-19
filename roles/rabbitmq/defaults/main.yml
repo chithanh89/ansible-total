@@ -9,8 +9,20 @@ rabbitmq_rpm_url: "https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/
 rabbitmq_deb: "rabbitmq-server_{{ rabbitmq_version }}-1_all.deb"
 rabbitmq_deb_url: "https://packagecloud.io/rabbitmq/rabbitmq-server/packages/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}/{{ rabbitmq_deb }}/download"
 rabbitmq_erlang_cookie: WKRBTTEQRYPTQOPUKSVF
+erlang_cookie_file: /var/lib/rabbitmq/.erlang.cookie
+erlang_cookie_file_auto: /root/.erlang.cookie
+erlang_key_server: hkps.pool.sks-keyservers.net
 rabbitmq_plugins:
   - rabbitmq_management
   - rabbitmq_management_agent
   - rabbitmq_shovel
   - rabbitmq_shovel_management
+
+erlang_deb_url:
+  "bionic": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_21.3.5-1~ubuntu~bionic_amd64.deb
+  "xenial": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_21.3.5-1~ubuntu~xenial_amd64.deb
+erlang_deb_file:
+  "bionic": esl-erlang_21.3.5-1~ubuntu~bionic_amd64.deb
+  "xenial": esl-erlang_21.3.5-1~ubuntu~xenial_amd64.deb
+erlang_rpm_url: http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_21.3.5-1~centos~7_amd64.rpm
+erlang_rpm_file: esl-erlang_21.3.5-1_centos_7_amd64.rpm

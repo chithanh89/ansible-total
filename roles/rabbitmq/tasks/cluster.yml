@@ -1,0 +1,41 @@
+---
+# tasks file for rabbitmq
+- name: backup old erlang cookie
+  shell: cp -a {{erlang_cookie_file}} {{erlang_cookie_file}}.old
+  changed_when: false
+
+- name: updating rabbitmq erlang cookie
+  template:
+    src: erlang.cookie.j2
+    dest: "{{item}}"
+    owner: rabbitmq
+    group: rabbitmq
+    mode: 0400
+  with_items:
+    - "{{erlang_cookie_file}}"
+    - "{{erlang_cookie_file_auto}}"
+  notify: restart rabbitmq
+
+- meta: flush_handlers
+
+- name: stop rabbitmq app
+  command: rabbitmqctl stop_app
+  when: "'node' in inventory_hostname"
+
+- name: reset rabbitmq app
+  command: rabbitmqctl reset
+  when: "'node' in inventory_hostname"
+
+- name: add this node to cluster
+  command: rabbitmqctl join_cluster --ram rabbit@{{ hostvars[item]['ansible_hostname'] }}
+  with_items: "{{ groups['rabbit_master'] }}"
+  when: "'node' in inventory_hostname"
+
+- name: start rabbitmq app
+  command: rabbitmqctl start_app
+
+- name: remove old erlang cookie
+  file:
+    path: /var/lib/rabbitmq/.erlang.cookie.old
+    state: absent
+  changed_when: false

@@ -9,6 +9,7 @@
   when: ansible_os_family == 'Debian'
 
 - include_tasks: config.yml
+- include_tasks: cluster.yml
 
 - name: Ensure rabbitmq is started and enabled (if configured).
   service:
