@@ -12,6 +12,7 @@
     owner: root
     group: root
     mode: 0644
+    backup: yes
     force: "{{ overwrite_global_mycnf }}"
   notify: restart mysql
 

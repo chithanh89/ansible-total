@@ -1,12 +1,11 @@
 # {{ ansible_managed }}
 
-[client]
-port = {{ mysql_port }}
-socket = {{ mysql_socket }}
+[mysqld_safe]
+socket          = /var/run/mysqld/mysqld.sock
+nice            = 0
 
 [mysqld]
 port = {{ mysql_port }}
-bind-address = {{ mysql_bind_address }}
 datadir = {{ mysql_datadir }}
 socket = {{ mysql_socket }}
 pid-file = {{ mysql_pid_file }}
@@ -17,6 +16,10 @@ skip-name-resolve
 sql_mode = {{ mysql_sql_mode }}
 {% endif %}
 
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
+bind-address = {{ mysql_bind_address }}
+#
 # Logging configuration.
 {% if mysql_log_error == 'syslog' or mysql_log == 'syslog' %}
 syslog
