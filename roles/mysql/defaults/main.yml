@@ -22,7 +22,7 @@ mysql_enabled_on_startup: yes
 overwrite_global_mycnf: yes
 
 # The following variables have a default value depending on operating system.
-mysql_config_file: /etc/my.cnf
+#mysql_config_file: /etc/my.cnf
 # mysql_config_include_dir: /etc/my.cnf.d
 
 # Pass in a comma-separated list of repos to use (e.g. "remi,epel"). Used only

@@ -42,10 +42,10 @@
     mysql_pid_file: "{{ __mysql_pid_file }}"
   when: mysql_pid_file is not defined
 
-#- name: Define mysql_config_file.
-#  set_fact:
-#    mysql_config_file: "{{ __mysql_config_file }}"
-#  when: mysql_config_file is not defined
+- name: Define mysql_config_file.
+  set_fact:
+    mysql_config_file: "{{ __mysql_config_file }}"
+  when: mysql_config_file is not defined
 
 #- name: Define mysql_config_include_dir.
 #  set_fact:
