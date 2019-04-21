@@ -1,6 +1,7 @@
 ---
 __php_packages:
   - php
+  - php-mysql
   - php-cli
   - php-common
   - php-devel
@@ -13,8 +14,10 @@ __php_packages:
   - php-pdo
   - php-pear
   - php-pecl-apcu
+  - php-pecl-mysql
   - php-xml
   - php-xmlrpc
+  - php-bcmath
 __php_webserver_daemon: "httpd"
 
 __php_conf_paths:
