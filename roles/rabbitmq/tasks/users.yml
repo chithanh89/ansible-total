@@ -19,10 +19,3 @@
 - name: Remove the default user
   rabbitmq_user: name=guest state=absent
   when: "'master' in inventory_hostname"
-
-- name: Ensure the default vhost contains the HA policy
-  rabbitmq_policy:
-    name: HA
-    pattern: .*
-    tags:
-      ha-mode: all
