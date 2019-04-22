@@ -1,6 +1,6 @@
 ---
 # handlers file for base
-- name: start firewalld
+- name: stop firewalld
   service:
     name: firewalld
-    state: started
+    state: stopped

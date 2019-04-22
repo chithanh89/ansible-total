@@ -5,4 +5,4 @@
   selinux:
     policy: targeted
     state: permissive
-  notify: start firewalld
+  notify: stop firewalld
