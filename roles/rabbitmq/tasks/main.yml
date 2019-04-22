@@ -10,6 +10,7 @@
 
 - include_tasks: config.yml
 - include_tasks: cluster.yml
+- include_tasks: users.yml
 
 - name: Ensure rabbitmq is started and enabled (if configured).
   service:

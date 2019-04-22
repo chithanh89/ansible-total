@@ -1,5 +1,10 @@
 ---
 # tasks file for rabbitmq
+- name: check if already in cluster
+  command: rabbitmqctl cluster_status
+  register: cluster_status
+  changed_when: false
+
 - name: backup old erlang cookie
   shell: cp -a {{erlang_cookie_file}} {{erlang_cookie_file}}.old
   changed_when: false
