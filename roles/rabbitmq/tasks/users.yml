@@ -7,11 +7,9 @@
   changed_when: res.rc != 70
   when: "'master' in inventory_hostname"
 
-#- name: list permissions for user
-#  shell: rabbitmqctl list_permissions
-#  register: list_permissions
-#  changed_when: false
-#  when: "'master' in inventory_hostname"
+- name: set admin permissions for user
+  shell: rabbitmqctl set_user_tags {{rabbitmq_user}} administrator
+  when: "'master' in inventory_hostname"
 
 - name: set permissions on / vhost
   shell: rabbitmqctl set_permissions {{rabbitmq_user}} ".*" ".*" ".*"
