@@ -8,3 +8,6 @@
     new_only: yes
   with_items: "{{ rabbitmq_plugins }}"
   notify: restart rabbitmq
+
+- name: Force a restart if configuration has changed.
+  meta: flush_handlers
