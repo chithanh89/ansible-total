@@ -9,3 +9,12 @@
       net.nf_conntrack_max = 1048576
       net.core.somaxconn = 1048576
     backup: yes
+
+- name: insert/update "LC_ALL" configuration block in /etc/default/locale
+  blockinfile:
+    path: /etc/default/locale
+    block: |
+      LANGUAGE="en_US:"
+      LANG="en_US.UTF-8"
+      LC_ALL="en_US.UTF-8"
+      LC_CTYPE="en_US.UTF-8"
