@@ -1,2 +1,5 @@
 ---
 # vars file for rabbitmq
+rabbitmq_user: admin
+rabbitmq_pass: Abcd1234@@
+rabbitmq_tag: administrator

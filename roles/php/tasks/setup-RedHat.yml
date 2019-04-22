@@ -1,7 +1,11 @@
 ---
+- name: Install the remi-release-7 repo.
+  yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
+
 - name: Ensure PHP packages are installed.
   package:
     name: "{{ php_packages }}"
     state: "{{ php_packages_state }}"
     enablerepo: "{{ php_enablerepo | default(omit, true) }}"
-  notify: restart webserver

@@ -6,6 +6,15 @@
 - name: print variable
   debug: msg="Current date and time is {{temp}}"
 
+- name: insert/update "LC_ALL" configuration block in /etc/default/locale
+  blockinfile:
+    path: /etc/default/locale
+    block: |
+      LANGUAGE="en_US:"
+      LANG="en_US.UTF-8"
+      LC_ALL="en_US.UTF-8"
+      LC_CTYPE="en_US.UTF-8"
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 

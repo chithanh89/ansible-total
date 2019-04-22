@@ -12,4 +12,3 @@
     state: "{{ php_packages_state }}"
     install_recommends: "{{ php_install_recommends }}"
   register: php_package_install
-  notify: restart apache

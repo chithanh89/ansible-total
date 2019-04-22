@@ -1,21 +1,25 @@
 ---
 # tasks file for rabbitmq
+- name: Check erlang file
+  stat: path=/tmp/{{erlang_deb_file[ansible_distribution_release]}}
+  register: file_erlang
+
 - name: Download erlang deb package
   get_url:
-    url: "{{erlang_deb_url}}"
+    url: "{{erlang_deb_url[ansible_distribution_release]}}"
     dest: /tmp
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' and not file_erlang.stat.exists
 
 - name: Install erlang deb packages
   apt:
-    deb: /tmp/{{erlang_deb_file}}
+    deb: /tmp/{{erlang_deb_file[ansible_distribution_release]}}
   when: ansible_os_family == 'Debian'
 
 - name: Download erlang package
   get_url:
     url: "{{erlang_rpm_url}}"
     dest: /tmp
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and not file_erlang.stat.exists
 
 - name: Add erlang repos
   command: rpm -Uvh /tmp/{{erlang_rpm_file}}

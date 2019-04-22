@@ -1,0 +1,28 @@
+---
+# tasks file for rabbitmq
+- name: create test user
+  shell: rabbitmqctl add_user {{rabbitmq_user}} {{rabbitmq_pass}}
+  register: res
+  failed_when: res.rc != 70 and res.rc != 0
+  changed_when: res.rc != 70
+  when: "'master' in inventory_hostname"
+
+- name: set admin permissions for user
+  shell: rabbitmqctl set_user_tags {{rabbitmq_user}} administrator
+  when: "'master' in inventory_hostname"
+
+- name: set permissions on / vhost
+  shell: rabbitmqctl set_permissions {{rabbitmq_user}} ".*" ".*" ".*"
+  when: "'master' in inventory_hostname"
+#  when: list_permissions.stdout.find("{{rabbitmq_user}}") == -1
+
+- name: Remove the default user
+  rabbitmq_user: name=guest state=absent
+  when: "'master' in inventory_hostname"
+
+- name: Ensure the default vhost contains the HA policy
+  rabbitmq_policy:
+    name: HA
+    pattern: .*
+    tags:
+      ha-mode: all
