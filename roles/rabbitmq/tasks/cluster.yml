@@ -32,7 +32,7 @@
   when: "'node' in inventory_hostname"
 
 - name: add this node to cluster
-  command: rabbitmqctl join_cluster --ram rabbit@{{ hostvars[item]['ansible_hostname'] }}
+  command: rabbitmqctl join_cluster rabbit@{{ hostvars[item]['ansible_hostname'] }}
   with_items: "{{ groups['rabbit_master'] }}"
   when: "'node' in inventory_hostname"
 
