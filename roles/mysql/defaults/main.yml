@@ -120,6 +120,7 @@ mysql_users: []
 #     priv: *.*:USAGE
 
 # Replication settings (replication is only enabled if master/user have values).
+replication: yes
 mysql_server_id: "1"
 mysql_max_binlog_size: "100M"
 mysql_binlog_format: "ROW"
