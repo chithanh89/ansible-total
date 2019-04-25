@@ -9,13 +9,3 @@ zb_url_deb:
 zb_repo:
   "bionic": zabbix-release_4.0-2+bionic_all.deb
   "xenial": zabbix-release_4.0-2+xenial_all.deb
-php5:
-- php
-- php-fpm
-- php-fileinfo
-- php-cli
-- php-gd
-- php-curl
-- php-mysql
-- php-ldap
-- php-zip
