@@ -39,4 +39,3 @@ mongodb_replication_set: rs0
 # Defines the system log for MongoDB
 mongodb_systemlog_path: /var/log/mongodb/mongod.log
 # Defines the users to create if mongodb_create_users is true
-# Define MongoDB version to install
