@@ -1,3 +1,11 @@
 ---
 mysql_root_username: root
 mysql_root_password: Root@123
+
+mysql_replication_user:
+  - {
+      name: "thanhhc",
+      password: "Abcd1234@@",
+      host: "%",
+      priv: "*.*:REPLICATION SLAVE,REPLICATION CLIENT",
+    }
