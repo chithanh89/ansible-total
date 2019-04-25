@@ -16,7 +16,6 @@
     regexp: '.*{{ item }}$'
     line: "{{ hostvars[item].ansible_host }} {{item}}"
     state: present
-    backrefs: yes
   when: hostvars[item].ansible_host is defined
   with_items: "{{ groups.all }}"
 
