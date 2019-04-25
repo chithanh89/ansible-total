@@ -1,0 +1,47 @@
+---
+# tasks file for zabbix
+- name: Create databases
+  mysql_db:
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    login_host: "{{mysqlhost}}"
+    name: "{{item}}"
+    state: present
+  with_items:
+    - "{{ DB1 }}"
+  register: dbcreate
+
+- name: Create zabbix user
+  mysql_user:
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    login_host: "{{mysqlhost}}"
+    name: "{{DBUser}}"
+    password: "{{DBPassword}}"
+    host: "{{DBHost}}"
+    priv: 'zabbixdb.*:ALL'
+    state: present
+
+- name: Import DB UserStore & Registry
+  mysql_db:
+    name: "{{item}}"
+    state: import
+    target: "{{zbdbpath}}/create.sql.gz"
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    login_host: "{{mysqlhost}}"
+  with_items:
+    - "{{ DB1 }}"
+  when: dbcreate is changed and ansible_os_family == 'Debian'
+
+- name: Import DB UserStore & Registry
+  mysql_db:
+    name: "{{item}}"
+    state: import
+    target: "{{zbdbpath}}-{{zb_version}}/create.sql.gz"
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    login_host: "{{mysqlhost}}"
+  with_items:
+    - "{{ DB1 }}"
+  when: dbcreate is changed and ansible_os_family == 'RedHat'
