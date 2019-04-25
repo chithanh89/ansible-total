@@ -1,0 +1,62 @@
+---
+- name: Ensure replication user exists on master.
+  mysql_user:
+    name: "{{ item.name }}"
+    host: "{{ item.host | default('%') }}"
+    password: "{{ item.password }}"
+    priv: "{{ item.priv | default('*.*:REPLICATION SLAVE,REPLICATION CLIENT') }}"
+    state: present
+  with_items: "{{mysql_replication_user}}"
+  no_log: true
+  when:
+    - mysql_replication_role == 'master'
+    - mysql_replication_user
+    - mysql_replication_master != ''
+
+- name: Check slave replication status.
+  mysql_replication:
+    mode: getslave
+    login_user: "{{ item.name }}"
+    login_password: "{{ item.password }}"
+  ignore_errors: true
+  no_log: true
+  with_items: "{{mysql_replication_user}}"
+  register: slave
+  when:
+    - mysql_replication_role == 'slave'
+    - mysql_replication_master != ''
+
+- name: Check master replication status.
+  mysql_replication:
+    mode: getmaster
+    login_user: "{{ mysql_root_username }}"
+    login_password: "{{ mysql_root_password}}"
+  delegate_to: "{{ mysql_replication_master }}"
+  register: master
+  when:
+    - (slave.Is_Slave is defined and not slave.Is_Slave) or (slave.Is_Slave is not defined and slave is failed)
+    - mysql_replication_role == 'slave'
+    - mysql_replication_master != ''
+
+- name: Configure replication on the slave.
+  mysql_replication:
+    mode: changemaster
+    master_host: "{{ mysql_replication_master }}"
+    master_user: "{{ item.name }}"
+    master_password: "{{ item.password }}"
+    master_log_file: "{{ master.File }}"
+    master_log_pos: "{{ master.Position }}"
+  ignore_errors: true
+  with_items: "{{mysql_replication_user}}"
+  when:
+    - (slave.Is_Slave is defined and not slave.Is_Slave) or (slave.Is_Slave is not defined and slave is failed)
+    - mysql_replication_role == 'slave'
+    - mysql_replication_master != ''
+    - mysql_replication_user
+
+- name: Start replication.
+  mysql_replication: mode=startslave
+  when:
+    - (slave.Is_Slave is defined and not slave.Is_Slave) or (slave.Is_Slave is not defined and slave is failed)
+    - mysql_replication_role == 'slave'
+    - mysql_replication_master != ''

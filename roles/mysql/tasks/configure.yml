@@ -16,6 +16,9 @@
     force: "{{ overwrite_global_mycnf }}"
   notify: restart mysql
 
+- name: Force a restart if configuration has changed.
+  meta: flush_handlers
+  
 - name: Create slow query log file (if configured).
   command: "touch {{ mysql_slow_query_log_file }}"
   args:
