@@ -1,3 +1,5 @@
+---
+# tasks file for zabbix
 - name: Create databases
   mysql_db:
     login_user: "{{mysql_root_username}}"
@@ -14,9 +16,9 @@
     login_user: "{{mysql_root_username}}"
     login_password: "{{mysql_root_password}}"
     login_host: "{{mysqlhost}}"
-    name: zabbix
-    password: Zabbix@123
-    host: localhost
+    name: "{{DBUser}}"
+    password: "{{DBPassword}}"
+    host: "{{DBHost}}"
     priv: 'zabbixdb.*:ALL'
     state: present
 

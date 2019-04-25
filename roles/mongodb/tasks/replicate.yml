@@ -3,7 +3,7 @@
 - name: Create the file to initialize the replicaset
   template: src=repset_init.js.j2 dest=/home/repset_init.js mode=0755
   when: "'master' in inventory_hostname"
-  
+
 - name: Initialize the replication set on the primary
   shell: mongo -u "{{ mongodb_admin_user['name'] }}" -p "{{ mongodb_admin_user['password'] }}" --authenticationDatabase "{{ mongodb_admin_user['database'] }}" < /home/repset_init.js
   run_once: true
@@ -12,19 +12,3 @@
   register: result
   until: result.rc == 0
   when: "'master' in inventory_hostname"
-#- name: Initialize the replication set on the primary
-#  shell: mongo < /home/repset_init.js
-#  args:
-#      chdir: /home
-#      executable: /bin/bash
-#  run_once: true
-#  retries: 3
-#  delay: 3
-#  register: result
-#  until: result.rc == 0
-#  when: "'master' in inventory_hostname"
-
-#- name: Add the admin user to the replicaset
-#  mongodb_user: database=admin name=admin password={{ mongo_admin_pass }} login_port={{ mongodb_port }} roles='root' state=present
-#  ignore_errors: yes
-#  when: "'master' in inventory_hostname"
