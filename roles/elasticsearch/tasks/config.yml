@@ -38,6 +38,11 @@
   notify: restart elasticsearch
   when: not cluster
 
+- name: Setup plugin
+  elasticsearch_plugin:
+    name: "{{plugins}}"
+    state: present
+
 - name: Force a restart if configuration has changed.
   meta: flush_handlers
 
