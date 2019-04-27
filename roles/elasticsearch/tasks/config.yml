@@ -16,7 +16,7 @@
     group: elasticsearch
     mode: 0660
   notify: restart elasticsearch
-  when: "'master' in inventory_hostname and cluster"
+  when: "'master' in inventory_hostname and cluster_set_roles"
 
 - name: Configure Elasticsearch cluster roles "Node".
   template:
@@ -26,9 +26,19 @@
     group: elasticsearch
     mode: 0660
   notify: restart elasticsearch
-  when: "'node' in inventory_hostname and cluster"
+  when: "'node' in inventory_hostname and cluster_set_roles"
 
-- name: Configure Elasticsearch.
+- name: Configure Elasticsearch cluster all roles.
+  template:
+    src: elasticsearch-cluster.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  notify: restart elasticsearch
+  when: cluster
+
+- name: Configure Elasticsearch single.
   template:
     src: elasticsearch.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml
@@ -37,6 +47,11 @@
     mode: 0660
   notify: restart elasticsearch
   when: not cluster
+
+- name: Setup plugin
+  elasticsearch_plugin:
+    name: "{{plugins}}"
+    state: present
 
 - name: Force a restart if configuration has changed.
   meta: flush_handlers
