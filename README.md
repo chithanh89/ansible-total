@@ -7,9 +7,9 @@ An ansible playbook to install and configure services for Linux System.
 - Centos 7.
 - SSH services installed.
 # HOW TO RUN:
-- Edit hosts file:
+# Edit hosts file:
 # Ex:
- [rabbit_master]
+- [rabbit_master]
  master ansible_host=192.168.2.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 
 - [rabbit_master]: group name of server.
@@ -18,7 +18,7 @@ An ansible playbook to install and configure services for Linux System.
 - ansible_ssh_user: your user of server( i used root).
 - ansible_ssh_private_key_file: private key for ssh connections.
 
-- Edit playbook:
+# Edit playbook:
 # Ex:
   - hosts: all
     roles:
