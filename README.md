@@ -22,7 +22,7 @@ An ansible playbook to install and configure services for Linux System.
 # Edit playbook:
 # Ex:
   - hosts: all
-    roles:
+-   roles:
      - base
      - mongodb
 
