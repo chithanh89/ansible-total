@@ -15,7 +15,7 @@ An ansible playbook to install and configure services for Linux System.
 - [rabbit_master]: group name of server.
 - master: set hostname for server.
 - ansible_host: your ip server.
-- ansible_ssh_user: your user of server( i used root).
+- ansible_ssh_user: your user of server( i used to root).
 - ansible_ssh_private_key_file: private key for ssh connections.
 
 # Edit playbook:
