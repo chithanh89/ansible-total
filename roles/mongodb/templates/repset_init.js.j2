@@ -1,7 +1,7 @@
 rs.initiate()
 sleep(10000)
-{% if groups['mongo_replicas'] is defined %}
-{% for host in groups['mongo_replicas'] %}
+{% if groups['mongo_node'] is defined %}
+{% for host in groups['mongo_node'] %}
 rs.add("{{ hostvars[host].ansible_hostname }}:{{mongodb_port}}")
 sleep(5000)
 {% endfor %}
