@@ -13,12 +13,12 @@ Role Variables
 
 A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-`  # Define version
+  # Define version
     cerebro_version: 0.8.3
   # Define directory execute
     cerebro_dir: /home/cerebro-{{cerebro_version}}/bin
   # Define url to download
-    cerebro_url: https://github.com/lmenezes/cerebro/releases/download/v{{cerebro_version}}/cerebro-{{cerebro_version}}.zip `
+    cerebro_url: https://github.com/lmenezes/cerebro/releases/download/v{{cerebro_version}}/cerebro-{{cerebro_version}}.zip
 
 
 Dependencies
