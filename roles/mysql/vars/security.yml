@@ -1,7 +1,9 @@
 ---
+# Define for mysql root user and password
 mysql_root_username: root
 mysql_root_password: Root@123
 
+# Define mysql user for replicaset
 mysql_replication_user:
   - {
       name: "thanhhc",

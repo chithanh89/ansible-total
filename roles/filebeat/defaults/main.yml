@@ -1,7 +1,9 @@
 ---
 # defaults file for filebeat
+# Define version
 filebeat_version: 6.x
 filebeat_create_config: true
+# Define server logstash
 server_logstash: 192.168.1.200
 filebeat_prospectors:
   - input_type: log
@@ -9,6 +11,7 @@ filebeat_prospectors:
       - "/var/log/*.log"
 
 filebeat_output_elasticsearch_enabled: false
+# Define elasticsearch server
 filebeat_output_elasticsearch_hosts: "localhost:9200"
 filebeat_output_logstash_enabled: true
 filebeat_output_logstash_hosts: "{{server_logstash}}:5044"

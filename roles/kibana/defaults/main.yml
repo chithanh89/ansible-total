@@ -6,6 +6,7 @@ kibana_config_template: kibana.yml.j2
 kibana_config_file_path: /etc/kibana/kibana.yml
 kibana_server_port: 5601
 kibana_server_host: "0.0.0.0"
+# Define elasticsearch server
 kibana_elasticsearch_url: "http://localhost:9200"
 kibana_elasticsearch_username: ""
 kibana_elasticsearch_password: ""

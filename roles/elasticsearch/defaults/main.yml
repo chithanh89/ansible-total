@@ -1,11 +1,17 @@
 ---
 # defaults file for elasticsearch
+# Define Elasticsearch version
 elasticsearch_version: '6.x'
 elasticsearch_network_host: 0.0.0.0
 elasticsearch_http_port: 9200
+# Define cluster name
 cluster_name: 'es-cluster'
+# Create cluster or not
 cluster: true
+# Create cluster with seperate roles to every node
 cluster_set_roles: false
 minimum_master_nodes: 2
+# Define backup directory
 es_backup_dir: /home/elasticsearch/backup
+# Define plugin to install
 plugins: repository-s3

@@ -1,4 +1,5 @@
 ---
+# Define kubernetes packages
 kubernetes_packages:
   - name: kubelet
     state: present
@@ -8,19 +9,22 @@ kubernetes_packages:
     state: present
   - name: kubernetes-cni
     state: present
-
+# Define roles to install
 kubernetes_role: master
+# Define to setup kubernetes kompose
 kompose_state: true
 selinux_state: true
+# Define to setup kubernetes dashboard
 kuber_dashboard: true
 
 kubernetes_kubelet_extra_args: ""
 kubernetes_kubeadm_init_extra_opts: ""
-
+# Define kubernetes create pod on master node
 kubernetes_allow_pods_on_master: true
 kubernetes_enable_web_ui: true
 kubernetes_web_ui_manifest_file: https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
+# Define network range to kubernetes
 kubernetes_pod_network_cidr: '10.244.0.0/16'
 kubernetes_apiserver_advertise_address: ''
 kubernetes_version_kubeadm: 'stable-{{ kubernetes_version }}'
