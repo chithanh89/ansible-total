@@ -10,10 +10,10 @@ mongodb_admin_user:
   state: present
 
 mongodb_users:
-  - name: thanhhc
-    password: thanhhc
-    database: admin
-    roles:
-      - clusterAdmin
-      - readWriteAnyDatabase
-    state: present
+  name: thanhhc
+  password: thanhhc
+  database: admin
+  roles:
+    - clusterAdmin
+    - readWriteAnyDatabase
+  state: present
