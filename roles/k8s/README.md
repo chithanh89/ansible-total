@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+A role to install and config Kubernetes cluster.
 
 Requirements
 ------------
@@ -12,6 +12,12 @@ Role Variables
 --------------
 
 A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+
+# Define roles to install
+kubernetes_role: master or slave
+
+# Define kubernetes create pod on master node
+kubernetes_allow_pods_on_master: true or false
 
 Dependencies
 ------------

@@ -1,3 +1,4 @@
+# Define version to install
 mongodb_version: "4.0"
 mongodb_apt_keyserver: keyserver.ubuntu.com
 mongodb_apt_gpg_key: 9DA31620334BD75D9DCB49F368818C72E52529D4
