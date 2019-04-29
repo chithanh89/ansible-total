@@ -3,8 +3,11 @@ haproxy_socket: /var/lib/haproxy/stats
 haproxy_chroot: /var/lib/haproxy
 haproxy_user: haproxy
 haproxy_group: haproxy
+# Define haproxy packages
 source_code: haproxy-1.8.14.tar.gz
+# Define haproxy version
 haproxy_version: haproxy-1.8.14
+# Define haproxy download directory
 haproxy_download_path: "/tmp/{{haproxy_version}}"
 haproxy_init_temp_path: "{{haproxy_download_path}}/examples/haproxy.init"
 haproxy_init_path: /etc/init.d/haproxy
