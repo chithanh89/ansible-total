@@ -3,15 +3,18 @@
 #packages: httpd,httpd-devel,php,php-devel,php-bcmath,php-pear,php-gd,php-mbstring,php-mysql,php-xml
 apache_enablerepo: ""
 
-#apache_listen_ip: "*"
+# apache_listen_ip: "*"
 apache_listen_port: 80
-#apache_port: 80
+# apache_port: 80
 apache_listen_port_ssl: 443
-
+# Create virtualhost( true/yes) or not( false/no)
 apache_create_vhosts: true
-domain: "localhost"
+# Set domain name variables for vhost config
+domain: "test.vn"
+# Vhost config
 apache_vhosts_filename: "vhosts.conf"
 apache_vhosts_template: "vhosts.conf.j2"
+# Root directory
 root_dir: /var/www
 # On Debian/Ubuntu, a default virtualhost is included in Apache's configuration.
 # Set this to `true` to remove that default.
