@@ -10,5 +10,8 @@
   yum: name={{ zabbix_agent }} state=present
   notify: start zabbix-agent
 
+- name: install Zabbix-sender
+  yum: name=zabbix-sender state=latest
+
 - name: Ensure zabbix-agent is started and enabled to start at boot.
   service: name=zabbix-agent state=started enabled=yes
