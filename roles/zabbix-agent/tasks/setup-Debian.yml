@@ -17,5 +17,8 @@
   become: true
   apt: name=zabbix-agent update_cache=yes state=latest
 
+- name: install Zabbix-sender
+  apt: name=zabbix-sender state=latest
+
 - name: Ensure zabbix-agent is started and enabled to start at boot.
   service: name=zabbix-agent state=started enabled=yes
