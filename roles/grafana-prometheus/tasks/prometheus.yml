@@ -24,6 +24,10 @@
     - "{{ prometheus_log_dir }}"
     - "{{ prometheus_pid_dir }}"
 
+- name: Check Prometheus directory
+  stat: path="{{prometheus_dir}}"
+  register: dir_prometheus
+
 - name: Download and extract Prometheus packages
   unarchive:
     src: "{{prometheus_url}}"
@@ -31,6 +35,7 @@
     owner: "{{prometheus_user}}"
     group: "{{prometheus_group}}"
     remote_src: yes
+  when: not dir_prometheus.stat.exists
 
 - name: Copy execute Prometheus file
   copy:
