@@ -4,28 +4,39 @@ rabbitmq_package: rabbitmq-server
 rabbitmq_daemon: rabbitmq-server
 rabbitmq_state: started
 rabbitmq_enabled: true
-cluster: true
+# Define state of setup
+cluster: false
+# Define remove guest user or not
+remove_guest: false
+# Define version
 rabbitmq_version: "3.7.12"
+# Define rabbitmq rpm file for RedHat
 rabbitmq_rpm: "rabbitmq-server-{{ rabbitmq_version }}-1.el{{ ansible_distribution_major_version }}.noarch.rpm"
 rabbitmq_rpm_url: "https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/{{ ansible_distribution_major_version }}/{{ rabbitmq_rpm }}/download"
+# Define rabbitmq deb file for Debian
 rabbitmq_deb: "rabbitmq-server_{{ rabbitmq_version }}-1_all.deb"
 rabbitmq_deb_url: "https://packagecloud.io/rabbitmq/rabbitmq-server/packages/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}/{{ rabbitmq_deb }}/download"
+# Define erlang cookie to setup cluster
 rabbitmq_erlang_cookie: WKRBTTEQRYPTQOPUKSVF
-erlang_package: erlang
+# Define erlang cookie directory
 erlang_cookie_file: /var/lib/rabbitmq/.erlang.cookie
 erlang_cookie_file_auto: /root/.erlang.cookie
 erlang_key_server: hkps.pool.sks-keyservers.net
+# Define rabbitmq plugin to install
 rabbitmq_plugins:
   - rabbitmq_management
   - rabbitmq_management_agent
   - rabbitmq_shovel
   - rabbitmq_shovel_management
-
+# Define erlang package
+erlang_package: erlang
+# Define erlang deb url and file for Ubuntu version
 erlang_deb_url:
   "bionic": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_21.3.5-1~ubuntu~bionic_amd64.deb
   "xenial": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_21.3.5-1~ubuntu~xenial_amd64.deb
 erlang_deb_file:
   "bionic": esl-erlang_21.3.5-1~ubuntu~bionic_amd64.deb
   "xenial": esl-erlang_21.3.5-1~ubuntu~xenial_amd64.deb
+# Define erlang url and file for Centos
 erlang_rpm_url: "http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm"
 erlang_rpm_file: erlang-solutions-1.0-1.noarch.rpm
