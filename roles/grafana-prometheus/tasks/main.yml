@@ -1,0 +1,4 @@
+---
+# tasks file for grafana-prometheus
+- include_tasks: prometheus.yml
+- include_tasks: grafana.yml

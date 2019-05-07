@@ -1,0 +1,75 @@
+---
+# tasks file for grafana-prometheus
+- name: create Prometheus group
+  group: name={{ prometheus_group }} state=present
+
+- name: create Prometheus user
+  user:
+    name: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    create_home: no
+    shell: /sbin/nologin
+    comment: "Prometheus User"
+    state: present
+
+- name: Create Prometheus directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ prometheus_db_dir }}"
+    - "{{ prometheus_log_dir }}"
+    - "{{ prometheus_pid_dir }}"
+
+- name: Check Prometheus directory
+  stat: path="{{prometheus_dir}}"
+  register: dir_prometheus
+
+- name: Download and extract Prometheus packages
+  unarchive:
+    src: "{{prometheus_url}}"
+    dest: "{{prometheus_download_dir}}"
+    owner: "{{prometheus_user}}"
+    group: "{{prometheus_group}}"
+    remote_src: yes
+  when: not dir_prometheus.stat.exists
+
+- name: Copy execute Prometheus file
+  copy:
+    src: "{{prometheus_dir}}/{{item}}"
+    dest: "{{prometheus_execute_dir}}"
+    owner: "{{prometheus_user}}"
+    group: "{{prometheus_group}}"
+    remote_src: yes
+    mode: 0755
+  with_items:
+    - prometheus
+    - promtool
+
+- name: Copy Prometheus library file
+  command: cp -r "{{prometheus_dir}}/{{item}}" "{{prometheus_config_dir}}"
+  with_items:
+    - consoles
+    - console_libraries
+
+- name: Config Prometheus
+  template:
+    src: prometheus.yml.j2
+    dest: "{{prometheus_config_dir}}/prometheus.yml"
+    owner: "{{prometheus_user}}"
+    group: "{{prometheus_group}}"
+
+- name: Create Prometheus service
+  template:
+    src: prometheus.service.j2
+    dest: "{{prometheus_service_dir}}/prometheus.service"
+
+- name: Make sure Prometheus service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: prometheus
+    enabled: yes

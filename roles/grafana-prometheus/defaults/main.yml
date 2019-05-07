@@ -1,0 +1,27 @@
+---
+# defaults file for grafana-prometheus
+# Define user,group
+prometheus_user:   prometheus
+prometheus_group:  prometheus
+# Define version
+prometheus_version: 2.9.2
+prometheus_download_dir: /tmp
+# Define package name
+prometheus_packages: prometheus-{{prometheus_version}}.linux-amd64.tar.gz
+# Define package name after extract
+prometheus_dir: "{{prometheus_download_dir}}/prometheus-{{prometheus_version}}.linux-amd64"
+# Define url to download
+prometheus_url: https://github.com/prometheus/prometheus/releases/download/v{{prometheus_version}}/{{prometheus_packages}}
+prometheus_execute_dir: /usr/local/bin
+# Define prometheus config directory
+prometheus_config_dir: /etc/prometheus
+prometheus_service_dir: /etc/systemd/system
+prometheus_db_dir: /var/lib/prometheus
+prometheus_log_dir: /var/log/prometheus
+prometheus_pid_dir: /var/run/prometheus
+
+# Define grafana version
+grafana_version: 6.1.6
+# Define url packages
+grafana_url_deb: https://dl.grafana.com/oss/release/grafana_{{grafana_version}}_amd64.deb
+grafana_url_rpm: https://dl.grafana.com/oss/release/grafana-{{grafana_version}}-1.x86_64.rpm
