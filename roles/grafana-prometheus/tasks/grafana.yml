@@ -1,0 +1,20 @@
+---
+# tasks file for grafana-prometheus
+- name: Install Grafana Debian package from the internet
+  apt:
+    deb: "{{grafana_url_deb}}"
+  when: ansible_os_family == 'Debian'
+
+- name: Install Grafana RedHat package
+  yum:
+    name: "{{grafana_url_rpm}}"
+    state: present
+    validate_certs: false
+  when: ansible_os_family == 'RedHat'
+
+- name: Make sure Grafana service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: grafana-server
+    enabled: yes
