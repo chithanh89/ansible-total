@@ -28,7 +28,7 @@ mongodb_redhat_repo_info:
   enabled: yes
   gpgkey: "{{ 'https://www.mongodb.org/static/pgp/server-' + mongodb_version + '.asc' }}"
 # Defines if MongoDB replication is configured
-mongodb_replication: true
+mongodb_replication: false
 # Defines the Ansible group which contains the hosts to setup replication
 mongodb_replication_group: mongodb_cluster
 # Defines the keyFile to setup replication if using authentication
