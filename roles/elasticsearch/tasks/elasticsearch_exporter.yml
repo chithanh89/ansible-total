@@ -1,0 +1,37 @@
+---
+# tasks file for elasticsearch
+- name: Check Elasticsearch_exporter directory
+  stat: path="{{es_exporter_dir}}"
+  register: dir_es_exporter
+
+- name: Download and extract Elasticsearch_exporter packages
+  unarchive:
+    src: "{{es_exporter_url}}"
+    dest: "{{es_exporter_download_dir}}"
+    owner: elasticsearch
+    group: elasticsearch
+    remote_src: yes
+  when: not dir_es_exporter.stat.exists
+
+- name: Copy execute Elasticsearch_exporter file
+  copy:
+    src: "{{es_exporter_dir}}/{{item}}"
+    dest: "{{es_exporter_execute_dir}}"
+    owner: elasticsearch
+    group: elasticsearch
+    remote_src: yes
+    mode: 0755
+  with_items:
+    - elasticsearch_exporter
+
+- name: Create Elasticsearch_exporter service
+  template:
+    src: elasticsearch_exporter.service.j2
+    dest: "{{es_exporter_service_dir}}/elasticsearch_exporter.service"
+
+- name: Make sure Elasticsearch_exporter service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: elasticsearch_exporter
+    enabled: yes
