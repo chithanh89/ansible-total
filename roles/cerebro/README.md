@@ -5,8 +5,8 @@ A roles to install and config Cerebro, Cerebro is an open source(MIT License) el
 
 Requirements
 ------------
-Java to run
-Working good with Elasticsearch v5.x
+- Java to run
+- Working good with Elasticsearch v5.x
 
 Role Variables
 --------------
