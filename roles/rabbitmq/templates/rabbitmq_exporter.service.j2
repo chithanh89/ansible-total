@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus rabbitmq_exporter
+After=local-fs.target network-online.target network.target
+Wants=local-fs.target network-online.target network.target
+
+[Service]
+User=rabbitmq
+Nice=10
+ExecStart = /usr/local/bin/rabbitmq_exporter
+ExecStop= /usr/bin/killall rabbitmq_exporter
+
+[Install]
+WantedBy=default.target
