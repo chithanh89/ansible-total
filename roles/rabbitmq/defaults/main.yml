@@ -40,3 +40,12 @@ erlang_deb_file:
 # Define erlang url and file for Centos
 erlang_rpm_url: "http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm"
 erlang_rpm_file: erlang-solutions-1.0-1.noarch.rpm
+# Define setup rabbitmq_exporter status
+rabbitmq_exporter: false
+# Define rabbitmq_exporter version
+rabbitmq_exporter_version: 0.29.0
+rabbitmq_exporter_url: https://github.com/kbudde/rabbitmq_exporter/releases/download/v{{rabbitmq_exporter_version}}/rabbitmq_exporter-{{rabbitmq_exporter_version}}.linux-amd64.tar.gz
+rabbitmq_exporter_download_dir: /tmp
+rabbitmq_exporter_dir: "{{rabbitmq_exporter_download_dir}}/rabbitmq_exporter-{{rabbitmq_exporter_version}}.linux-amd64"
+rabbitmq_exporter_execute_dir: /usr/local/bin
+rabbitmq_exporter_service_dir: /etc/systemd/system
