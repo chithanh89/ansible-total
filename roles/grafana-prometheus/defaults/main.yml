@@ -25,3 +25,5 @@ grafana_version: 6.1.6
 # Define url packages
 grafana_url_deb: https://dl.grafana.com/oss/release/grafana_{{grafana_version}}_amd64.deb
 grafana_url_rpm: https://dl.grafana.com/oss/release/grafana-{{grafana_version}}-1.x86_64.rpm
+# Define ntp server to sync timezone
+ntp_server: asia.pool.ntp.org
