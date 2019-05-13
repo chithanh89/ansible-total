@@ -28,19 +28,22 @@ rabbitmq_plugins:
   - rabbitmq_management_agent
   - rabbitmq_shovel
   - rabbitmq_shovel_management
+
+# Define erlang version
+erlang_version: "21.3.5"
 # Define erlang package
 erlang_package: erlang
 # Define erlang deb url and file for Ubuntu version
 erlang_deb_url:
-  "bionic": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_21.3.5-1~ubuntu~bionic_amd64.deb
-  "xenial": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_21.3.5-1~ubuntu~xenial_amd64.deb
+  "bionic": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_{{erlang_version}}-1~ubuntu~bionic_amd64.deb
+  "xenial": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_{{erlang_version}}-1~ubuntu~xenial_amd64.deb
 erlang_deb_file:
-  "bionic": esl-erlang_21.3.5-1~ubuntu~bionic_amd64.deb
-  "xenial": esl-erlang_21.3.5-1~ubuntu~xenial_amd64.deb
+  "bionic": esl-erlang_{{erlang_version}}-1~ubuntu~bionic_amd64.deb
+  "xenial": esl-erlang_{{erlang_version}}-1~ubuntu~xenial_amd64.deb
 # Define erlang url and file for Centos
 erlang_rpm_url: "http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm"
 erlang_rpm_file: erlang-solutions-1.0-1.noarch.rpm
-# Define setup rabbitmq_exporter status
+# Define setup rabbitmq_exporter (monitor tools) status
 rabbitmq_exporter: false
 # Define rabbitmq_exporter version
 rabbitmq_exporter_version: 0.29.0
