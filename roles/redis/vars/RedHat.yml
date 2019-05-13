@@ -2,4 +2,4 @@
 # vars file for redis
 redis_package: redis
 redis_daemon: redis
-redis_conf_path: /etc/redis.conf
+redis_conf_dir: /etc

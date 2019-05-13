@@ -1,6 +1,11 @@
 - name: Install Server Basics
   yum: pkg={{ packages }} state=latest update_cache=true
 
+- name: Install Remi repos
+  yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
+
 - name: Set selinux
   selinux:
     policy: targeted

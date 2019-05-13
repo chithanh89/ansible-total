@@ -1,6 +1,47 @@
 ---
 # tasks file for redis
-- name: Ensure Redis is installed.
-  apt:
-    name: "{{ redis_package }}"
+- name: create Redis group
+  group: name={{ redis_group }} state=present
+
+- name: create Redis user
+  user:
+    name: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    create_home: no
+    shell: /sbin/nologin
+    comment: "Redis User"
     state: present
+
+- name: Create Redis directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ redis_db_dir }}"
+    - "{{ redis_conf_dir }}"
+    - "{{ redis_log_dir }}"
+
+- name: Install the Build and Test Dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - build-essential
+    - tcl
+
+- name: Check Redis directory
+  stat: path="{{redis_dir}}"
+  register: dir_redis
+
+- name: Download and extract Redis packages
+  unarchive:
+    src: "{{redis_url}}"
+    dest: "{{redis_download_dir}}"
+    owner: "{{redis_user}}"
+    group: "{{redis_group}}"
+    remote_src: yes
+  when: not dir_redis.stat.exists
+
+- name: Build Redis from source
+  command: chdir="{{redis_dir}}" make
