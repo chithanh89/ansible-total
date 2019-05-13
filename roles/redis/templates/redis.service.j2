@@ -1,0 +1,13 @@
+[Unit]
+Description=Redis In-Memory Data Store
+After=network.target
+
+[Service]
+User={{redis_user}}
+Group={{redis_group}}
+ExecStart={{redis_exe_dir}}/redis-server {{redis_conf_dir}}/redis.conf
+ExecStop={{redis_exe_dir}}/redis-cli shutdown
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
