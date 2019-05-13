@@ -1,7 +1,17 @@
 ---
 # defaults file for redis
+redis_version: "5.0.4"
+redis_url: http://download.redis.io/releases/redis-{{redis_version}}.tar.gz
+redis_download_dir: /tmp
+redis_dir: "{{redis_download_dir}}/redis-{{redis_version}}"
+redis_db_dir: /var/lib/redis
+redis_conf_dir: /etc/redis
+redis_exe_dir: /usr/local/bin
+redis_service_dir: /etc/systemd/system
+redis_user: redis
+redis_group: redis
 redis_port: 6379
-redis_bind_interface: 127.0.0.1
+redis_bind_interface: 0.0.0.0
 redis_unixsocket: ''
 redis_timeout: 300
 redis_loglevel: "notice"
@@ -14,7 +24,6 @@ redis_save:
   - 60 10000
 redis_rdbcompression: "yes"
 redis_dbfilename: dump.rdb
-redis_dbdir: /var/lib/redis
 redis_maxmemory: 0
 redis_maxmemory_policy: "noeviction"
 redis_maxmemory_samples: 5
