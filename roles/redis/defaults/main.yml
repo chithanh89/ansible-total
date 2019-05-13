@@ -17,7 +17,7 @@ redis_enablerepo: "remi"
 redis_user: redis
 redis_group: redis
 # Redis config options
-redis_protected_mode: no
+redis_protected_mode: "no"
 redis_port: 6379
 redis_bind_interface: 0.0.0.0
 redis_unixsocket: ''

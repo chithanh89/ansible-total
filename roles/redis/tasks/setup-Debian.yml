@@ -44,4 +44,7 @@
   when: not dir_redis.stat.exists
 
 - name: Build Redis from source
-  command: chdir="{{redis_dir}}" make
+  command: chdir="{{redis_dir}}" {{item}}
+  with_items:
+    - make
+    - make install
