@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus redis_exporter
+After=local-fs.target network-online.target network.target
+Wants=local-fs.target network-online.target network.target
+
+[Service]
+User={{redis_user}}
+Nice=10
+ExecStart = /usr/local/bin/redis_exporter
+ExecStop= /usr/bin/killall redis_exporter
+
+[Install]
+WantedBy=default.target

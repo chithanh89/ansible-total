@@ -1,0 +1,37 @@
+---
+# tasks file for redis
+- name: Check Redis_exporter directory
+  stat: path="{{redis_exporter_download_dir}}/redis_exporter"
+  register: dir_redis_exporter
+
+- name: Download and extract Redis_exporter packages
+  unarchive:
+    src: "{{redis_exporter_url}}"
+    dest: "{{redis_exporter_download_dir}}"
+    owner: "{{redis_user}}"
+    group: "{{redis_group}}"
+    remote_src: yes
+  when: not dir_redis_exporter.stat.exists
+
+- name: Copy execute Redis_exporter file
+  copy:
+    src: "{{redis_exporter_download_dir}}/{{item}}"
+    dest: "{{redis_exporter_execute_dir}}"
+    owner: "{{redis_user}}"
+    group: "{{redis_group}}"
+    remote_src: yes
+    mode: 0755
+  with_items:
+    - redis_exporter
+
+- name: Create Redis_exporter service
+  template:
+    src: redis_exporter.service.j2
+    dest: "{{redis_exporter_service_dir}}/redis_exporter.service"
+
+- name: Make sure Redis_exporter service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: redis_exporter
+    enabled: yes
