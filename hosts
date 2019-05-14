@@ -1,18 +1,26 @@
-[mongo_master]
-master ansible_host=192.168.55.54 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
-[mongo_node]
-node1 ansible_host=192.168.55.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
-node2 ansible_host=192.168.55.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+[rabbit_master]
+rb-master ansible_host=192.168.2.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+[rabbit_node]
+rb-node1 ansible_host=192.168.2.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+rb-node2 ansible_host=192.168.2.57 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 
 [es_master]
-master ansible_host=192.168.55.54 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+es-master ansible_host=192.168.2.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 [es_node]
-node1 ansible_host=192.168.55.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
-node2 ansible_host=192.168.55.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+es-node1 ansible_host=192.168.2.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+es-node2 ansible_host=192.168.2.57 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
 
-[mongo:children]
-mongo_master
-mongo_node
+[redis]
+rd-master ansible_host=192.168.2.55 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+rd-node1 ansible_host=192.168.2.56 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+rd-node2 ansible_host=192.168.2.58 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+
+[monitor]
+monitor1 ansible_host=192.168.2.58 ansible_ssh_user=root ansible_ssh_private_key_file=/home/thanhho/.ssh/id_rsa
+
+[rabbit:children]
+rabbit_master
+rabbit_node
 
 [es:children]
 es_master
