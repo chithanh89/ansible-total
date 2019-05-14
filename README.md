@@ -31,5 +31,6 @@ An ansible playbook to install and configure services for Linux System.
 # COMMAND TO RUN PLAYBOOK:
 - ansible-playbook -i hosts playbook file
 
-# NOTE ABOUT ROLES:
-- Focus to default/main.yml and vars/*.yml
+# NOTE:
+- Keep **group name** and **format** in host file, not recommend to change them.If changed, must be changed config in roles.
+- Focus to default/main.yml and vars/*any file*.yml in **role name**
