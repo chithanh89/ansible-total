@@ -1,17 +1,5 @@
 ---
 # tasks file for wordpress
-#- name: Download wordpress packages
-#  command: wget http://wordpress.org/latest.tar.gz -P /tmp
-
-#- name: Extract wordpress package
-#  unarchive:
-#    src: /tmp/latest.tar.gz
-#    dest: /tmp
-#    remote_src: yes
-
-#- name: Sync wordpress directory to root directory
-#  command: rsync -avP "{{downloaded_path/}}" "{{domain_path}}"
-
 - name: Install libpng-devel
   yum: name=libpng-devel state=latest
   when: ansible_os_family == 'RedHat'

@@ -7,7 +7,7 @@
  User={{prometheus_user}}
  Group={{prometheus_group}}
  Type=simple
- ExecStart=/usr/local/bin/prometheus \
+ ExecStart={{prometheus_execute_dir}}/prometheus \
  --config.file /etc/prometheus/prometheus.yml \
  --storage.tsdb.path /var/lib/prometheus/ \
  --web.enable-admin-api \

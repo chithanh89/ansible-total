@@ -6,7 +6,7 @@ Wants=local-fs.target network-online.target network.target
 [Service]
 User=elasticsearch
 Nice=10
-ExecStart = /usr/local/bin/elasticsearch_exporter -es.all -es.indices -es.timeout 20s
+ExecStart = {{es_exporter_execute_dir}}/elasticsearch_exporter -es.all -es.indices -es.timeout 20s
 ExecStop= /usr/bin/killall elasticsearch_exporter
 
 [Install]
