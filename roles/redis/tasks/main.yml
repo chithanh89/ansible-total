@@ -34,7 +34,7 @@
     dest: "{{redis_conf_dir}}/redis.conf"
     owner: "{{redis_user}}"
     group: "{{redis_group}}"
-    mode: 0755
+    mode: 0644
   notify: restart redis
 
 - name: Config Redis run as service by systemd
@@ -43,8 +43,27 @@
     dest: "{{redis_service_dir}}/redis.service"
     owner: "{{redis_user}}"
     group: "{{redis_group}}"
-    mode: 0755
+    mode: 0644
   when: ansible_os_family == 'Debian'
+
+- name: Disable transparent_hugepage until reboot
+  shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo never > /sys/kernel/mm/transparent_hugepage/defrag
+  ignore_errors: true
+  changed_when: false
+
+- name: Udate net.core.somaxconn
+  sysctl:
+    name: net.core.somaxconn
+    value: 65535
+    state: present
+    reload: yes
+
+- name: Update vm.overcommit_memory
+  sysctl:
+    name: vm.overcommit_memory
+    value: 1
+    state: present
+    reload: yes
 
 - name: Make sure Redis service is running
   systemd:
@@ -52,3 +71,6 @@
     state: restarted
     name: "{{redis_daemon}}"
     enabled: yes
+
+# Setup redis sentinel
+- include_tasks: sentinel.yml

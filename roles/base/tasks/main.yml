@@ -12,3 +12,13 @@
 - include_tasks: hostname.yml
 # Setup/install tasks.
 - include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+- name: Increase the limited max number of connections
+  blockinfile:
+    path: /etc/sysctl.conf
+    block: |
+      net.ipv4.netfilter.ip_conntrack_max = 1048576
+      net.nf_conntrack_max = 1048576
+      net.core.somaxconn = 65535
+      vm.overcommit_memory = 1
+    backup: yes
