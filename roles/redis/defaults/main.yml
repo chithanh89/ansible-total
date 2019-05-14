@@ -71,6 +71,5 @@ redis_exporter: true
 redis_exporter_version: 0.34.1
 redis_exporter_url: https://github.com/oliver006/redis_exporter/releases/download/v{{redis_exporter_version}}/redis_exporter-v{{redis_exporter_version}}.linux-amd64.tar.gz
 redis_exporter_download_dir: /tmp
-#redis_exporter_dir: "{{redis_exporter_download_dir}}/redis_exporter-{{redis_exporter_version}}.linux-amd64"
 redis_exporter_execute_dir: /usr/local/bin
 redis_exporter_service_dir: /etc/systemd/system
