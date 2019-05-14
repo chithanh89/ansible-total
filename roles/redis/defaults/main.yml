@@ -43,3 +43,25 @@ redis_includes: []
 redis_requirepass: ""
 # Disable certain Redis commands for security reasons.
 redis_disabled_commands: []
+# Sentinel configure
+redis_sentinel: false
+redis_sentinel_port: 26379
+redis_daemonize: "yes"
+redis_sentinel_dir: /var/lib/redis/sentinel
+redis_sentinel_bind: 0.0.0.0
+redis_sentinel_pidfile: /var/run/redis/redis-sentinel.pid
+redis_sentinel_logfile: /var/log/redis/redis-sentinel.log
+redis_sentinel_syslog_ident: redis-sentinel
+redis_nofile_limit: 16384
+redis_sentinel_oom_score_adjust: 0
+redis_sentinel_monitors:
+  - name: master
+    host: rd-master
+    port: 6379
+    quorum: 2
+    auth_pass: ant1r3z
+    down_after_milliseconds: 30000
+    parallel_syncs: 1
+    failover_timeout: 180000
+    notification_script: false
+    client_reconfig_script: false
