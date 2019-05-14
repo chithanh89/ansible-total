@@ -33,4 +33,4 @@ An ansible playbook to install and configure services for Linux System.
 
 # NOTE:
 - Keep **group name** in host file, not recommend to change them.If changed, must be changed config in roles.
-- Focus to default/main.yml and vars/<any file>.yml in **role name**
+- Focus to default/main.yml and vars/*any file*.yml in **role name**
