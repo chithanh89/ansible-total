@@ -1,16 +1,6 @@
 - name: Install Server Basics
   apt: pkg={{ packages }} state=present update_cache=yes
 
-- name: Increase the limited max number of connections
-  blockinfile:
-    path: /etc/sysctl.conf
-    block: |
-      net.ipv4.netfilter.ip_conntrack_max = 1048576
-      net.nf_conntrack_max = 1048576
-      net.core.somaxconn = 65535
-      vm.overcommit_memory = 1
-    backup: yes
-
 - name: insert/update "LC_ALL" configuration block in /etc/default/locale
   blockinfile:
     path: /etc/default/locale
