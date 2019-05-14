@@ -32,5 +32,5 @@ An ansible playbook to install and configure services for Linux System.
 - ansible-playbook -i hosts playbook file
 
 # NOTE:
-- Keep **group name** in host file, not recommend to change them.If changed, must be changed config in roles.
+- Keep **group name** and **format** in host file, not recommend to change them.If changed, must be changed config in roles.
 - Focus to default/main.yml and vars/*any file*.yml in **role name**
