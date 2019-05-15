@@ -65,6 +65,13 @@
     state: present
     reload: yes
 
+- name: Remove replicaof line in redis master config
+  lineinfile:
+    path: "{{redis_conf_dir}}/redis.conf"
+    regexp: "^replicaof"
+    state: absent
+  when: inventory_hostname == groups["redis"][0]
+
 - name: Make sure Redis service is running
   systemd:
     daemon_reload: yes

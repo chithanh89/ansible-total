@@ -54,6 +54,7 @@ redis_sentinel_logfile: /var/log/redis/redis-sentinel.log
 redis_sentinel_syslog_ident: redis-sentinel
 redis_nofile_limit: 16384
 redis_sentinel_oom_score_adjust: 0
+redis_min_rep_to_write: 1
 redis_sentinel_monitors:
   - name: master
     host: rd-master
@@ -66,7 +67,7 @@ redis_sentinel_monitors:
     notification_script: false
     client_reconfig_script: false
 # Define redis-exporter to monitoring
-redis_exporter: true
+redis_exporter: false
 # Define rabbitmq_exporter version
 redis_exporter_version: 0.34.1
 redis_exporter_url: https://github.com/oliver006/redis_exporter/releases/download/v{{redis_exporter_version}}/redis_exporter-v{{redis_exporter_version}}.linux-amd64.tar.gz
