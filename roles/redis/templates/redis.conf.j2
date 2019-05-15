@@ -283,7 +283,9 @@ dir {{redis_db_dir}}
 #    network partition replicas automatically try to reconnect to masters
 #    and resynchronize with them.
 #
-# replicaof <masterip> <masterport>
+{% for master in redis_sentinel_monitors -%}
+replicaof {{master.host}} {{master.port}}
+{% endfor -%}
 
 # If the master is password protected (using the "requirepass" configuration
 # directive below) it is possible to tell the replica to authenticate before
@@ -454,8 +456,8 @@ replica-priority 100
 #
 # For example to require at least 3 replicas with a lag <= 10 seconds use:
 #
-# min-replicas-to-write 3
-# min-replicas-max-lag 10
+min-replicas-to-write {{redis_min_rep_to_write}}
+min-replicas-max-lag 10
 #
 # Setting one or the other to 0 disables the feature.
 #
