@@ -10,7 +10,6 @@
   no_log: true
   when:
     - mysql_replication_role == 'master'
-    - mysql_replication_user
     - mysql_replication_master != ''
 
 - name: Check slave replication status.
@@ -19,8 +18,8 @@
     login_user: "{{ item.name }}"
     login_password: "{{ item.password }}"
   ignore_errors: true
-  no_log: true
   with_items: "{{mysql_replication_user}}"
+  no_log: true
   register: slave
   when:
     - mysql_replication_role == 'slave'
@@ -46,13 +45,12 @@
     master_password: "{{ item.password }}"
     master_log_file: "{{ master.File }}"
     master_log_pos: "{{ master.Position }}"
-  ignore_errors: true
   with_items: "{{mysql_replication_user}}"
+  ignore_errors: true
   when:
     - (slave.Is_Slave is defined and not slave.Is_Slave) or (slave.Is_Slave is not defined and slave is failed)
     - mysql_replication_role == 'slave'
     - mysql_replication_master != ''
-    - mysql_replication_user
 
 - name: Start replication.
   mysql_replication: mode=startslave
