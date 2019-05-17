@@ -3,11 +3,23 @@
 mysql_root_username: root
 mysql_root_password: Root@123
 
+# Databases.
+mysql_databases: []
+#  - name: example
+#    collation: utf8_general_ci
+#    encoding: utf8
+#    replicate: 1
+
+# Users.
+mysql_users: []
+#  - name: example
+#    host: "%"
+#    password: secret@123
+#    priv: "*.*:USAGE"
+
 # Define mysql user for replicaset
 mysql_replication_user:
-  - {
-      name: "thanhhc",
-      password: "Abcd1234@@",
-      host: "%",
-      priv: "*.*:REPLICATION SLAVE,REPLICATION CLIENT",
-    }
+  - name: thanhhc
+    password: Abcd1234@@
+    host: "%"
+    priv: "*.*:REPLICATION SLAVE,REPLICATION CLIENT"

@@ -1,7 +1,0 @@
----
-- name: Remove root config file
-  file:
-    path: "{{mysql_root_home}}/.my.cnf"
-    state: absent
-  notify: restart mysql
-  
