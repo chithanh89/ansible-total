@@ -23,6 +23,7 @@
     - "{{ redis_db_dir }}"
     - "{{ redis_conf_dir }}"
     - "{{ redis_log_dir }}"
+    - "{{ redis_pid_dir }}"
 
 - name: Install the Build and Test Dependencies
   apt: name={{item}} state=present
