@@ -10,6 +10,7 @@ redis_dir: "{{redis_download_dir}}/redis-{{redis_version}}"
 redis_src_dir: "{{redis_dir}}/src"
 redis_db_dir: /var/lib/redis
 redis_exe_dir: /usr/local/bin
+redis_pid_dir: /var/run/redis
 redis_log_dir: /var/log/redis
 redis_service_dir: /etc/systemd/system
 # Enable redis remi repos for Centos7
