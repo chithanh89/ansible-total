@@ -6,4 +6,6 @@ npm_config_unsafe_perm: "false"
 nodejs_npm_global_packages:
   - name: yarn
     version: 1.12.3
+  - name: pm2
+
 nodejs_package_json_path: ""
