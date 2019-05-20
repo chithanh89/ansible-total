@@ -33,7 +33,7 @@
   ignore_errors: true
   changed_when: false
 
-- name: Udate net.core.somaxconn
+- name: Update net.core.somaxconn
   sysctl:
     name: net.core.somaxconn
     value: 65535
