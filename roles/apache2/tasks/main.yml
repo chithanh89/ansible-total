@@ -11,12 +11,11 @@
 # Setup/install tasks.
 - include_tasks: "setup-{{ ansible_os_family }}.yml"
 
-# Configure Apache.
-- name: Configure Apache.
-  include_tasks: "config-{{ ansible_os_family }}.yml"
-
 - name: Ensure Apache has selected state and enabled on boot.
   service:
     name: "{{ apache_service }}"
     state: "{{ apache_state }}"
     enabled: true
+
+- include_tasks: vhost.yml
+  when: apache_vhosts is defined

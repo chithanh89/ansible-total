@@ -2,20 +2,13 @@
 # defaults file for apache2
 #packages: httpd,httpd-devel,php,php-devel,php-bcmath,php-pear,php-gd,php-mbstring,php-mysql,php-xml
 apache_enablerepo: ""
-
 # apache_listen_ip: "*"
 apache_listen_port: 80
 # apache_port: 80
 apache_listen_port_ssl: 443
-# Create virtualhost( true/yes) or not( false/no)
-apache_create_vhosts: true
-# Set domain name variables for vhost config
-domain: "test.vn"
 # Vhost config
 apache_vhosts_filename: "vhosts.conf"
 apache_vhosts_template: "vhosts.conf.j2"
-# Root directory
-root_dir: /var/www
 # On Debian/Ubuntu, a default virtualhost is included in Apache's configuration.
 # Set this to `true` to remove that default.
 apache_remove_default_vhost: false
@@ -25,8 +18,8 @@ apache_global_vhost_settings: |
 apache_vhosts:
   # Additional properties:
   # 'serveradmin, serveralias, allow_override, options, extra_parameters'.
-#  - servername: "local.dev"
-#    documentroot: "/var/www/html"
+  - server_name: "local.dev"
+    root_path: "/var/www/html"
 
 apache_allow_override: "All"
 apache_options: "-Indexes +FollowSymLinks"
@@ -48,8 +41,8 @@ apache_ssl_cipher_suite: "AES256+EECDH:AES256+EDH"
 
 # Only used on Debian/Ubuntu.
 apache_mods_enabled:
-  - rewrite.load
-  - ssl.load
+  - rewrite
+  - ssl
 apache_mods_disabled: []
 
 # Set initial apache state. Recommended values: `started` or `stopped`
