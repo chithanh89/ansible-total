@@ -2,7 +2,7 @@ server {
     listen         80;
     listen         [::]:80;
     server_name    {{item.server_name}} ;
-    root           {{item.wp_root_path}};
+    root           {{item.root_path}};
     index          index index.php index.html;
 
   location / {

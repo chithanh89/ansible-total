@@ -28,3 +28,6 @@
 
 - name: Ensure nginx is started and enabled to start at boot.
   service: name=nginx state=started enabled=yes
+
+- include_tasks: vhost.yml
+  when: nginx_vhosts is defined
