@@ -1,7 +1,6 @@
 ---
 # Used only for Debian/Ubuntu installation, as the -t option for apt.
 nginx_default_release: ""
-php_version: '7.2'
 # Used only for Redhat installation, enables source Nginx repo.
 nginx_yum_repo_enabled: true
 # Use the official Nginx PPA for Ubuntu, and the version to use if so.
@@ -12,7 +11,7 @@ nginx_package_name: "nginx"
 nginx_conf_template: "nginx.conf.j2"
 nginx_vhost_template: "vhost.conf.j2"
 #Vhost config
-root_path: /usr/share/nginx/html
+default_root_path: /usr/share/nginx/html
 nginx_worker_processes: >-
   "{{ ansible_processor_vcpus | default(ansible_processor_count) }}"
 nginx_worker_connections: "1024"
@@ -31,6 +30,8 @@ nginx_proxy_cache_path: ""
 nginx_extra_conf_options: ""
 nginx_extra_http_options: ""
 nginx_vhosts: []
+#  - server_name: test.vn
+#    root_path: /home
 nginx_upstreams: []
 nginx_log_format: |-
   '$remote_addr - $remote_user [$time_local] "$request" '
