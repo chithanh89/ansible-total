@@ -1,0 +1,40 @@
+---
+# tasks file for apache2
+- name: Creates domain root directory
+  file: path="{{item.root_path}}/{{item.server_name}}" state=directory mode=0755
+  with_items: "{{apache_vhosts}}"
+
+- name: Add vhost domain configured
+  template:
+    src: "{{apache_vhosts_template}}"
+    dest: "{{apache_conf_path}}/{{item.server_name}}.conf"
+    mode: 0644
+  with_items: "{{apache_vhosts}}"
+  when: ansible_os_family == 'RedHat'
+  notify: restart apache
+
+- name: Add vhost domain configured
+  template:
+    src: "{{apache_vhosts_template}}"
+    dest: "{{apache_available_conf_path}}/{{item.server_name}}.conf"
+    mode: 0644
+  with_items: "{{apache_vhosts}}"
+  when: ansible_os_family == 'Debian'
+  notify: restart apache
+
+- name: Add vhost symlink in sites-enabled.
+  file:
+    src: "{{ apache_available_conf_path }}/{{item.server_name}}.conf"
+    dest: "{{ apache_enabled_conf_path }}/{{item.server_name}}"
+    state: link
+  with_items: "{{apache_vhosts}}"
+  when:
+    - apache_vhosts is defined
+    - ansible_os_family == 'Debian'
+
+- name: Enable Apache mods.
+  apache2_module:
+    name: "{{item}}"
+    state: present
+  with_items: "{{apache_mods_enabled}}"
+  notify: restart apache

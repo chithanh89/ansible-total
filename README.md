@@ -1,8 +1,8 @@
 # ansible-base
 An ansible playbook to install and configure services for Linux System.
 # Requirement:
-- Ansible v2.7: https://www.ansible.com/  ( only on control machine).
-- Python 2.7. ( both control machine and remote machine).
+- Ansible v2.7+ : https://www.ansible.com/  ( only on control machine).
+- Python 2.7+ ( both control machine and remote machine).
 - Ubuntu 16.04 and Ubuntu 18.04.
 - Centos 7.
 - SSH services installed.

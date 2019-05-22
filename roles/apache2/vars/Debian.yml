@@ -5,6 +5,8 @@ apache_daemon: apache2
 apache_daemon_path: /usr/sbin/
 apache_server_root: /etc/apache2
 apache_conf_path: /etc/apache2
+apache_available_conf_path: /etc/apache2/sites-available
+apache_enabled_conf_path: /etc/apache2/sites-enabled
 APACHE_LOG_DIR: /var/log/apache2
 __apache_packages:
   - apache2
