@@ -1,2 +1,4 @@
 ---
 # defaults file for base
+ntp_server: asia.pool.ntp.org
+timezone: Asia/Ho_Chi_Minh

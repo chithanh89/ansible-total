@@ -1,0 +1,16 @@
+---
+# tasks file for base
+- name: Set timezone
+  timezone:
+    name: "{{timezone}}"
+  when: ansible_os_family == 'Debian'
+
+- name: Set timezone
+  command: ntpdate "{{ntp_server}}"
+  when: ansible_os_family == 'RedHat'
+
+- name: new variable with current date time
+  set_fact: temp="{{lookup('pipe','date \"+%Y-%m-%d %H:%M\"')}}"
+
+- name: print variable
+  debug: msg="Current date and time is {{temp}}"

@@ -1,17 +1,12 @@
 ---
 # tasks file for base
-- name: new variable with current date time
-  set_fact: temp="{{lookup('pipe','date \"+%Y-%m-%d %H:%M\"')}}"
-
-- name: print variable
-  debug: msg="Current date and time is {{temp}}"
-
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- include_tasks: hostname.yml
 # Setup/install tasks.
 - include_tasks: "setup-{{ ansible_os_family }}.yml"
+- include_tasks: hostname.yml
+- include_tasks: timezone.yml
 
 - name: Increase the limited max number of connections
   blockinfile:
