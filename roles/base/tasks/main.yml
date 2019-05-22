@@ -22,3 +22,18 @@
       net.core.somaxconn = 65535
       vm.overcommit_memory = 1
     backup: yes
+
+- name: Increase the limited max number of open files
+  blockinfile:
+    path: /etc/security/limits.conf
+    block: |
+      * soft nofile 1000000
+      * hard nofile 1000000
+      root soft nofile 1000000
+      root hard nofile 1000000
+    backup: yes
+
+- name: Limit resource per user
+  lineinfile:
+    path: /etc/pam.d/common-session
+    line: session required  pam_limits.so

@@ -1,5 +1,5 @@
 - name: Install Server Basics
-  apt: pkg={{ packages }} state=present update_cache=yes
+  apt: name={{ packages }} state=present update_cache=yes
 
 - name: insert/update "LC_ALL" configuration block in /etc/default/locale
   blockinfile:
