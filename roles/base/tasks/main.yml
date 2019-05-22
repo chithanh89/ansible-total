@@ -37,3 +37,10 @@
   lineinfile:
     path: /etc/pam.d/common-session
     line: session required  pam_limits.so
+
+- name: Update ssh config for security
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha1,umac-64@openssh.com,hmac-ripemd160'
+    insertafter: 'Protocol 2'
