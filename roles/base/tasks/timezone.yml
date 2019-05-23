@@ -3,7 +3,6 @@
 - name: Set timezone
   timezone:
     name: "{{timezone}}"
-  when: ansible_os_family == 'Debian'
 
 - name: Set timezone
   command: ntpdate "{{ntp_server}}"
