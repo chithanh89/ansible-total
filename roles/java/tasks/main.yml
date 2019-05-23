@@ -30,9 +30,7 @@
   when: java_home is defined
 
 - name: Export JAVA_HOME
-  shell: echo $JAVA_HOME
-  args:
-    executable: /bin/bash
+  command: echo $JAVA_HOME
 
 - name: Check the Java version
   command: java -version
