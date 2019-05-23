@@ -7,5 +7,5 @@
 
 - name: restart ssh
   service:
-    name: ssh
+    name: "{{ssh_daemon}}"
     state: restarted
