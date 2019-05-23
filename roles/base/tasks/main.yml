@@ -46,7 +46,8 @@
 MACs hmac-sha1,umac-64@openssh.com,hmac-ripemd160'
     insertafter: 'Protocol 2'
   when: ansible_os_family == 'Debian'
-
+  notify: restart ssh
+  
 - name: Update ssh config for security
   blockinfile:
     path: /etc/ssh/sshd_config
@@ -55,3 +56,4 @@ MACs hmac-sha1,umac-64@openssh.com,hmac-ripemd160'
       Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr MACs hmac-sha1,umac-64@openssh.com,hmac-ripemd160
     backup: yes
   when: ansible_os_family == 'RedHat'
+  notify: restart ssh
