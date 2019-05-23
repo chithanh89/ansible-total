@@ -6,4 +6,4 @@
 #   - java-1.8.0-openjdk
 __java_packages:
   - java-1.8.0-openjdk
-java_home: /usr/lib/jvm/jre
+__java_home: /usr/lib/jvm/jre
