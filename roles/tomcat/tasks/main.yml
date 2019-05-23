@@ -1,0 +1,37 @@
+---
+# tasks file for tomcat
+- name: Create Tomcat Group
+  group:
+    name: "{{ tomcat_group }}"
+    state: present
+
+- name: Create Tomcat user
+  user:
+    name: "{{ tomcat_username }}"
+    home: "{{ tomcat_user_home }}"
+    group: "{{ tomcat_group }}"
+    shell: /sbin/nologin
+    createhome: yes
+
+- name: Download and extract Tomcat package
+  unarchive:
+    src: "{{tomcat_url}}"
+    dest: "{{tomcat_user_home}}"
+    owner: "{{tomcat_username}}"
+    group: "{{tomcat_group}}"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+
+- name: Create Tomcat service
+  template:
+    src: tomcat.service.j2
+    dest: "{{tomcat_service_dir}}/tomcat.service"
+    owner: "{{tomcat_username}}"
+    group: "{{tomcat_group}}"
+
+- name: Make sure Tomcat service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: tomcat
+    enabled: yes
