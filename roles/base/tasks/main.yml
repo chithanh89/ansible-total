@@ -9,9 +9,10 @@
 - include_tasks: timezone.yml
 
 - name: Install AWS CLI
-  package:
+  pip:
     name: awscli
-    state: latest
+    extra_args: "{{item}}"
+  with_items: "{{extra_args}}"
 
 - name: Increase the limited max number of connections
   blockinfile:
