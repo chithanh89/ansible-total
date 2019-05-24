@@ -23,27 +23,19 @@ http {
 
 {% block http_basic %}
     include       {{ nginx_mime_file_path }};
+    include       {{ nginx_proxy_cache_path }};
     default_type  application/octet-stream;
-
     server_names_hash_bucket_size {{ nginx_server_names_hash_bucket_size }};
 
-    client_max_body_size {{ nginx_client_max_body_size }};
-    proxy_max_temp_file_size 2048m;
     log_format  main  {{ nginx_log_format|indent(23) }};
-
     access_log  {{ nginx_access_log }};
 
     sendfile        {{ nginx_sendfile }};
     tcp_nopush      {{ nginx_tcp_nopush }};
     tcp_nodelay     {{ nginx_tcp_nodelay }};
-
     keepalive_timeout  {{ nginx_keepalive_timeout }};
     keepalive_requests {{ nginx_keepalive_requests }};
-
     server_tokens {{ nginx_server_tokens }};
-{% if nginx_proxy_cache_path %}
-    proxy_cache_path {{ nginx_proxy_cache_path }};
-{% endif %}
 {% endblock %}
 
 {% block http_gzip %}
