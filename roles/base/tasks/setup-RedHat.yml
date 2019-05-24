@@ -5,12 +5,23 @@
   notify: stop firewalld
 
 - name: Install epel-release
-  yum:  name=epel-release state=latest
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Install IUS rpm
+  yum:
+    name: https://centos7.iuscommunity.org/ius-release.rpm
+
+- name: Install Python3.6
+  yum:
+    name: "{{python_packages}}"
+    state: latest
 
 - name: Install Remi repos
   yum:
     name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-    state: present
+    state: latest
 
 - name: Install Server Basics
   yum: name={{ packages }} state=latest update_cache=true
