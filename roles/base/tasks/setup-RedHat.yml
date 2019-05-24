@@ -18,6 +18,16 @@
     name: "{{python_packages}}"
     state: latest
 
+- name: Set default python version
+  lineinfile:
+    path: ~/.bashrc
+    line: alias python="/usr/bin/python3.6"
+
+- name: Export python var
+  shell: source ~/.bashrc
+  args:
+    executable: /bin/bash
+
 - name: Install Remi repos
   yum:
     name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
