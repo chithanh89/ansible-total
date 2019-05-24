@@ -12,8 +12,8 @@
   copy:
     src: files/keyFile
     dest: "{{mongodb_dbPath}}"
-    owner: mongodb
-    group: mongodb
+    owner: "{{mongodb_daemon}}"
+    group: "{{mongodb_daemon}}"
     mode: 0400
 
 - name: Restart MongoDB
