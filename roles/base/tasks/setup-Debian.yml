@@ -1,7 +1,7 @@
 - name: Install Server Basics
   apt: name={{ packages }} state=present update_cache=yes
 
-- name: insert/update "LC_ALL" configuration block
+- name: insert/update locale configuration block
   blockinfile:
     path: ~/.bashrc
     block: |
@@ -9,7 +9,7 @@
       LC_ALL="en_US.UTF-8"
       LC_CTYPE="en_US.UTF-8"
 
-- name: Export LC_ALL
+- name: Export locale var
   shell: source ~/.bashrc
   args:
     executable: /bin/bash
