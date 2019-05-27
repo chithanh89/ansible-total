@@ -1,9 +1,57 @@
+### Simple nginx config block
 server {
     listen         80;
     listen         [::]:80;
-    server_name    {{item.server_name}} ;
+    server_name    {{item.server_name}} www.{{item.server_name}};
+#    return 301 https://$host$request_uri;
     root           {{item.root_path}}/{{item.server_name}};
     index          index index.php index.html;
+
+    access_log {{item.log_path}}/{{item.server_name}}.access.log;
+    error_log {{item.log_path}}/{{item.server_name}}.error.log;
+### End simple nginx config block
+
+### HTTPS config block
+#server {
+#  	listen 443 ssl;
+#  	server_name www.abc-xyz.com;
+  	# SSL
+#  	ssl_certificate /etc/letsencrypt/live/abc-xyz.com/fullchain.pem;
+#  	ssl_certificate_key /etc/letsencrypt/live/abc-xyz.com/privkey.pem;
+#  	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+#  	ssl_prefer_server_ciphers on;
+#  	ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+
+    # Improve HTTPS performance with session resumption
+#    ssl_session_cache shared:SSL:50m;
+#    ssl_session_timeout 1d;
+#    }
+### End HTTPS config block
+
+### Proxy pass config block
+#  location / {
+#    proxy_pass      http://127.0.0.1:8080;
+#    proxy_set_header Host $host;
+#    proxy_set_header X-Real-IP $remote_addr;
+#    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#    }
+### End proxy pass config block
+
+### Load balancing config block
+#upstream backend {
+#    server 127.0.0.3:8000 weight=5;
+#    server 127.0.0.3:8001 weight=5;
+#    server 192.168.0.1:8000;
+#    server 192.168.0.1:8001;
+#  }
+#  server { # simple load balancing
+#    listen          80;
+#    server_name     abc-xyz.com;
+#    access_log      logs/abc_xyz.access.log main;
+#    location / {
+#      proxy_pass      http://backend;
+#    }
+### End load balancing config block
 
   location / {
           try_files $uri $uri/ /index.php?q=$uri&$args;
@@ -12,6 +60,15 @@ server {
   location ~* \.php$ {
     fastcgi_pass 127.0.0.1:9000;
     include         fastcgi_params;
+    fastcgi_index index.php;
+    fastcgi_connect_timeout 1000;
+		fastcgi_send_timeout 1000;
+		fastcgi_read_timeout 1000;
+		fastcgi_buffer_size 256k;
+		fastcgi_buffers 4 256k;
+		fastcgi_busy_buffers_size 256k;
+		fastcgi_temp_file_write_size 256k;
+		fastcgi_intercept_errors on;
     fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
     fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
     }
