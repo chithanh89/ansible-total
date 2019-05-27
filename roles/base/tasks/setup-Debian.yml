@@ -11,13 +11,9 @@
     state: present
 
 - name: insert/update locale configuration block
-  blockinfile:
+  lineinfile:
     path: ~/.bashrc
-    block: |
-      LANGUAGE="en_US:"
-      LC_ALL="en_US.UTF-8"
-      LC_CTYPE="en_US.UTF-8"
-      alias python='/usr/bin/python3.6'
+    line: alias python='/usr/bin/python3.6'
 
 - name: Export locale var
   shell: source ~/.bashrc
