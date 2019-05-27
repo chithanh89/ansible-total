@@ -1,15 +1,6 @@
 - name: Install Server Basics
   apt: name={{ packages }} state=present update_cache=yes
 
-- name: Add Python3 Repository
-  apt_repository:
-    repo: ppa:jonathonf/python-3.6
-
-- name: Setup Python3
-  apt:
-    name: python3.6
-    state: present
-
 - name: insert/update locale configuration block
   blockinfile:
     path: ~/.bashrc
@@ -29,7 +20,6 @@
       LC_MEASUREMENT="en_US.UTF-8"
       LC_IDENTIFICATION="en_US.UTF-8"
       LC_ALL=C
-      alias python='/usr/bin/python3.6'
 
 - name: Export locale var
   shell: source ~/.bashrc
