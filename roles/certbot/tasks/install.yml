@@ -1,0 +1,25 @@
+---
+# tasks file for certbot
+- name: Install epel-release and mod_ssl
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - epel-release
+    - mod_ssl
+
+- name: Install lib for Certbot on Centos7
+  pip:
+    name: "{{ item.name | default(item) }}"
+    version: "{{ item.version | default('latest') }}"
+    extra_args: --upgrade --force-reinstall
+  with_items: "{{certbot_lib}}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Install Certbot.
+  package: "name={{ certbot_package }} state=present"
+  ignore_errors: yes
+
+- name: Set Certbot script variable.
+  set_fact:
+    certbot_script: "{{ certbot_package }}"
