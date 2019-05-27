@@ -12,3 +12,9 @@
     state: "{{ php_packages_state }}"
     install_recommends: "{{ php_install_recommends }}"
   register: php_package_install
+
+- name: Stop Apache service( for another web servers)
+  service:
+    state: stopped
+    name: apache2
+    enabled: no
