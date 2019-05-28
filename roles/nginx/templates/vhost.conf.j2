@@ -80,8 +80,9 @@ server {
     expires 30d;
     }
 
-  location '/.well-known/acme-challenge' {
-	  default_type "text/plain";
+  location ^~ /.well-known {
+    root  {{item.root_path}}/{{item.server_name}};
+    allow all;
    }
 
   location ~ /\. {
