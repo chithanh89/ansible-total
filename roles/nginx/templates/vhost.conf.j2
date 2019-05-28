@@ -3,9 +3,9 @@ server {
     listen         80;
     listen         [::]:80;
     server_name    {{item.server_name}} www.{{item.server_name}};
-#    return 301 https://$host$request_uri;
     root           {{item.root_path}}/{{item.server_name}};
     index          index index.php index.html;
+#   return 301 https://$host$request_uri;
 
     access_log {{item.log_path}}/{{item.server_name}}.access.log;
     error_log {{item.log_path}}/{{item.server_name}}.error.log;
@@ -14,6 +14,7 @@ server {
 ### HTTPS config block
 #server {
 #  	listen 443 ssl;
+#   listen [::]:443 ssl;
 #  	server_name {{item.server_name}} www.{{item.server_name}};
   	# SSL
 #  	ssl_certificate /etc/letsencrypt/live/{{item.server_name}}/fullchain.pem;
@@ -23,9 +24,11 @@ server {
 #  	ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
 
     # Improve HTTPS performance with session resumption
-#    ssl_session_cache shared:SSL:50m;
-#    ssl_session_timeout 1d;
-#    }
+#   ssl_session_cache shared:SSL:50m;
+#   ssl_session_timeout 1d;
+    # Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+#   ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+#   }
 ### End HTTPS config block
 
 ### Proxy pass config block
