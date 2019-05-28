@@ -9,25 +9,6 @@
     name: epel-release
     state: latest
 
-- name: Install IUS rpm
-  yum:
-    name: https://centos7.iuscommunity.org/ius-release.rpm
-
-- name: Install Python3.6
-  yum:
-    name: "{{python_packages}}"
-    state: latest
-
-- name: Set default python version
-  lineinfile:
-    path: ~/.bashrc
-    line: alias python="/usr/bin/python3.6"
-
-- name: Export python var
-  shell: source ~/.bashrc
-  args:
-    executable: /bin/bash
-
 - name: Install Remi repos
   yum:
     name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
