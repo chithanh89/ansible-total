@@ -1,0 +1,31 @@
+---
+# tasks file for certbot
+- name: Install epel-release
+  yum:
+    name: epel-release
+    state: latest
+  when: ansible_os_family == 'Redhat'
+
+- import_tasks: install-package.yml
+  when: not certbot_install_from_source
+
+- import_tasks: install-source.yml
+  when: certbot_install_from_source
+
+- name: Install Certbot python library
+  pip:
+    name: "{{ item.name | default(item) }}"
+    version: "{{ item.version | default('latest') }}"
+    extra_args: --upgrade --force-reinstall
+  with_items: "{{certbot_lib}}"
+
+- include_tasks: create-cert.yml
+  with_items: "{{ certbot_certs }}"
+  when:
+    - certbot_create_if_missing
+    - certbot_create_method == 'standalone'
+  loop_control:
+    loop_var: cert_item
+
+- import_tasks: renew.yml
+  when: certbot_auto_renew

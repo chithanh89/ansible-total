@@ -1,0 +1,3 @@
+---
+# vars file for certbot
+certbot_package: certbot
