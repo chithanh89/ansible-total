@@ -11,12 +11,11 @@ certbot_auto_renew_options: "--quiet --no-self-upgrade"
 certbot_create_if_missing: true
 certbot_create_method: standalone
 certbot_admin_email: email@example.com
-certbot_certs:
- - email: thanh.ho@qupworld.com
-   domains:
-     - cert.test.qup.vn
+certbot_certs: []
+# - email: test@example.com
+#   domains:
+#     - example1.com
 #     - example2.com
-# - domains:
 #     - example3.com
 certbot_lib:
   - name: requests
