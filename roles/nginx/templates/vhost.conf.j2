@@ -14,10 +14,10 @@ server {
 ### HTTPS config block
 #server {
 #  	listen 443 ssl;
-#  	server_name www.abc-xyz.com;
+#  	server_name {{item.server_name}} www.{{item.server_name}};
   	# SSL
-#  	ssl_certificate /etc/letsencrypt/live/abc-xyz.com/fullchain.pem;
-#  	ssl_certificate_key /etc/letsencrypt/live/abc-xyz.com/privkey.pem;
+#  	ssl_certificate /etc/letsencrypt/live/{{item.server_name}}/fullchain.pem;
+#  	ssl_certificate_key /etc/letsencrypt/live/{{item.server_name}}/privkey.pem;
 #  	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 #  	ssl_prefer_server_ciphers on;
 #  	ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
@@ -76,4 +76,12 @@ server {
   location ~*  \.(jpg|jpeg|png|gif|ico|css|js)$ {
     expires 30d;
     }
+
+  location '/.well-known/acme-challenge' {
+	  default_type "text/plain";
+   }
+
+  location ~ /\. {
+		deny all;
+	  }
 }
