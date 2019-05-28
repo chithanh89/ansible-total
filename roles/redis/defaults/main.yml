@@ -69,7 +69,7 @@ redis_sentinel_monitors:
     client_reconfig_script: false
 # Define redis-exporter to monitoring
 redis_exporter: false
-# Define rabbitmq_exporter version
+# Define redis_exporter version
 redis_exporter_version: 0.34.1
 redis_exporter_url: https://github.com/oliver006/redis_exporter/releases/download/v{{redis_exporter_version}}/redis_exporter-v{{redis_exporter_version}}.linux-amd64.tar.gz
 redis_exporter_download_dir: /tmp
