@@ -1,7 +1,9 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Certbot(Let's encrypt) roles to install and create cert.
+  - Ubuntu (tested).
+  - Centos 7 (Had problem, fixing).
 
 Requirements
 ------------
