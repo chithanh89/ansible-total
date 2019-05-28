@@ -37,5 +37,5 @@ BSD
 Author Information
 ------------------
 - Research from : This role was created in 2014 by Jeff Geerling, author of Ansible for DevOps.
-- https://github.com/geerlingguy/ansible-role-nginx
+- https://github.com/geerlingguy/ansible-role-certbot
 - An optional section for the role authors to include contact information, or a website (HTML is not allowed).
