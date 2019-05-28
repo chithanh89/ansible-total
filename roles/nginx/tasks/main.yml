@@ -16,6 +16,20 @@
   when: ansible_os_family == 'Debian'
 
 # Nginx setup.
+- name: Create Diffie–Hellman params directory
+  file:
+    path: "/etc/nginx/ssl"
+    state: directory
+
+- name: Check Diffie–Hellman params file exists
+  stat:
+    path: "/etc/nginx/ssl/dhparam.pem"
+  register: dh_params
+
+- name: Create Diffie–Hellman params file
+  command: openssl dhparam 2048 -out /etc/nginx/ssl/dhparam.pem
+  when: not dh_params.stat.exists
+
 - name: Copy nginx configuration in place.
   template:
     src: "{{ nginx_conf_template }}"
