@@ -1,5 +1,4 @@
 ---
 # vars file for base
-packages: wget,curl,vim,nano,git,zip,unzip,net-tools,yum-utils,python-pip,ntpdate,htop
+packages: wget,curl,vim,nano,git,zip,unzip,net-tools,yum-utils,python-pip,ntpdate,htop,mod_ssl
 ssh_daemon: sshd
-python_packages: python36u,python36u-pip,python36u-devel
