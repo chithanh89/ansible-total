@@ -56,6 +56,11 @@ server {
 #    }
 ### End load balancing config block
 
+  location ^~ /.well-known {
+    root  {{item.root_path}}/{{item.server_name}};
+    allow all;
+    }
+
   location / {
           try_files $uri $uri/ /index.php?q=$uri&$args;
     }
@@ -79,11 +84,6 @@ server {
   location ~*  \.(jpg|jpeg|png|gif|ico|css|js)$ {
     expires 30d;
     }
-
-  location ^~ /.well-known {
-    root  {{item.root_path}}/{{item.server_name}};
-    allow all;
-   }
 
   location ~ /\. {
 		deny all;
