@@ -19,7 +19,7 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   - job_name: 'prometheus'
-    scrape_interval: 5s
+    scrape_interval: 15s
     static_configs:
       - targets: ['localhost:9090']
 
@@ -27,14 +27,14 @@ scrape_configs:
 #  - job_name: 'node'
 #    scrape_interval: 15s
 #    static_configs:
-#      - targets: ['localhost:9090']
+#      - targets: ['localhost:9100']
 
 # Here it's Prometheus elasticsearch_exporter.
 #  - job_name: 'elasticsearch'
 #    metrics_path: '/metrics'
 #    scrape_interval: 15s
 #    static_configs:
-#      - targets: ['localhost:9090']
+#      - targets: ['localhost:9114']
 
 # Here it's Prometheus rabbitmq_exporter.
 #  - job_name: 'rabbitmq'
@@ -46,4 +46,4 @@ scrape_configs:
 #  - job_name: 'redis_exporter'
 #    scrape_interval: 15s
 #    static_configs:
-#      - targets: ['localhost:9090']
+#      - targets: ['localhost:9121']
