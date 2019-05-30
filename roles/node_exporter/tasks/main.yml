@@ -1,0 +1,49 @@
+---
+# tasks file for node_exporter
+- name: create Node_exporter group
+  group: name={{ node_exporter_group }} state=present
+
+- name: create Node_exporter user
+  user:
+    name: "{{ node_exporter_user }}"
+    group: "{{ node_exporter_group }}"
+    create_home: no
+    shell: /sbin/nologin
+    comment: "Node_exporter User"
+    state: present
+
+- name: Check Node_exporter directory
+  stat: path="{{node_exporter_dir}}"
+  register: dir_node_exporter
+
+- name: Download and extract Node_exporter packages
+  unarchive:
+    src: "{{node_exporter_url}}"
+    dest: "{{node_exporter_download_dir}}"
+    owner: "{{node_exporter_user}}"
+    group: "{{node_exporter_group}}"
+    remote_src: yes
+  when: not dir_node_exporter.stat.exists
+
+- name: Copy execute Node_exporter file
+  copy:
+    src: "{{node_exporter_dir}}/{{item}}"
+    dest: "{{node_exporter_execute_dir}}"
+    owner: "{{node_exporter_user}}"
+    group: "{{node_exporter_group}}"
+    remote_src: yes
+    mode: 0755
+  with_items:
+    - node_exporter
+
+- name: Create Node_exporter service
+  template:
+    src: node_exporter.service.j2
+    dest: "{{node_exporter_service_dir}}/node_exporter.service"
+
+- name: Make sure Node_exporter service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: node_exporter
+    enabled: yes
