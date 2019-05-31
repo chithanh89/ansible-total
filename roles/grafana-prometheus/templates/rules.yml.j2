@@ -1,0 +1,36 @@
+groups:
+- name: alert.rules
+  rules:
+  - alert: InstanceDown
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{$labels.instance}} down"
+      description: "{{$labels.instance}} of job {{$labels.job}} has been down for more than 5 minutes."
+
+  - alert: LoadAverage1m
+    expr: node_load1 >= 0.75
+    labels:
+      severity: major
+    annotations:
+      summary: "Instance {{ $labels.instance }} - high load average"
+      description: "{{ $labels.instance  }} (measured by {{ $labels.job }}) has high load average ({{ $value }}) over 15 minutes."
+
+  - alert: MemoryFree10%
+    expr: node_exporter:node_memory_free:memory_used_percents >= 90
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Instance {{ $labels.instance }} hight memory usage"
+      description: "{{ $labels.instance }} has more than 90% of its memory used."
+
+  - alert: DiskSpace10%Free
+    expr: node_exporter:node_filesystem_free:fs_used_percents >= 90
+    labels:
+      severity: moderate
+    annotations:
+      summary: "Instance {{ $labels.instance }} is low on disk space"
+      description: "{{ $labels.instance }} has only {{ $value }}% free."
