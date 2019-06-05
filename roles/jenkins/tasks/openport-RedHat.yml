@@ -1,9 +1,0 @@
----
-- name: Open firewall ports for http
-  firewalld:
-    port: 8080/tcp
-    permanent: yes
-    state: enabled
-
-- name : Reload firewalld
-  command: firewall-cmd --reload

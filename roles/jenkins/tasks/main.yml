@@ -60,9 +60,3 @@
 
 # Update Jenkins and install configured plugins.
 - include_tasks: plugins.yml
-
-- include_tasks: openport-Debian.yml
-  when: ansible_os_family == 'Debian'
-
-- include_tasks: openport-RedHat.yml
-  when: ansible_os_family == 'RedHat'
