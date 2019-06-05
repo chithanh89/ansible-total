@@ -11,9 +11,6 @@
 - include_tasks: firewalld.yml
   when: ansible_os_family == 'RedHat'
 
-- include_tasks: open-port-Deb.yml
-  when: ansible_os_family == 'Debian'
-
 - name: Ensure dependencies are installed.
   package: name=curl state=present
 
