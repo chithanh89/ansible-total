@@ -8,15 +8,15 @@ groups:
       severity: page
     annotations:
       summary: "Instance {{$labels.instance}} down"
-      description: "{{$labels.instance}} of job {{$labels.job}} has been down for more than 5 minutes."
+      description: "{{$labels.instance}} of job {{$labels.job}} has been down for more than 1 minutes."
 
-  - alert: LoadAverage1m
-    expr: node_load1 >= 0.75
+  - alert: LoadAverage5m
+    expr: node_load5 >= 0.75
     labels:
       severity: major
     annotations:
       summary: "Instance {{ $labels.instance }} - high load average"
-      description: "{{ $labels.instance  }} (measured by {{ $labels.job }}) has high load average ({{ $value }}) over 15 minutes."
+      description: "{{ $labels.instance  }} (measured by {{ $labels.job }}) has high load average ({{ $value }}) over 5 minutes."
 
   - alert: MemoryFree10%
     expr: node_exporter:node_memory_free:memory_used_percents >= 90
