@@ -18,3 +18,4 @@
     state: stopped
     name: apache2
     enabled: no
+  when: "'apache2' not in role_names"
