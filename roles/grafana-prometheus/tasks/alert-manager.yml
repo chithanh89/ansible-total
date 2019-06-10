@@ -58,8 +58,8 @@
   copy:
     src: files/rules.yml
     dest: "{{prometheus_config_dir}}/rules.yml"
-    owner: "{{alert_manager_user}}"
-    group: "{{alert_manager_group}}"
+    owner: "{{prometheus_user}}"
+    group: "{{prometheus_group}}"
 
 - name: Create Alertmanager service
   template:
