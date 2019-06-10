@@ -23,6 +23,7 @@
     - "{{ prometheus_db_dir }}"
     - "{{ prometheus_log_dir }}"
     - "{{ prometheus_pid_dir }}"
+    - "{{ prometheus_config_dir }}"
 
 - name: Check Prometheus directory
   stat: path="{{prometheus_dir}}"
@@ -54,6 +55,12 @@
   with_items:
     - consoles
     - console_libraries
+    
+- name: Set owner prometheus folder
+  file:
+    path: "{{prometheus_dir}}"
+    owner: "{{prometheus_user}}"
+    group: "{{prometheus_group}}"
 
 - name: Config Prometheus
   template:
