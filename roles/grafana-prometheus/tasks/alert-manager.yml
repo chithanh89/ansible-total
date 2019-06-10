@@ -55,8 +55,8 @@
     group: "{{alert_manager_group}}"
 
 - name: Copy Alertmanager rules
-  template:
-    src: rules.yml.j2
+  copy:
+    src: files/rules.yml
     dest: "{{prometheus_config_dir}}/rules.yml"
     owner: "{{alert_manager_user}}"
     group: "{{alert_manager_group}}"
