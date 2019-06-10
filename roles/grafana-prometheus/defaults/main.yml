@@ -38,8 +38,23 @@ alert_manager_service_dir: /etc/systemd/system
 alert_manager_config_dir: /etc/alertmanager
 alert_manager_data_dir: /data/alertmanager
 # Define webhook slack url
-slack_webhook_url: ''
+slack_api_url: ''
 # Define Alert rules
-alertname: ''
+alertmanager_route: []
+#  group_by: ['instance', 'severity']
+#  group_wait: 30s
+#  group_interval: 5m
+#  repeat_interval: 3h
+#  receiver: 'alert-team'
+#  routes:
+#  - match:
+#      alertname: InstanceDown,LoadAverage1m,MemoryFree10%,DiskSpace10%Free
+
 # Define slack channel name
-slack_channel: ''
+alertmanager_receivers: []
+#  - name: 'alert-team'
+#    slack_configs:
+#    - channel: "#test-grafana"
+
+# Add this line below "channel" line.
+## text: "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"

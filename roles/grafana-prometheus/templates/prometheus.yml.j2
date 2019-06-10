@@ -4,15 +4,15 @@ global:
   evaluation_interval: 15s
 
 # Alertmanager configuration.
-#alerting:
-#  alertmanagers:
-#  - static_configs:
-#    - targets:
-#      - alertmanager:9093
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - localhost:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  # - "first.rules"
+   - "rules.yml"
   # - "second.rules"
 
 # A scrape configuration containing exactly one endpoint to scrape.
