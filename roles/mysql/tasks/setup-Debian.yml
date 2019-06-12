@@ -7,12 +7,20 @@
   apt: update_cache=yes
   when: mysql_installed.stat.exists == false
 
-- name: Determine required MySQL Python libraries.
-  set_fact:
-    deb_mysql_python_package: "{% if 'python3' in ansible_python_interpreter|default('') %}python3-mysqldb{% else %}python-mysqldb{% endif %}"
+#- name: Determine required MySQL Python libraries.
+#  set_fact:
+#    deb_mysql_python_package: "{% if 'python3' in ansible_python_interpreter|default('') %}python3-mysqldb{% else %}python-mysqldb{% endif %}"
 
-- name: Ensure MySQL Python libraries are installed.
-  apt: "name={{ deb_mysql_python_package }} state=present"
+#- name: Ensure MySQL Python libraries are installed.
+#  apt: "name={{ deb_mysql_python_package }} state=present"
+
+- name: Install Mysql Python libraries.
+  apt: name={{ item }} state=present
+  with_items:
+    - python-mysqldb
+    - libmysqlclient-dev
+    - python3-mysqldb
+    - python3-dev
 
 - name: Ensure MySQL packages are installed.
   apt: "name={{ mysql_packages }} state=present"
