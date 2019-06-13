@@ -1,0 +1,20 @@
+---
+# tasks file for sonarqube
+- name: Create Sonarqube databases
+  mysql_db:
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    login_host: "{{mysqlhost}}"
+    name: "{{sonar_db}}"
+    state: present
+
+- name: Create Sonarqube user
+  mysql_user:
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    login_host: "{{mysqlhost}}"
+    name: "{{sonar_db_user}}"
+    password: "{{sonar_db_password}}"
+    host: "{{mysqlhost}}"
+    priv: '{{sonar_db}}.*:ALL'
+    state: present
