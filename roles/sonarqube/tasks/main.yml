@@ -1,0 +1,61 @@
+---
+# tasks file for sonarqube
+- include_tasks: createDB.yml
+
+- name: create Sonarqube group
+  group: name={{ sonar_group }} state=present
+
+- name: create Sonarqube user
+  user:
+    name: "{{ sonar_user }}"
+    group: "{{ sonar_group }}"
+    create_home: no
+    shell: /sbin/nologin
+    comment: "Sonarqube User"
+    state: present
+
+- name: Create Sonarqube directory
+  file:
+    path: "{{ sonar_dir }}"
+    state: directory
+    owner: "{{ sonar_user }}"
+    group: "{{ sonar_group }}"
+    mode: "u=rwx,g=rx,o="
+
+- name: Check Sonarqube directory
+  stat: path="{{sonar_dir}}/sonarqube-{{sonar_version}}"
+  register: dir_sonarqube
+
+- name: Download and extract Sonarqube packages
+  unarchive:
+    src: "{{sonar_url}}"
+    dest: "{{sonar_dir}}"
+    owner: "{{ sonar_user }}"
+    group: "{{ sonar_group }}"
+    remote_src: yes
+  when: not dir_sonarqube.stat.exists
+
+- name: Edit Sonarqube config file
+  blockinfile:
+    path: "{{sonar_config_dir}}"
+    block: |
+      sonar.jdbc.username={{sonar_db_user}}
+      sonar.jdbc.password={{sonar_db_password}}
+      sonar.jdbc.url=jdbc:mysql://localhost:3306/{{sonar_db}}?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+      sonar.web.host={{sonar_web_host}}
+      sonar.web.javaAdditionalOpts=-server
+    backup: yes
+
+- name: Create Sonarqube service
+  template:
+    src: sonarqube.service.j2
+    dest: "{{sonar_service_dir}}"
+    owner: "{{ sonar_user }}"
+    group: "{{ sonar_group }}"
+
+- name: Make sure SonarQube service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: sonarqube
+    enabled: yes

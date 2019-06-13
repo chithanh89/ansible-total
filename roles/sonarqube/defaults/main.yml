@@ -1,0 +1,10 @@
+---
+# defaults file for sonarqube
+sonar_version: 7.7
+sonar_url: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{sonar_version}}.zip
+sonar_dir: /opt/sonarqube
+sonar_service_dir: /etc/systemd/system/sonarqube.service
+sonar_user: sonarqube
+sonar_group: sonarqube
+sonar_config_dir: "{{sonar_dir}}/sonarqube-{{sonar_version}}/conf/sonar.properties"
+sonar_web_host: 0.0.0.0
