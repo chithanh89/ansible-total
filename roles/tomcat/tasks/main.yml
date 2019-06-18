@@ -8,15 +8,21 @@
 - name: Create Tomcat user
   user:
     name: "{{ tomcat_username }}"
-    home: "{{ tomcat_user_home }}"
     group: "{{ tomcat_group }}"
     shell: /sbin/nologin
-    createhome: yes
+    createhome: no
+
+- name: Create tomcat directory
+  file:
+    path: "{{tomcat_catalina_home}}"
+    state: directory
+    owner: "{{tomcat_username}}"
+    group: "{{tomcat_group}}"
 
 - name: Download and extract Tomcat package
   unarchive:
     src: "{{tomcat_url}}"
-    dest: "{{tomcat_user_home}}"
+    dest: "{{tomcat_catalina_home}}"
     owner: "{{tomcat_username}}"
     group: "{{tomcat_group}}"
     remote_src: yes

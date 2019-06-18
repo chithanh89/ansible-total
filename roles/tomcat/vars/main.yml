@@ -1,2 +1,6 @@
 ---
 # vars file for tomcat
+tomcat_users: []
+  # - name: tomcat
+  #   password: tomcat
+  #   roles: "manager-gui,admin-gui"
