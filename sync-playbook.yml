@@ -7,16 +7,14 @@
       synchronize:
         src: /home/thanhho/Downloads/sonarqube-enterprise-7.7.zip
         dest: /home
-        recursive: yes
         archive: yes
         delete: yes
 
     - name: Sync fron remote to remote
       synchronize:
         mode: pull
-        src: /home/test
+        src: /home/sonarqube-enterprise-7.7.zip
         dest: /home
-        recursive: yes
         archive: yes
         delete: yes
         private_key: ~/.ssh/id_rsa
