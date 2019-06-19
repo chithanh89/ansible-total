@@ -1,0 +1,21 @@
+- hosts: es-node2
+  gather_facts: false
+  tasks:
+    - name: Sync from control machine to another machine
+      synchronize:
+        src: /home/thanhho/Downloads/sonarqube-enterprise-7.7.zip
+        dest: /home
+        recursive: yes
+        archive: yes
+        delete: yes
+
+    - name: Sync fron remote to remote
+      synchronize:
+        mode: pull
+        src: /home/test
+        dest: /home
+        recursive: yes
+        archive: yes
+        delete: yes
+        private_key: ~/.ssh/id_rsa
+      delegate_to: es-node1
