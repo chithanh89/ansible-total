@@ -35,8 +35,8 @@ erlang_version: "21.3.5"
 erlang_package: erlang
 # Define erlang deb url and file for Ubuntu version
 erlang_deb_url:
-  "bionic": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_{{erlang_version}}-1~ubuntu~bionic_amd64.deb
-  "xenial": http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_{{erlang_version}}-1~ubuntu~xenial_amd64.deb
+  "bionic": https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_{{erlang_version}}-1~ubuntu~bionic_amd64.deb
+  "xenial": https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_{{erlang_version}}-1~ubuntu~xenial_amd64.deb
 erlang_deb_file:
   "bionic": esl-erlang_{{erlang_version}}-1~ubuntu~bionic_amd64.deb
   "xenial": esl-erlang_{{erlang_version}}-1~ubuntu~xenial_amd64.deb
