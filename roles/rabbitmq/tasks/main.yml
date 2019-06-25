@@ -1,11 +1,11 @@
 ---
 # tasks file for rabbitmq
-- include: setup-erlang.yml
+- include_tasks: setup-erlang.yml
 
-- include: setup-RedHat.yml
+- include_tasks: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
 
-- include: setup-Debian.yml
+- include_tasks: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
 - include_tasks: config.yml

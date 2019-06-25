@@ -1,4 +1,5 @@
 - hosts: all
+  become: yes
   become_user: root
 ##  Example to define software version from input.
 ##  Note to "name" same as name variable of software you define in setup task.
