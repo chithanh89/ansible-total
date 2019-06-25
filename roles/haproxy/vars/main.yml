@@ -1,5 +1,5 @@
 ---
 # vars file for haproxy
 # Define needed package to build hapoxy from source
-RedHat_packs: gcc,pcre-static,pcre-devel
+RedHat_packs: gcc,pcre-static,pcre-devel,openssl-devel
 Debian_packs: python-software-properties,software-properties-common

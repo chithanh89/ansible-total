@@ -2,19 +2,19 @@
 - name: Setup packages
   apt: pkg="{{Debian_packs}}" state=present
 
-- name: Add haproxy repos
+- name: Add HAproxy repos
   apt_repository:
-    repo: ppa:vbernat/haproxy-1.8
+    repo: "ppa:vbernat/haproxy-{{haproxy_major_version}}"
 
-- name: Ensure HAProxy is installed
+- name: Ensure HAproxy is installed
   apt: name=haproxy state=latest update_cache=true
 
-- name: Add syslog haproxy
+- name: Add syslog HAproxy
   user:
     name: "{{haproxy_user}}"
     group: syslog
 
-- name: Ensure HAProxy is enabled
+- name: Ensure HAproxy is enabled
   lineinfile:
     dest: /etc/default/haproxy
     regexp: "^ENABLED.+$"
@@ -22,7 +22,7 @@
     state: present
   when: ansible_os_family == 'Debian'
 
-- name: Copy HAProxy configuration in place.
+- name: Copy HAproxy configuration in place.
   template:
     src: haproxy.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
@@ -30,5 +30,5 @@
     validate: haproxy -f %s -c -q
   notify: restart haproxy
 
-- name: Ensure HAProxy is started and enabled on boot.
+- name: Ensure HAproxy is started and enabled on boot.
   service: name=haproxy state=started enabled=yes
