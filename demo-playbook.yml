@@ -3,7 +3,8 @@
 ##  Example to define software version from input.
 ##  Note to "name" same as name variable of software you define in setup task.
 ##  Repeat "vars_prompt name" depend on software what you want to install.
-##  If you had set variable in default/main.yml or vars/xxx.yml, variable from input will not work.
+##  If you had set variable in vars/xxx.yml, variable from input will not work.
+##  Follow this link to see the order of variable priority https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#passing-variables-on-the-command-line
   vars_prompt:
     - name: "software version"
       prompt: "What software version do you want to install?"
