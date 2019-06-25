@@ -52,6 +52,7 @@
   elasticsearch_plugin:
     name: "{{plugins}}"
     state: present
+    force: yes
 
 - name: Force a restart if configuration has changed.
   meta: flush_handlers
