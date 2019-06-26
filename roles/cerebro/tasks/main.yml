@@ -1,25 +1,17 @@
 ---
 # tasks file for cerebro
 - name: Check Cerebro file
-  stat: path=/tmp/cerebro-{{cerebro_version}}.zip
+  stat: path="{{cerebro_dir}}"
   register: file_cerebro
-
-- name: Download Cerebro release
-  get_url:
-    url: "{{cerebro_url}}"
-    dest: /tmp
-    owner: root
-    group: root
-  register: cerebro
-  when: not file_cerebro.stat.exists
 
 - name: Extract Cerebro
   unarchive:
-    src: /tmp/cerebro-{{cerebro_version}}.zip
+    src: "{{cerebro_url}}"
     dest: /home
     owner: root
     group: root
     remote_src: yes
+  when: not file_cerebro.stat.exists
 
 - name: Add service script
   template:
