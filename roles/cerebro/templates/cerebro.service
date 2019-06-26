@@ -5,9 +5,9 @@ Description=Cerebro
 Type=simple
 User=root
 Group=root
-ExecStart={{cerebro_dir}}/cerebro "-Dpidfile.path=/var/run/cerebro.pid"
+ExecStart={{cerebro_execute_dir}}/cerebro "-Dpidfile.path=/var/run/cerebro.pid"
 Restart=always
-WorkingDirectory={{cerebro_dir}}
+WorkingDirectory={{cerebro_execute_dir}}
 
 [Install]
 WantedBy=multi-user.target
