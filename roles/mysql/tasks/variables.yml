@@ -47,11 +47,6 @@
     mysql_config_file: "{{ __mysql_config_file }}"
   when: mysql_config_file is not defined
 
-- name: Define mysql_python_lib.
-  set_fact:
-    mysql_python_lib: "{{ __mysql_python_lib }}"
-  when: mysql_python_lib is not defined
-
 - name: Define mysql_socket.
   set_fact:
     mysql_socket: "{{ __mysql_socket }}"
