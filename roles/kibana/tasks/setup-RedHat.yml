@@ -10,9 +10,3 @@
     src: kibana.repo.j2
     dest: /etc/yum.repos.d/kibana.repo
     mode: 0644
-
-- name: Open firewall ports for logstash
-  firewalld:
-    port: 5601/tcp
-    permanent: yes
-    state: enabled
