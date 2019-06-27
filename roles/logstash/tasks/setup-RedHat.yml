@@ -15,9 +15,3 @@
   package:
     name: logstash
     state: present
-
-- name: Open firewall ports for logstash
-  firewalld:
-    port: 5044/tcp
-    permanent: yes
-    state: enabled
