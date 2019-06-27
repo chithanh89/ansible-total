@@ -34,8 +34,3 @@
     group: logstash
     groups: adm
   notify: restart logstash
-
-- ufw:
-    rule: allow
-    port: 5044
-    proto: tcp
