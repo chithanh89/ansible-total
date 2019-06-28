@@ -1,11 +1,16 @@
 ---
 # tasks file for certbot
 - name: Install Certbot.
-  package: "name={{ certbot_package }} state=present"
+  apt: "name={{ certbot_package }} state=present"
+  when: ansible_os_family == 'Debian'
+
+- name: Install Certbot.
+  yum: "name={{ certbot_package }} state=present"
   retries: 3
   delay: 3
   register: result
   until: result.rc == 0
+  when: ansible_os_family == 'RedHat'
 
 - name: Set Certbot script variable.
   set_fact:

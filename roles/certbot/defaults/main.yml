@@ -22,7 +22,8 @@ certbot_lib:
     version: 2.6.0
   - name: six
   - name: urllib3
-  - name: pyOpenSSL
+#  - name: pyOpenSSL
+#    version: 17.5.0
 
 certbot_create_command: >-
   {{ certbot_script }} certonly --standalone --noninteractive --agree-tos
