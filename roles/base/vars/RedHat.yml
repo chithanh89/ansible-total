@@ -1,4 +1,4 @@
 ---
 # vars file for base
-packages: wget,curl,vim,nano,git,zip,unzip,net-tools,yum-utils,python-pip,ntpdate,htop,mod_ssl
+packages: wget,curl,vim,nano,git,zip,unzip,net-tools,bind-utils,yum-utils,python-pip,ntpdate,htop,mod_ssl
 ssh_daemon: sshd
