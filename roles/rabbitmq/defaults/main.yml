@@ -29,6 +29,7 @@ rabbitmq_plugins:
   - rabbitmq_shovel
   - rabbitmq_shovel_management
 
+erlang_download_dir: /tmp
 # Define erlang version
 erlang_version: "21.3.5"
 # Define erlang package
