@@ -10,3 +10,10 @@ nodejs_npm_global_packages:
     version: 3.5.1
   - name: swagger-stats
 nodejs_package_json_path: ""
+
+app: []
+#  - app_name: test
+#    app_home: /home/test
+#    app_js_file: /home/test/hello.js
+#    app_repo: https://github.com/chithanh89/test-nodejs.git
+pm2_service_dir: /etc/systemd/system
