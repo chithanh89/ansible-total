@@ -1,0 +1,28 @@
+---
+# tasks file for nodejs
+- name: Create app directory
+  file:
+    path: "{{item.app_home}}"
+    state: directory
+  with_items: "{{app}}"
+
+- name: Clone source
+  git:
+    repo: "{{item.app_repo}}"
+    dest: "{{item.app_home}}"
+    update: yes
+  with_items: "{{app}}"
+
+- name: Create pm2 service
+  template:
+    src: pm2.service.j2
+    dest: "{{pm2_service_dir}}/pm2-{{item.app_name}}.service"
+  with_items: "{{app}}"
+
+- name: Make sure Pm2 service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: "pm2-{{item.app_name}}"
+    enabled: yes
+  with_items: "{{app}}"
