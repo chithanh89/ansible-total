@@ -43,3 +43,6 @@
 
 - include_tasks: pm2.yml
   when: pm2_app is defined
+
+- include_tasks: forever.yml
+  when: forever_app is defined
