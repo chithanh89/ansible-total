@@ -17,7 +17,8 @@ pm2_app: []
 #    app_home: /home/test
 #    app_js_file: /home/test/hello.js
 #    app_repo: https://github.com/chithanh89/test-nodejs.git
-#    app_log_file: /home/test/pm2.log
+#    app_version: master
+#    app_log_file: /home/test/logs/pm2.log
 
 systemd_service_dir: /etc/systemd/system
 
@@ -26,4 +27,5 @@ forever_app: []
 #    app_home: /home/test
 #    app_js_file: /home/test/hello.js
 #    app_repo: https://github.com/chithanh89/test-nodejs.git
-#    app_log_file: /home/test/forever.log
+#    app_version: master
+#    app_log_file: /home/test/logs/forever.log
