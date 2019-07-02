@@ -42,3 +42,4 @@
   when: nodejs_package_json_path is defined and nodejs_package_json_path
 
 - include_tasks: pm2.yml
+  when: pm2_app is defined

@@ -4,16 +4,17 @@ nodejs_version: "8.x"
 npm_config_prefix: "/usr/local/lib/npm"
 npm_config_unsafe_perm: "false"
 nodejs_npm_global_packages:
-  - name: yarn
-    version: 1.12.3
+#  - name: yarn
+#    version: 1.12.3
   - name: pm2
     version: 3.5.1
   - name: swagger-stats
+  - name: forever
 nodejs_package_json_path: ""
 
-app: []
+pm2_app:
 #  - app_name: test
 #    app_home: /home/test
 #    app_js_file: /home/test/hello.js
 #    app_repo: https://github.com/chithanh89/test-nodejs.git
-pm2_service_dir: /etc/systemd/system
+systemd_service_dir: /etc/systemd/system
