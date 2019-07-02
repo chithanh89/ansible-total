@@ -1,0 +1,17 @@
+[Unit]
+Description=This is an empty tiny app for testing the nodejs deployment agent
+
+[Service]
+StandardOutput=syslog
+SyslogIdentifier=simple-empty-app
+Type=forking
+Environment=ENV=production
+Environment=PATH=/usr/bin:/usr/local/bin
+WorkingDirectory={{item.app_home}}
+ExecStart=/usr/local/lib/npm/bin/forever start --pidFile /var/run/{{item.app_name}}.pid {{item.app_js_file}} -l {{item.app_log_file}}
+ExecStop=/usr/local/lib/npm/bin/forever stop {{item.app_js_file}}
+PIDFile=/var/run/{{item.app_name}}.pid
+User=root
+
+[Install]
+WantedBy=multi-user.target
