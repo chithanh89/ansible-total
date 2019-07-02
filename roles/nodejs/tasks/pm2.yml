@@ -10,6 +10,7 @@
   git:
     repo: "{{item.app_repo}}"
     dest: "{{item.app_home}}"
+    version: "{{item.app_version}}"
     update: yes
   with_items: "{{pm2_app}}"
 
