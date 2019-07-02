@@ -5,7 +5,6 @@ npm_config_prefix: "/usr/local/lib/npm"
 npm_config_unsafe_perm: "false"
 nodejs_npm_global_packages:
 #  - name: yarn
-#    version: 1.12.3
   - name: pm2
     version: 3.5.1
   - name: swagger-stats
@@ -16,6 +15,7 @@ pm2_app: []
 #  - app_name: test
 #    app_home: /home/test
 #    app_js_file: /home/test/hello.js
+#    app_number_ins: 2
 #    app_repo: https://github.com/chithanh89/test-nodejs.git
 #    app_version: master
 #    app_log_file: /home/test/logs/pm2.log
