@@ -4,13 +4,14 @@ nginx_default_release: ""
 # Used only for Redhat installation, enables source Nginx repo.
 nginx_yum_repo_enabled: true
 # Use the official Nginx PPA for Ubuntu, and the version to use if so.
-nginx_ppa_use: false
+nginx_ppa_use: true
 nginx_ppa_version: stable
 # The name of the nginx package to install.
 nginx_package_name: "nginx"
 nginx_conf_template: "nginx.conf.j2"
 nginx_vhost_template: "vhost.conf.j2"
 nginx_proxy_template: "proxy.conf.j2"
+nginx_ssl_template: "ssl.conf.j2"
 #Vhost config
 default_root_path: /usr/share/nginx/html
 nginx_worker_processes: >-
@@ -18,16 +19,17 @@ nginx_worker_processes: >-
 nginx_worker_connections: "1024"
 nginx_multi_accept: "off"
 nginx_error_log: "/var/log/nginx/error.log warn"
-nginx_access_log: "/var/log/nginx/access.log main buffer=16k flush=2m"
+nginx_access_log: "/var/log/nginx/access.log main_ext buffer=16k flush=2m "
 nginx_sendfile: "on"
 nginx_tcp_nopush: "on"
 nginx_tcp_nodelay: "on"
 nginx_keepalive_timeout: "65"
 nginx_keepalive_requests: "100"
-nginx_server_tokens: "on"
+nginx_server_tokens: "off"
 nginx_client_max_body_size: "200m"
 nginx_server_names_hash_bucket_size: "64"
 nginx_proxy_cache_path: "/etc/nginx/proxy.conf"
+nginx_ssl_path: "/etc/nginx/ssl.conf"
 nginx_extra_conf_options: ""
 nginx_extra_http_options: ""
 nginx_vhosts: []
@@ -36,6 +38,11 @@ nginx_vhosts: []
 #    log_path: /var/log/nginx
 nginx_upstreams: []
 nginx_log_format: |-
-  '$remote_addr - $remote_user [$time_local] "$request" '
-  '$status $body_bytes_sent "$http_referer" '
-  '"$http_user_agent" "$http_x_forwarded_for"'
+  main_ext  '$remote_addr - $remote_user [$time_local] "$request" '
+            '$status $body_bytes_sent "$http_referer" '
+            '"$http_user_agent" "$http_x_forwarded_for" '
+            '"$host" sn="$server_name" '
+            'rt=$request_time '
+            'ua="$upstream_addr" us="$upstream_status" '
+            'ut="$upstream_response_time" ul="$upstream_response_length" '
+            'cs=$upstream_cache_status'
