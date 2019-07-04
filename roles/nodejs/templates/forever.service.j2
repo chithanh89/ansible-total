@@ -3,7 +3,7 @@ Description=This is an empty tiny app for testing the nodejs deployment agent
 
 [Service]
 StandardOutput=syslog
-SyslogIdentifier=simple-empty-app
+SyslogIdentifier={{item.app_name}}
 Type=forking
 WorkingDirectory={{item.app_home}}
 ExecStart=/usr/local/lib/npm/bin/forever start --pidFile /var/run/{{item.app_name}}.pid {{item.app_js_file}} -l {{item.app_log_file}}
