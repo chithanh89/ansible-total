@@ -6,6 +6,12 @@
     state: directory
   with_items: "{{forever_app}}"
 
+- name: Create app_log file
+  file:
+    path: "{{item.app_log_file}}"
+    state: touch
+  with_items: "{{forever_app}}"
+
 - name: Clone source
   git:
     repo: "{{item.app_repo}}"
