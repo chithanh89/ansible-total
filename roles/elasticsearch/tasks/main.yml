@@ -12,5 +12,7 @@
     state: latest
 
 - include_tasks: config.yml
-- include_tasks: elasticsearch_exporter.yml
+
+- import_tasks: elasticsearch_exporter.yml
   when: elasticsearch_exporter and inventory_hostname in groups['es_master']
+  tags: es_exporter
