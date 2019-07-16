@@ -19,5 +19,6 @@
     state: "{{ rabbitmq_state }}"
     enabled: "{{ rabbitmq_enabled }}"
 
-- include_tasks: rabbitmq_exporter.yml
+- import_tasks: rabbitmq_exporter.yml
   when: rabbitmq_exporter and inventory_hostname in groups['rabbit_master']
+  tags: rabbitmq_exporter
