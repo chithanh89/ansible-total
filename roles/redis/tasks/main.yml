@@ -64,5 +64,6 @@
 # Setup redis sentinel
 - include_tasks: sentinel.yml
 # Setup monitoring
-- include_tasks: redis_exporter.yml
+- import_tasks: redis_exporter.yml
   when: redis_exporter and inventory_hostname == groups["redis"][0]
+  tags: redis_exporter
