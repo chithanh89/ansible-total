@@ -1,0 +1,35 @@
+---
+# tasks file for mongodb
+- name: Check Mongodb_exporter directory
+  stat: path="{{mongodb_exporter_dir}}"
+  register: dir_mongodb_exporter
+
+- name: Download and extract Mongodb_exporter packages
+  unarchive:
+    src: "{{mongodb_exporter_url}}"
+    dest: "{{mongodb_exporter_download_dir}}"
+    owner: mongodb
+    group: mongodb
+    remote_src: yes
+  when: not dir_mongodb_exporter.stat.exists
+
+- name: Copy execute Mongodb_exporter file
+  copy:
+    src: "{{mongodb_exporter_dir}}"
+    dest: "{{mongodb_exporter_execute_dir}}"
+    owner: mongodb
+    group: mongodb
+    remote_src: yes
+    mode: 0755
+
+- name: Create Mongodb_exporter service
+  template:
+    src: mongodb_exporter.service.j2
+    dest: "{{mongodb_exporter_service_dir}}/mongodb_exporter.service"
+
+- name: Make sure Mongodb_exporter service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: mongodb_exporter
+    enabled: yes
