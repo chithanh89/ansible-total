@@ -19,3 +19,7 @@
 
 - include_tasks: replicate.yml
   when: mongodb_replication
+
+- import_tasks: mongodb_exporter.yml
+  when: mongodb_exporter
+  tags: mongodb_exporter

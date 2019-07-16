@@ -1,0 +1,13 @@
+[Unit]
+Description=mongodb_exporter - MongoDB metrics exporter for Prometheus.
+After=network.target
+
+[Service]
+Type=simple
+User=mongodb
+Group=mongodb
+ExecStart={{mongodb_exporter_execute_dir}}/mongodb_exporter
+ExecStop=/usr/bin/killall mongodb_exporter
+
+[Install]
+WantedBy=default.target
