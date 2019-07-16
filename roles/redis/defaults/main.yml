@@ -70,8 +70,9 @@ redis_sentinel_monitors:
 # Define redis-exporter to monitoring
 redis_exporter: false
 # Define redis_exporter version
-redis_exporter_version: 1.0.3
-redis_exporter_url: https://github.com/oliver006/redis_exporter/releases/download/v{{redis_exporter_version}}/redis_exporter-v{{redis_exporter_version}}.linux-amd64.tar.gz
+redis_exporter_version: v1.0.3
+redis_exporter_url: https://github.com/oliver006/redis_exporter/releases/download/{{redis_exporter_version}}/redis_exporter-{{redis_exporter_version}}.linux-amd64.tar.gz
 redis_exporter_download_dir: /tmp
+redis_exporter_dir: "{{redis_exporter_download_dir}}/redis_exporter-{{redis_exporter_version}}.linux-amd64"
 redis_exporter_execute_dir: /usr/local/bin
 redis_exporter_service_dir: /etc/systemd/system

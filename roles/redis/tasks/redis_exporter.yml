@@ -1,7 +1,7 @@
 ---
 # tasks file for redis
 - name: Check Redis_exporter directory
-  stat: path="{{redis_exporter_download_dir}}/redis_exporter"
+  stat: path="{{redis_exporter_dir}}/redis_exporter"
   register: dir_redis_exporter
 
 - name: Download and extract Redis_exporter packages
@@ -15,7 +15,7 @@
 
 - name: Copy execute Redis_exporter file
   copy:
-    src: "{{redis_exporter_download_dir}}/{{item}}"
+    src: "{{redis_exporter_dir}}/{{item}}"
     dest: "{{redis_exporter_execute_dir}}"
     owner: "{{redis_user}}"
     group: "{{redis_group}}"
