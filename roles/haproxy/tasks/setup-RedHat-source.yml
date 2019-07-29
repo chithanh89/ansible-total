@@ -37,7 +37,9 @@
   register: haproxy
 
 - name: Compile source code
-  command: chdir="{{haproxy_dir}}" make TARGET=generic ARCH=native USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 CPU=x86_64 -j8
+  command: make TARGET=linux-glibc CPU=generic USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 USE_ZLIB=1 USE_REGPARM=1 USE_OPENSSL=1 USE_PCRE=1 USE_THREAD=1
+  args:
+    chdir: "{{haproxy_dir}}"
   register: compile
   when: not haproxy.stat.exists
 
@@ -65,14 +67,6 @@
     dest: /etc/systemd/system/multi-user.target.wants/haproxy.service
     state: link
     mode: 0755
-
-- name: Ensure HAproxy is enabled
-  lineinfile:
-    dest: /etc/default/haproxy
-    regexp: "^ENABLED.+$"
-    line: "ENABLED=1"
-    state: present
-  when: ansible_os_family == 'Debian'
 
 - name: Copy HAproxy configuration in place.
   template:

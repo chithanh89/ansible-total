@@ -1,4 +1,5 @@
 ---
+install_from_source: no
 haproxy_socket: /var/lib/haproxy/stats
 haproxy_chroot: /var/lib/haproxy
 haproxy_user: haproxy
