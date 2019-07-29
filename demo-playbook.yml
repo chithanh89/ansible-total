@@ -4,9 +4,12 @@
   gather_facts: no
 ##  Setup python( if none) before run roles
   pre_tasks:
-    - name: Setup python
-      raw: apt-get install python
+    - name: Setup python on Ubuntu server
+      raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal)
       when: ansible_os_family == 'Debian'
+    - name: Setup python on Centos server
+      raw: test -e /usr/bin/python || (yum -y update && yum install -y python)
+      when: ansible_os_family == 'RedHat'
     - name: Gather Facts
       setup:
 ##  Example to define software version from input.
@@ -21,7 +24,7 @@
 #      private: no ## Show variable when typing
   roles:
    - base
-   - mongodb
+#   - mongodb
 #   - apache2
 #   - mysql
 #   - php
