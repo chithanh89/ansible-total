@@ -5,11 +5,14 @@
 ##  Setup python( if none) before run roles
   pre_tasks:
     - name: Setup python on Ubuntu server
-      raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal)
-      when: ansible_os_family == 'Debian'
+      raw: apt-get install -y python-minimal
+      ignore_errors: yes
+      no_log: yes
+      register: python_Debian
     - name: Setup python on Centos server
-      raw: test -e /usr/bin/python || (yum -y update && yum install -y python)
-      when: ansible_os_family == 'RedHat'
+      raw: yum install -y python
+      when: python_Debian is failed
+
     - name: Gather Facts
       setup:
 ##  Example to define software version from input.
@@ -24,13 +27,16 @@
 #      private: no ## Show variable when typing
   roles:
    - base
-#   - mongodb
+   - mongodb
+#   - nginx
 #   - apache2
 #   - mysql
 #   - php
 #   - zabbix
-#   - nginx
 #   - nodejs
+#   - java
+#   - tomcat
+#   - jenkins
 #   - composer
 #   - wordpress
 #   - haproxy
