@@ -8,6 +8,7 @@ User={{redis_user}}
 Nice=10
 ExecStart = {{redis_exporter_execute_dir}}/redis_exporter
 ExecStop= /usr/bin/killall redis_exporter
+Restart=always
 
 [Install]
 WantedBy=default.target

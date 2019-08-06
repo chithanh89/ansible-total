@@ -8,6 +8,7 @@ User=elasticsearch
 Nice=10
 ExecStart = {{es_exporter_execute_dir}}/elasticsearch_exporter -es.all -es.indices -es.timeout 20s
 ExecStop= /usr/bin/killall elasticsearch_exporter
+Restart=always
 
 [Install]
 WantedBy=default.target
