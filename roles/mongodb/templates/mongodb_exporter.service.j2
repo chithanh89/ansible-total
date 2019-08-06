@@ -8,6 +8,7 @@ User=mongodb
 Group=mongodb
 ExecStart={{mongodb_exporter_execute_dir}}/mongodb_exporter
 ExecStop=/usr/bin/killall mongodb_exporter
+Restart=always
 
 [Install]
 WantedBy=default.target

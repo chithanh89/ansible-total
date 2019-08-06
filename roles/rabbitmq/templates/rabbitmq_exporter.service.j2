@@ -8,6 +8,7 @@ User=rabbitmq
 Nice=10
 ExecStart = {{rabbitmq_exporter_execute_dir}}/rabbitmq_exporter
 ExecStop= usr/bin/killall rabbitmq_exporter
+Restart=always
 
 [Install]
 WantedBy=default.target
