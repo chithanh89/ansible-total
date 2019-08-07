@@ -1,5 +1,19 @@
 ---
 # tasks file for zabbix
+- name: Find zabbix databases files
+  find:
+    paths: "{{zb_docpath}}"
+    file_type: directory
+    patterns: 'zabbix-server-mysql-*'
+  register: zbdb
+  when: ansible_os_family == 'RedHat'
+
+- name: Set zabbix databases path in Centos
+  set_fact:
+    zb_dbpath: "{{item.path}}"
+  with_items: "{{ zbdb['files'] }}"
+  when: ansible_os_family == 'RedHat'
+
 - name: Create databases
   mysql_db:
     login_user: "{{mysql_root_username}}"
@@ -26,7 +40,7 @@
   mysql_db:
     name: "{{item}}"
     state: import
-    target: "{{zbdbpath}}/create.sql.gz"
+    target: "{{zb_dbpath}}/create.sql.gz"
     login_user: "{{mysql_root_username}}"
     login_password: "{{mysql_root_password}}"
     login_host: "{{mysqlhost}}"
@@ -38,7 +52,7 @@
   mysql_db:
     name: "{{item}}"
     state: import
-    target: "{{zbdbpath}}-{{zb_version}}/create.sql.gz"
+    target: "{{zb_dbpath}}/create.sql.gz"
     login_user: "{{mysql_root_username}}"
     login_password: "{{mysql_root_password}}"
     login_host: "{{mysqlhost}}"
