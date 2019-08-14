@@ -12,6 +12,9 @@
     validate_certs: false
   when: ansible_os_family == 'RedHat'
 
+- name: Install Zabbix plugins for Grafana
+  command: grafana-cli plugins install alexanderzobnin-zabbix-app
+
 - name: Make sure Grafana service is running
   systemd:
     daemon_reload: yes
