@@ -26,12 +26,12 @@
 
 - name: Create Redis_exporter service
   template:
-    src: redis_exporter.service.j2
-    dest: "{{redis_exporter_service_dir}}/redis_exporter.service"
+    src: redis-exporter.service.j2
+    dest: "{{redis_exporter_service_dir}}/redis-exporter.service"
 
 - name: Make sure Redis_exporter service is running
   systemd:
     daemon_reload: yes
     state: restarted
-    name: redis_exporter
+    name: redis-exporter
     enabled: yes
