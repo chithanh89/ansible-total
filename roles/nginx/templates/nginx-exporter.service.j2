@@ -1,0 +1,14 @@
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart={{nginx_exporter_execute_dir}}/nginx-prometheus-exporter -nginx.scrape-uri http://127.0.0.1:80/nginx_status
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
