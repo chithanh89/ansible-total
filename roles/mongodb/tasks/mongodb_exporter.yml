@@ -24,12 +24,12 @@
 
 - name: Create Mongodb_exporter service
   template:
-    src: mongodb_exporter.service.j2
-    dest: "{{mongodb_exporter_service_dir}}/mongodb_exporter.service"
+    src: mongodb-exporter.service.j2
+    dest: "{{mongodb_exporter_service_dir}}/mongodb-exporter.service"
 
 - name: Make sure Mongodb_exporter service is running
   systemd:
     daemon_reload: yes
     state: restarted
-    name: mongodb_exporter
+    name: mongodb-exporter
     enabled: yes
