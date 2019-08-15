@@ -38,12 +38,12 @@
 
 - name: Create Node_exporter service
   template:
-    src: node_exporter.service.j2
-    dest: "{{node_exporter_service_dir}}/node_exporter.service"
+    src: node-exporter.service.j2
+    dest: "{{node_exporter_service_dir}}/node-exporter.service"
 
 - name: Make sure Node_exporter service is running
   systemd:
     daemon_reload: yes
     state: restarted
-    name: node_exporter
+    name: node-exporter
     enabled: yes
