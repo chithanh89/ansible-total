@@ -1,16 +1,16 @@
 - hosts: all
   become: yes
   become_user: root
-  gather_facts: no
+  gather_facts: false
 ##  Setup python( if none) before run roles
   pre_tasks:
     - name: Setup python on Ubuntu server
-      raw: apt-get install -y python-minimal
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python)
       ignore_errors: yes
       no_log: yes
       register: python_Debian
     - name: Setup python on Centos server
-      raw: yum install -y python
+      raw: test -e /usr/bin/python || (yum -y update && yum install -y python)
       when: python_Debian is failed
 
     - name: Gather Facts
@@ -29,10 +29,12 @@
    - base
    - mongodb
 #   - nginx
+#   - grafana-prometheus
 #   - apache2
 #   - mysql
 #   - php
 #   - zabbix
+#   - certbot
 #   - nodejs
 #   - java
 #   - tomcat
@@ -40,7 +42,7 @@
 #   - composer
 #   - wordpress
 #   - haproxy
-#   - redis
+#   - node_exporter
 #   - zabbix-agent
 #   - elasticsearch
 #   - kibana
