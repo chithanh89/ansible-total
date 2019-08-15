@@ -22,4 +22,4 @@
 
 - import_tasks: mongodb_exporter.yml
   when: mongodb_exporter
-  tags: mongodb_exporter
+  tags: mongodb-exporter
