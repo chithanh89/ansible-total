@@ -66,4 +66,4 @@
 # Setup monitoring
 - import_tasks: redis_exporter.yml
   when: redis_exporter and inventory_hostname == groups["redis"][0]
-  tags: redis_exporter
+  tags: redis-exporter
