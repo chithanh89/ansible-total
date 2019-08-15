@@ -1,7 +1,6 @@
 - name: Check Nginx_exporter directory
   stat: path="{{nginx_exporter_execute_dir}}/nginx-prometheus-exporter"
   register: nginx_exporter
-  tags: nginx-exporter
 
 - name: Download and extract Nginx_exporter packages
   unarchive:
@@ -11,7 +10,6 @@
     group: root
     remote_src: yes
   when: not nginx_exporter.stat.exists
-  tags: nginx-exporter
 
 - name: Copy execute Nginx_exporter file
   copy:
@@ -23,13 +21,11 @@
     mode: 0755
   with_items:
     - nginx-prometheus-exporter
-  tags: nginx-exporter
 
 - name: Create Nginx_exporter service
   template:
     src: nginx-exporter.service.j2
     dest: "{{nginx_exporter_service_dir}}/nginx-exporter.service"
-  tags: nginx-exporter
 
 - name: Make sure Nginx_exporter service is running
   systemd:
@@ -37,4 +33,3 @@
     state: restarted
     name: nginx-exporter
     enabled: yes
-  tags: nginx-exporter

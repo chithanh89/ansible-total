@@ -78,3 +78,4 @@
 
 - import_tasks: nginx-exporter.yml
   when: nginx_exporter
+  tags: nginx-exporter
