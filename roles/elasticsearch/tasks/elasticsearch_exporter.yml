@@ -26,12 +26,12 @@
 
 - name: Create Elasticsearch_exporter service
   template:
-    src: elasticsearch_exporter.service.j2
-    dest: "{{es_exporter_service_dir}}/elasticsearch_exporter.service"
+    src: elasticsearch-exporter.service.j2
+    dest: "{{es_exporter_service_dir}}/elasticsearch-exporter.service"
 
 - name: Make sure Elasticsearch_exporter service is running
   systemd:
     daemon_reload: yes
     state: restarted
-    name: elasticsearch_exporter
+    name: elasticsearch-exporter
     enabled: yes
