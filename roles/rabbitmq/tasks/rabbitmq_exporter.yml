@@ -26,12 +26,12 @@
 
 - name: Create Rabbitmq_exporter service
   template:
-    src: rabbitmq_exporter.service.j2
-    dest: "{{rabbitmq_exporter_service_dir}}/rabbitmq_exporter.service"
+    src: rabbitmq-exporter.service.j2
+    dest: "{{rabbitmq_exporter_service_dir}}/rabbitmq-exporter.service"
 
 - name: Make sure Rabbitmq_exporter service is running
   systemd:
     daemon_reload: yes
     state: restarted
-    name: rabbitmq_exporter
+    name: rabbitmq-exporter
     enabled: yes
