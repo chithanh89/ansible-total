@@ -19,6 +19,6 @@ install:
 
 script:
   # We'll add some commands to test the role here.
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+  - ansible-playbook -i roles/grafana-prometheus/tests/inventory roles/grafana-prometheus/tests/test.yml --syntax-check
   # Run the role/playbook with ansible-playbook.
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local
+  - ansible-playbook -i roles/grafana-prometheus/tests/inventory roles/grafana-prometheus/tests/test.yml --connection=local
