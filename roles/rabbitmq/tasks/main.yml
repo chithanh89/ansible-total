@@ -21,4 +21,4 @@
 
 - import_tasks: rabbitmq_exporter.yml
   when: rabbitmq_exporter and inventory_hostname in groups['rabbit_master']
-  tags: rabbitmq_exporter
+  tags: rabbitmq-exporter
