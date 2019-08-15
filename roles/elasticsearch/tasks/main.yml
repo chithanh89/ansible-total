@@ -15,4 +15,4 @@
 
 - import_tasks: elasticsearch_exporter.yml
   when: elasticsearch_exporter and inventory_hostname in groups['es_master']
-  tags: es_exporter
+  tags: es-exporter
