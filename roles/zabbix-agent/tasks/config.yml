@@ -8,5 +8,5 @@
   template:
     src: zabbix_agentd.conf.j2
     dest: "{{zb_conf_paths}}"
-    mode: 0700
+    mode: 0755
   notify: restart zabbix-agent
