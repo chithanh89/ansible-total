@@ -1,6 +1,5 @@
 ---
 # defaults file for zabbix
-zb_version: 4.0.7
 zb_docpath: /usr/share/doc
 zb_url_rpm: https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-1.el7.noarch.rpm
 zb_url_deb:
