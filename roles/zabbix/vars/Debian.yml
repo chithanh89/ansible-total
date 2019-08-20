@@ -4,4 +4,5 @@ zb_pkg:
 - zabbix-server-mysql
 - zabbix-agent
 - zabbix-frontend-php
+- zabbix-java-gateway
 zb_dbpath: /usr/share/doc/zabbix-server-mysql

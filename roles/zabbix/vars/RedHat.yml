@@ -5,3 +5,4 @@ zb_pkg:
 - zabbix-web-mysql
 - zabbix-agent
 - zabbix-get
+- zabbix-java-gateway
