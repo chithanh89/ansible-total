@@ -1,6 +1,6 @@
 - name: Check Nginx_exporter directory
   stat: path="{{nginx_exporter_execute_dir}}/nginx-prometheus-exporter"
-  register: nginx_exporter
+  register: file_nginx_exporter
 
 - name: Download and extract Nginx_exporter packages
   unarchive:
@@ -9,7 +9,7 @@
     owner: root
     group: root
     remote_src: yes
-  when: not nginx_exporter.stat.exists
+  when: not file_nginx_exporter.stat.exists
 
 - name: Copy execute Nginx_exporter file
   copy:
