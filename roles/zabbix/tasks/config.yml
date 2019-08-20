@@ -1,3 +1,7 @@
+- name: Gather facts from remote server
+  setup:
+    filter: ansible_default_ipv4.address
+
 - name: Setup Zabbix Server Config
   template:
     src: "./zabbix_server.conf.j2"
