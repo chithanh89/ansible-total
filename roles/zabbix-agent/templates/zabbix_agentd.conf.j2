@@ -94,7 +94,7 @@ LogFileSize=0
 # Default:
 # Server=
 
-Server={{zb_server}}
+Server={{zabbix_server}}
 
 ### Option: ListenPort
 #	Agent will listen on this port for connections from the server.
@@ -135,7 +135,7 @@ ListenIP=0.0.0.0
 # Default:
 # ServerActive=
 
-ServerActive={{zb_server}}:10051
+ServerActive={{zabbix_server}}:10051
 
 ### Option: Hostname
 #	Unique, case sensitive hostname.
@@ -325,7 +325,9 @@ Include=/etc/zabbix/zabbix_agentd.d/*.conf
 #
 # Mandatory: yes, if TLS certificate or PSK parameters are defined (even for 'unencrypted' connection)
 # Default:
-# TLSConnect=psk
+{% if zabbix_agent_tlsconnect is defined and zabbix_agent_tlsconnect %}
+TLSConnect={{ zabbix_agent_tlsconnect }}
+{% endif %}
 
 ### Option: TLSAccept
 #	What incoming connections to accept.
@@ -336,7 +338,9 @@ Include=/etc/zabbix/zabbix_agentd.d/*.conf
 #
 # Mandatory: yes, if TLS certificate or PSK parameters are defined (even for 'unencrypted' connection)
 # Default:
-# TLSAccept=psk
+{% if zabbix_agent_tlsaccept is defined and zabbix_agent_tlsaccept %}
+TLSAccept={{ zabbix_agent_tlsaccept }}
+{% endif %}
 
 ### Option: TLSCAFile
 #	Full pathname of a file containing the top-level CA(s) certificates for
@@ -386,11 +390,15 @@ Include=/etc/zabbix/zabbix_agentd.d/*.conf
 #
 # Mandatory: no
 # Default:
-# TLSPSKIdentity=
+{% if zabbix_agent_tlspskidentity is defined and zabbix_agent_tlspskidentity %}
+TLSPSKIdentity={{ zabbix_agent_tlspskidentity }}
+{% endif %}
 
 ### Option: TLSPSKFile
 #	Full pathname of a file containing the pre-shared key.
 #
 # Mandatory: no
 # Default:
-# TLSPSKFile=
+{% if zabbix_agent_tlskeyfile is defined and zabbix_agent_tlskeyfile %}
+TLSPSKFile={{ zabbix_agent_tlskeyfile }}
+{% endif %}

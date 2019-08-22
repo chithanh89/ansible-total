@@ -7,15 +7,10 @@
   register: zb_repo
 
 - name: install Zabbix-agent
-  become: true
   yum:
-    name: "{{packages}}"
+    name: "{{zabbix_agent}}"
     update_cache: yes
     state: latest
-  vars:
-    packages:
-    - zabbix-agent
-    - zabbix-sender
 
 - name: Ensure zabbix-agent is started and enabled to start at boot.
   service: name=zabbix-agent state=started enabled=yes

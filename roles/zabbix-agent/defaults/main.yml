@@ -1,12 +1,19 @@
 ---
 # defaults file for zabbix-agent
-zb_conf_paths: /etc/zabbix/zabbix_agentd.conf
-zb_host: ""
-zb_server: "192.168.2.56"
-zabbix_url: "http://192.168.2.56/zabbix"
+zabbix_conf_paths: /etc/zabbix/zabbix_agentd.conf
+zabbix_host: ""
+zabbix_server: "192.168.2.55"
+zabbix_url: "http://192.168.2.55/zabbix"
 login_user: "admin"
 login_password: "zabbix"
 zabbix_host_groups: "Linux servers"
 zabbix_link_templates:
   - Template OS Linux
 #  - Template App Elasticsearch Service
+
+psk_encrypted: yes
+zabbix_agent_tlspskidentity: key
+zabbix_agent_tlspsk: 40cfc49950e04106f96b8d3fde985cc0a2862c6732b65562a259970b77d5068f4736f0ba74f846edf51886cb20d2bed6cdd158b0974a52b994e0ac76d922cedc
+zabbix_agent_tlskeyfile: /etc/zabbix/psk
+zabbix_agent_tlsconnect:
+zabbix_agent_tlsaccept:

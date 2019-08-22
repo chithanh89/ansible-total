@@ -3,6 +3,6 @@
 - name: Add template configured
   template:
     src: zabbix_agentd.conf.j2
-    dest: "{{zb_conf_paths}}"
+    dest: "{{zabbix_conf_paths}}"
     mode: 0644
   notify: restart zabbix-agent
