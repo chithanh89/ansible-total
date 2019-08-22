@@ -28,7 +28,8 @@
         dns: ""
         port: 10050
     visible_name: "{{ ansible_nodename }}"
-#    tls_psk: "{{ zabbix_agent_tlspsk_secret|default(omit) }}"
-#    tls_psk_identity: "{{ zabbix_agent_tlspskidentity|default(omit) }}"
-#    tls_accept: "{{ zabbix_agent_tls_config[zabbix_agent_tlsaccept if zabbix_agent_tlsaccept else 'unencrypted'] }}"
-#    tls_connect: "{{ zabbix_agent_tls_config[zabbix_agent_tlsconnect if zabbix_agent_tlsconnect else 'unencrypted'] }}"
+    tls_psk: "{{ zabbix_agent_tlspsk }}"
+    tls_psk_identity: "{{ zabbix_agent_tlspskidentity }}"
+    tls_accept: 2
+    tls_connect: 2
+  notify: restart zabbix-agent

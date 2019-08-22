@@ -1,0 +1,9 @@
+---
+# tasks file for zabbix-agent
+- name: Save TLS PSK secret into PSK file
+  shell: 'echo "{{zabbix_agent_tlspsk}}" > "{{zabbix_agent_tlskeyfile}}"'
+
+- name: Default tlsaccept and tlsconnect to enforce PSK
+  set_fact:
+    zabbix_agent_tlsaccept: psk
+    zabbix_agent_tlsconnect: psk

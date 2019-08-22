@@ -13,5 +13,7 @@
 
 # Setup/install tasks.
 - include_tasks: "setup-{{ ansible_os_family }}.yml"
+- include_tasks: psk.yml
+  when: psk_encrypted
 - include_tasks: config.yml
 - include_tasks: zabbix-hosts.yml
