@@ -1,0 +1,34 @@
+---
+# tasks file for zabbix-agent
+- name: Install python pip
+  apt:
+    name: python-pip
+    state: present
+
+- name: Install python zabbix-api module
+  pip:
+    name: zabbix-api
+
+- name: Create a new host or update an existing host's info
+  zabbix_host:
+    server_url: "{{ zabbix_url }}"
+    login_user: "{{ login_user }}"
+    login_password: "{{ login_password }}"
+    host_name: "{{ ansible_nodename }}"
+    host_groups: "{{ zabbix_host_groups }}"
+    link_templates: "{{ zabbix_link_templates }}"
+    status: enabled
+    state: present
+    force: yes
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: "{{ansible_default_ipv4.address}}"
+        dns: ""
+        port: 10050
+    visible_name: "{{ ansible_nodename }}"
+#    tls_psk: "{{ zabbix_agent_tlspsk_secret|default(omit) }}"
+#    tls_psk_identity: "{{ zabbix_agent_tlspskidentity|default(omit) }}"
+#    tls_accept: "{{ zabbix_agent_tls_config[zabbix_agent_tlsaccept if zabbix_agent_tlsaccept else 'unencrypted'] }}"
+#    tls_connect: "{{ zabbix_agent_tls_config[zabbix_agent_tlsconnect if zabbix_agent_tlsconnect else 'unencrypted'] }}"
