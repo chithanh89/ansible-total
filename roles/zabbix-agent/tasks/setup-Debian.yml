@@ -1,8 +1,4 @@
 ---
-- name: Gather facts from remote server
-  setup:
-    filter: ansible_distribution_version
-
 - name: Install deb packages
   apt:
     deb: https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-2+xenial_all.deb
@@ -14,15 +10,10 @@
   when: ansible_distribution_version == '18.04'
 
 - name: install Zabbix-agent
-  become: true
   apt:
-    name: "{{packages}}"
+    name: "{{zabbix_agent}}"
     update_cache: yes
-    state: latest
-  vars:
-    packages:
-    - zabbix-agent
-    - zabbix-sender
+    state: present
 
 - name: Ensure zabbix-agent is started and enabled to start at boot.
   service: name=zabbix-agent state=started enabled=yes

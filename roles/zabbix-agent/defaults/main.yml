@@ -2,4 +2,11 @@
 # defaults file for zabbix-agent
 zb_conf_paths: /etc/zabbix/zabbix_agentd.conf
 zb_host: ""
-zb_server: 192.168.1.200
+zb_server: "192.168.2.56"
+zabbix_url: "http://192.168.2.56/zabbix"
+login_user: "admin"
+login_password: "zabbix"
+zabbix_host_groups: "Linux servers"
+zabbix_link_templates:
+  - Template OS Linux
+#  - Template App Elasticsearch Service
