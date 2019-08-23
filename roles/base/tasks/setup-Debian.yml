@@ -1,5 +1,5 @@
 - name: Install Server Basics
-  apt: name={{ packages }} state=latest update_cache=yes
+  apt: name={{ packages }} state=present update_cache=yes
   register: apt_res
   retries: 3
   until: apt_res is success

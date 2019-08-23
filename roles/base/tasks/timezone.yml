@@ -2,8 +2,8 @@
 # tasks file for base
 - name: Set timezone
   timezone:
-    name: "{{timezone}}"
+    name: "{{ timezone }}"
 
 - name: Set timezone
-  command: ntpdate "{{ntp_server}}"
+  command: ntpdate "{{ ntp_server }}"
   when: ansible_os_family == 'RedHat'

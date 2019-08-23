@@ -7,12 +7,12 @@
 - name: Install epel-release
   yum:
     name: epel-release
-    state: latest
+    state: present
 
 - name: Install Remi repos
   yum:
     name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-    state: latest
+    state: present
 
 - name: Install Server Basics
-  yum: name={{ packages }} state=latest update_cache=true
+  yum: name={{ packages }} state=present update_cache=true
