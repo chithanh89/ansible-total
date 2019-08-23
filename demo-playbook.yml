@@ -5,16 +5,21 @@
 ##  Setup python( if none) before run roles
   pre_tasks:
     - name: Setup python on Ubuntu server
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python)
+      raw: test -e /usr/bin/python || (apt install -y python)
       ignore_errors: yes
       no_log: yes
       register: python_Debian
     - name: Setup python on Centos server
-      raw: test -e /usr/bin/python || (yum -y update && yum install -y python)
+      raw: test -e /usr/bin/python || (yum install -y python)
       when: python_Debian is failed
 
-    - name: Gather Facts
+    - name: Gather facts from remote server
       setup:
+        filter: "{{item}}"
+      with_items:
+        - ansible_distribution_version
+        - ansible_nodename
+        - ansible_default_ipv4.address
 ##  Example to define software version from input.
 ##  Note to "name" same as name variable of software you define in setup task.
 ##  Repeat "vars_prompt name" depend on software what you want to install.
@@ -26,8 +31,8 @@
 #      default: "x.x"
 #      private: no ## Show variable when typing
   roles:
-   - base
-   - mongodb
+#   - base
+#   - mongodb
 #   - nginx
 #   - grafana-prometheus
 #   - apache2
@@ -37,13 +42,14 @@
 #   - certbot
 #   - nodejs
 #   - java
+#   - rabbitmq
 #   - tomcat
 #   - jenkins
 #   - composer
 #   - wordpress
 #   - haproxy
 #   - node_exporter
-#   - zabbix-agent
+   - zabbix-agent
 #   - elasticsearch
 #   - kibana
 #   - logstash
