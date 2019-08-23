@@ -9,6 +9,28 @@
   pip:
     name: zabbix-api
 
+- name: Create a new host or update an existing host's info without encryption
+  zabbix_host:
+    server_url: "{{ zabbix_url }}"
+    login_user: "{{ login_user }}"
+    login_password: "{{ login_password }}"
+    host_name: "{{ ansible_nodename }}"
+    host_groups: "{{ zabbix_host_groups }}"
+    link_templates: "{{ zabbix_link_templates }}"
+    status: enabled
+    state: present
+    force: yes
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: "{{ansible_default_ipv4.address}}"
+        dns: ""
+        port: 10050
+    visible_name: "{{ ansible_nodename }}"
+  when: not psk_encrypted
+  notify: restart zabbix-agent
+
 - name: Create a new host or update an existing host's info
   zabbix_host:
     server_url: "{{ zabbix_url }}"
@@ -32,4 +54,5 @@
     tls_psk_identity: "{{ zabbix_agent_tlspskidentity }}"
     tls_accept: 2
     tls_connect: 2
+  when: psk_encrypted
   notify: restart zabbix-agent
