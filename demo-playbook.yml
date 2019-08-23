@@ -17,6 +17,7 @@
       setup:
         filter: "{{item}}"
       with_items:
+        - ansible_os_family
         - ansible_distribution_version
         - ansible_nodename
         - ansible_default_ipv4.address
@@ -31,7 +32,7 @@
 #      default: "x.x"
 #      private: no ## Show variable when typing
   roles:
-#   - base
+   - base
 #   - mongodb
 #   - nginx
 #   - grafana-prometheus
