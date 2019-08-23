@@ -11,8 +11,8 @@
 - name: Install AWS CLI
   pip:
     name: awscli
-    extra_args: "{{item}}"
-  with_items: "{{extra_args}}"
+    extra_args: "{{ item }}"
+  with_items: "{{ extra_args }}"
 
 - name: Increase the limited max number of connections
   blockinfile:
@@ -43,7 +43,7 @@
 - name: Update ssh config for security
   lineinfile:
     path: /etc/ssh/sshd_config
-    line: "{{item}}"
+    line: "{{ item }}"
     insertafter: 'Protocol 2'
   with_items:
     - 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
