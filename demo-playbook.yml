@@ -15,12 +15,6 @@
 
     - name: Gather facts from remote server
       setup:
-        filter: "{{item}}"
-      with_items:
-        - ansible_os_family
-        - ansible_distribution_version
-        - ansible_nodename
-        - ansible_default_ipv4.address
 ##  Example to define software version from input.
 ##  Note to "name" same as name variable of software you define in setup task.
 ##  Repeat "vars_prompt name" depend on software what you want to install.
