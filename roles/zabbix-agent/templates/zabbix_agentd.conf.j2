@@ -325,7 +325,7 @@ Include=/etc/zabbix/zabbix_agentd.d/*.conf
 #
 # Mandatory: yes, if TLS certificate or PSK parameters are defined (even for 'unencrypted' connection)
 # Default:
-{% if zabbix_agent_tlsconnect is defined and zabbix_agent_tlsconnect %}
+{% if zabbix_agent_tlsconnect is defined and psk_encrypted == True %}
 TLSConnect={{ zabbix_agent_tlsconnect }}
 {% endif %}
 
@@ -338,7 +338,7 @@ TLSConnect={{ zabbix_agent_tlsconnect }}
 #
 # Mandatory: yes, if TLS certificate or PSK parameters are defined (even for 'unencrypted' connection)
 # Default:
-{% if zabbix_agent_tlsaccept is defined and zabbix_agent_tlsaccept %}
+{% if zabbix_agent_tlsaccept is defined and psk_encrypted == True %}
 TLSAccept={{ zabbix_agent_tlsaccept }}
 {% endif %}
 
@@ -390,7 +390,7 @@ TLSAccept={{ zabbix_agent_tlsaccept }}
 #
 # Mandatory: no
 # Default:
-{% if zabbix_agent_tlspskidentity is defined and zabbix_agent_tlspskidentity %}
+{% if zabbix_agent_tlspskidentity is defined and psk_encrypted == True %}
 TLSPSKIdentity={{ zabbix_agent_tlspskidentity }}
 {% endif %}
 
@@ -399,6 +399,6 @@ TLSPSKIdentity={{ zabbix_agent_tlspskidentity }}
 #
 # Mandatory: no
 # Default:
-{% if zabbix_agent_tlskeyfile is defined and zabbix_agent_tlskeyfile %}
+{% if zabbix_agent_tlskeyfile is defined and psk_encrypted == True %}
 TLSPSKFile={{ zabbix_agent_tlskeyfile }}
 {% endif %}
