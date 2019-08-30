@@ -13,7 +13,10 @@
   when: ansible_os_family == 'RedHat'
 
 - name: Install Zabbix plugins for Grafana
-  command: grafana-cli plugins install alexanderzobnin-zabbix-app
+  grafana_plugin:
+    name: alexanderzobnin-zabbix-app
+    version: latest
+    state: present
 
 - name: Make sure Grafana service is running
   systemd:
