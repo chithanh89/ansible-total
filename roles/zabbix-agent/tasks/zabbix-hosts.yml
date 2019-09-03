@@ -5,6 +5,11 @@
     name: python-pip
     state: present
 
+- name: Install python six module
+  pip:
+    name: six
+    version: 1.6.0
+
 - name: Install python zabbix-api module
   pip:
     name: zabbix-api
