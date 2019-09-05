@@ -35,12 +35,8 @@ erlang_version: "21.3.5"
 # Define erlang package
 erlang_package: erlang
 # Define erlang deb url and file for Ubuntu version
-erlang_deb_url:
-  "bionic": https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_{{erlang_version}}-1~ubuntu~bionic_amd64.deb
-  "xenial": https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_{{erlang_version}}-1~ubuntu~xenial_amd64.deb
-erlang_deb_file:
-  "bionic": esl-erlang_{{erlang_version}}-1~ubuntu~bionic_amd64.deb
-  "xenial": esl-erlang_{{erlang_version}}-1~ubuntu~xenial_amd64.deb
+erlang_deb_url: "https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_{{erlang_version}}-1~{{ ansible_distribution | lower }}~{{ansible_distribution_release}}_amd64.deb"
+erlang_deb_file: esl-erlang_{{erlang_version}}-1~{{ ansible_distribution | lower }}~{{ ansible_distribution_release }}_amd64.deb
 # Define erlang url and file for Centos
 erlang_rpm_url: "http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm"
 erlang_rpm_file: erlang-solutions-1.0-1.noarch.rpm
