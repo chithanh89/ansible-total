@@ -5,8 +5,10 @@
 
 # Setup/install tasks.
 - include_tasks: "setup-{{ ansible_os_family }}.yml"
-- include_tasks: hostname.yml
-- include_tasks: timezone.yml
+- import_tasks: hostname.yml
+  tags: hostname
+- import_tasks: timezone.yml
+  tags: timezone
 
 - name: Install AWS CLI
   pip:
