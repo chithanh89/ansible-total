@@ -1,8 +1,7 @@
 - name: Install the MySQL repo.
   yum:
-   name: http://repo.mysql.com/mysql57-community-release-el7-11.noarch.rpm
+   name: http://repo.mysql.com/mysql{{mysql_rh_version}}-community-release-el7.rpm
    state: present
-  when: ansible_os_family == "RedHat"
   register: mysqlrepo
 
 - name: Ensure MySQL packages are installed.
