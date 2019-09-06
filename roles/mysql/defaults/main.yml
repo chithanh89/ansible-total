@@ -26,6 +26,8 @@ overwrite_global_mycnf: yes
 # for RedHat systems (and derivatives).
 mysql_enablerepo: ""
 
+# Define true/false to setup MySQL version 8
+install_mysql_v8: false
 # Define a custom list of packages to install; if none provided, the default
 # package list from vars/[OS-family].yml will be used.
 # mysql_packages:
