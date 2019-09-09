@@ -1,5 +1,10 @@
 ---
 # tasks file for grafana-prometheus
-- include_tasks: prometheus.yml
-- include_tasks: grafana.yml
-- include_tasks: alert-manager.yml
+- import_tasks: prometheus.yml
+  tags: prometheus
+
+- import_tasks: grafana.yml
+  tags: grafana
+
+- import_tasks: alertmanager.yml
+  tags: alertmanager
