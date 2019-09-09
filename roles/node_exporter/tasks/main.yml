@@ -12,13 +12,32 @@
     comment: "Node_exporter User"
     state: present
 
+- name: Install github python lib
+  pip:
+    name: github3.py
+
+- name: Get latest release of repository
+  github_release:
+    user: prometheus
+    repo: node_exporter
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set Node_exporter latest version to download
+  set_fact:
+    node_exporter_latest_version: "{{release.tag | regex_replace('v','')}}"
+
 - name: Check Node_exporter directory
   stat: path="{{node_exporter_dir}}"
   register: dir_node_exporter
 
 - name: Download and extract Node_exporter packages
   unarchive:
-    src: "{{node_exporter_url}}"
+    src: 'https://github.com/prometheus/node_exporter/releases/download/{{release.tag}}/node_exporter-{{node_exporter_latest_version}}.linux-amd64.tar.gz'
     dest: "{{node_exporter_download_dir}}"
     owner: "{{node_exporter_user}}"
     group: "{{node_exporter_group}}"
