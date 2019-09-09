@@ -1,0 +1,93 @@
+---
+# tasks file for grafana-alert_manager
+- name: create Alertmanager group
+  group: name={{ alertmanager_group }} state=present
+
+- name: create Alertmanager user
+  user:
+    name: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_group }}"
+    create_home: no
+    shell: /sbin/nologin
+    comment: "Alertmanager User"
+    state: present
+
+- name: Creates data directory
+  file:
+    path: "{{item}}"
+    state: directory
+    owner: "{{alertmanager_user}}"
+    group: "{{alertmanager_group}}"
+    mode: 0755
+  with_items:
+    - "{{alertmanager_config_dir}}"
+    - "{{alertmanager_data_dir}}"
+
+- name: Install github python lib
+  pip:
+    name: github3.py
+
+- name: Get latest release of repository
+  github_release:
+    user: prometheus
+    repo: alertmanager
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set Alertmanager latest version to download
+  set_fact:
+    alertmanager_latest_version: "{{release.tag | regex_replace('v','')}}"
+
+- name: Check Alertmanager directory
+  stat: path="{{alertmanager_dir}}"
+  register: dir_alert_manager
+
+- name: Download and extract Alertmanager packages
+  unarchive:
+    src: 'https://github.com/prometheus/alertmanager/releases/download/{{release.tag}}/alertmanager-{{alertmanager_latest_version}}.linux-amd64.tar.gz'
+    dest: "{{alertmanager_download_dir}}"
+    owner: "{{alertmanager_user}}"
+    group: "{{alertmanager_group}}"
+    remote_src: yes
+  when: not dir_alert_manager.stat.exists
+
+- name: Copy execute Alertmanager file
+  copy:
+    src: "{{alertmanager_dir}}/{{item}}"
+    dest: "{{alertmanager_execute_dir}}"
+    owner: "{{alertmanager_user}}"
+    group: "{{alertmanager_group}}"
+    remote_src: yes
+    mode: 0755
+  with_items:
+    - alertmanager
+
+- name: Copy Alertmanager config
+  template:
+    src: alertmanager.yml.j2
+    dest: "{{alertmanager_config_dir}}/alertmanager.yml"
+    owner: "{{alertmanager_user}}"
+    group: "{{alertmanager_group}}"
+
+- name: Copy Alertmanager rules
+  copy:
+    src: files/rules.yml
+    dest: "{{prometheus_config_dir}}/rules.yml"
+    owner: "{{prometheus_user}}"
+    group: "{{prometheus_group}}"
+
+- name: Create Alertmanager service
+  template:
+    src: alertmanager.service.j2
+    dest: "{{alertmanager_service_dir}}"
+
+- name: Make sure Alertmanager service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: alertmanager
+    enabled: yes

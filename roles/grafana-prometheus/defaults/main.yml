@@ -27,16 +27,14 @@ grafana_url_deb: https://dl.grafana.com/oss/release/grafana_{{grafana_version}}_
 grafana_url_rpm: https://dl.grafana.com/oss/release/grafana-{{grafana_version}}-1.x86_64.rpm
 
 # Define alertmanager version
-alert_manager_version: 0.17.0
-alert_manager_user: alertmanager
-alert_manager_group: alertmanager
-alert_manager_url: https://github.com/prometheus/alertmanager/releases/download/v{{alert_manager_version}}/alertmanager-{{alert_manager_version}}.linux-amd64.tar.gz
-alert_manager_download_dir: /tmp
-alert_manager_dir: "{{alert_manager_download_dir}}/alertmanager-{{alert_manager_version}}.linux-amd64"
-alert_manager_execute_dir: /usr/local/bin
-alert_manager_service_dir: /etc/systemd/system
-alert_manager_config_dir: /etc/alertmanager
-alert_manager_data_dir: /data/alertmanager
+alertmanager_user: alertmanager
+alertmanager_group: alertmanager
+alertmanager_download_dir: /tmp
+alertmanager_dir: "{{alertmanager_download_dir}}/alertmanager-{{alertmanager_latest_version}}.linux-amd64"
+alertmanager_execute_dir: /usr/local/bin
+alertmanager_service_dir: /etc/systemd/system/alertmanager.service
+alertmanager_config_dir: /etc/alertmanager
+alertmanager_data_dir: /data/alertmanager
 # Define webhook slack url
 slack_api_url: ''
 # Define Alert rules

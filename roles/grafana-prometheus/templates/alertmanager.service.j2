@@ -4,13 +4,13 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User={{ alert_manager_user }}
-Group={{ alert_manager_group }}
+User={{ alertmanager_user }}
+Group={{ alertmanager_group }}
 Restart=always
 RestartSec=2
 StartLimitInterval=0
 Type=simple
-ExecStart={{alert_manager_execute_dir}}/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/data/alertmanager
+ExecStart={{alertmanager_execute_dir}}/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/data/alertmanager
 
 [Install]
 WantedBy=multi-user.target
