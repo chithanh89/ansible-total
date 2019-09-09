@@ -38,7 +38,6 @@
     name: net.core.somaxconn
     value: 65535
     state: present
-    reload: yes
 
 - name: Update vm.overcommit_memory
   sysctl:
@@ -63,6 +62,7 @@
 
 # Setup redis sentinel
 - include_tasks: sentinel.yml
+  when: redis_sentinel
 # Setup monitoring
 - import_tasks: redis_exporter.yml
   when: redis_exporter and inventory_hostname == groups["redis"][0]

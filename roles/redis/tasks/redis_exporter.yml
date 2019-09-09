@@ -1,12 +1,31 @@
 ---
 # tasks file for redis
+- name: Install github python lib
+  pip:
+    name: github3.py
+
+- name: Get latest release of repository
+  github_release:
+    user: oliver006
+    repo: redis_exporter
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set Redis_exporter latest version to download
+  set_fact:
+    redis_exporter_latest_version: "{{release.tag}}"
+
 - name: Check Redis_exporter directory
   stat: path="{{redis_exporter_dir}}/redis_exporter"
   register: dir_redis_exporter
 
 - name: Download and extract Redis_exporter packages
   unarchive:
-    src: "{{redis_exporter_url}}"
+    src: 'https://github.com/oliver006/redis_exporter/releases/download/{{redis_exporter_latest_version}}/redis_exporter-{{redis_exporter_latest_version}}.linux-amd64.tar.gz'
     dest: "{{redis_exporter_download_dir}}"
     owner: "{{redis_user}}"
     group: "{{redis_group}}"
