@@ -42,8 +42,6 @@ mongodb_systemlog_path: /var/log/mongodb/mongod.log
 # Defines the users to create if mongodb_create_users is true
 # Define mongodb_exporter
 mongodb_exporter: false
-mongodb_exporter_version: 0.8.0
-mongodb_exporter_url: https://github.com/percona/mongodb_exporter/releases/download/v{{mongodb_exporter_version}}/mongodb_exporter-{{mongodb_exporter_version}}.linux-amd64.tar.gz
 mongodb_exporter_download_dir: /tmp
 mongodb_exporter_dir: "{{mongodb_exporter_download_dir}}/mongodb_exporter"
 mongodb_exporter_execute_dir: /usr/local/bin
