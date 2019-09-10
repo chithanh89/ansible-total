@@ -3,15 +3,12 @@
 # Define user,group
 prometheus_user:   prometheus
 prometheus_group:  prometheus
-# Define version
-prometheus_version: 2.10.0
 prometheus_download_dir: /tmp
 # Define package name
-prometheus_packages: prometheus-{{prometheus_version}}.linux-amd64.tar.gz
+prometheus_packages: prometheus-{{prometheus_latest_version}}.linux-amd64.tar.gz
 # Define package name after extract
-prometheus_dir: "{{prometheus_download_dir}}/prometheus-{{prometheus_version}}.linux-amd64"
+prometheus_dir: "{{prometheus_download_dir}}/prometheus-{{prometheus_latest_version}}.linux-amd64"
 # Define url to download
-prometheus_url: https://github.com/prometheus/prometheus/releases/download/v{{prometheus_version}}/{{prometheus_packages}}
 prometheus_execute_dir: /usr/local/bin
 # Define prometheus config directory
 prometheus_config_dir: /etc/prometheus

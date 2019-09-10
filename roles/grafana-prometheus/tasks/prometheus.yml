@@ -25,13 +25,28 @@
     - "{{ prometheus_pid_dir }}"
     - "{{ prometheus_config_dir }}"
 
+- name: Get latest release of repository
+  github_release:
+    user: prometheus
+    repo: prometheus
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set Prometheus latest version to download
+  set_fact:
+    prometheus_latest_version: "{{release.tag | regex_replace('v','')}}"
+
 - name: Check Prometheus directory
   stat: path="{{prometheus_dir}}"
   register: dir_prometheus
 
 - name: Download and extract Prometheus packages
   unarchive:
-    src: "{{prometheus_url}}"
+    src: 'https://github.com/prometheus/prometheus/releases/download/{{release.tag}}/{{prometheus_packages}}'
     dest: "{{prometheus_download_dir}}"
     owner: "{{prometheus_user}}"
     group: "{{prometheus_group}}"
@@ -55,7 +70,7 @@
   with_items:
     - consoles
     - console_libraries
-    
+
 - name: Set owner prometheus folder
   file:
     path: "{{prometheus_dir}}"
