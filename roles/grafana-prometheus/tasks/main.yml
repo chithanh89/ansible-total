@@ -1,5 +1,9 @@
 ---
 # tasks file for grafana-prometheus
+- name: Install github python lib
+  pip:
+    name: github3.py
+
 - import_tasks: prometheus.yml
   tags: prometheus
 
