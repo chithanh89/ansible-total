@@ -16,7 +16,9 @@
     group: elasticsearch
     mode: 0660
   notify: restart elasticsearch
-  when: inventory_hostname in groups['es_master'] and cluster_set_roles
+  when:
+    - cluster_set_roles
+    - inventory_hostname in groups['es_master']
 
 - name: Configure Elasticsearch cluster roles "Node".
   template:
@@ -26,7 +28,9 @@
     group: elasticsearch
     mode: 0660
   notify: restart elasticsearch
-  when: inventory_hostname in groups['es_node'] and cluster_set_roles
+  when:
+    - cluster_set_roles
+    - inventory_hostname in groups['es_node']
 
 - name: Configure Elasticsearch cluster all roles.
   template:

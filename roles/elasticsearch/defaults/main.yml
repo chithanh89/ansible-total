@@ -17,10 +17,8 @@ es_backup_dir: /home/elasticsearch/backup
 plugins: repository-s3
 # Define setup elasticsearch_exporter to monitoring by prometheus-grafana
 elasticsearch_exporter: false
-# Define elasticsearch_exporter version
-es_exporter_version: 1.0.2
-es_exporter_url: https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v{{es_exporter_version}}/elasticsearch_exporter-{{es_exporter_version}}.linux-amd64.tar.gz
+# Define elasticsearch_exporter vars
 es_exporter_download_dir: /tmp
-es_exporter_dir: "{{es_exporter_download_dir}}/elasticsearch_exporter-{{es_exporter_version}}.linux-amd64"
+es_exporter_dir: "{{es_exporter_download_dir}}/elasticsearch_exporter-{{es_exporter_latest_version}}.linux-amd64"
 es_exporter_execute_dir: /usr/local/bin
 es_exporter_service_dir: /etc/systemd/system
