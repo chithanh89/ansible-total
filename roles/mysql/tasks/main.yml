@@ -27,3 +27,7 @@
     path: "{{mysql_root_home}}/.my.cnf"
     state: absent
   notify: restart mysql
+
+- import_tasks: mysqld-exporter.yml
+  when: mysqld_exporter
+  tags: mysqld-exporter
