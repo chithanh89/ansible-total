@@ -1,0 +1,13 @@
+[Unit]
+Description=MySQL Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+Environment=DATA_SOURCE_NAME=mysqld_exporter:{{mysqld_exporter_pass}}@(localhost:3306)/
+ExecStart=/usr/local/bin/mysqld_exporter --collect.auto_increment.columns
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

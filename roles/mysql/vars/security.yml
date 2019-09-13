@@ -2,6 +2,7 @@
 # Define for mysql root user and password
 mysql_root_username: root
 mysql_root_password: Root@123
+mysqld_exporter_pass: abc123
 
 # Databases.
 mysql_databases: []

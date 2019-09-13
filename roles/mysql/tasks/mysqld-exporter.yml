@@ -1,0 +1,74 @@
+- name: Check if mysqld_exporter user exists
+  command: "mysql -u mysqld_exporter -p{{mysqld_exporter_pass}}"
+  register: mysqld_exporter_user
+  ignore_errors: true
+  no_log: true
+  changed_when: false
+
+- name: Create mysqld_exporter user
+  shell: >
+    mysql --user={{mysql_root_username}} --password={{mysql_root_password}} -e
+    "CREATE USER 'mysqld_exporter'@'localhost' IDENTIFIED BY '{{mysqld_exporter_pass}}' WITH MAX_USER_CONNECTIONS 3;"
+  when: mysqld_exporter_user.rc != 0
+
+- name: Make sure mysqld_exporter user has correct privileges on databases
+  mysql_user:
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    name: mysqld_exporter
+    host: localhost
+    state: present
+    priv: '*.*:PROCESS,REPLICATION CLIENT'
+
+- name: Install github python lib
+  pip:
+    name: github3.py
+
+- name: Get latest release of repository
+  github_release:
+    user: prometheus
+    repo: mysqld_exporter
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set Mysqld_exporter latest version to download
+  set_fact:
+    mysqld_exporter_latest_version: "{{release.tag | regex_replace('v','')}}"
+
+- name: Check Mysqld_exporter directory
+  stat: path="{{mysqld_exporter_execute_dir}}/mysqld_exporter"
+  register: file_mysqld_exporter
+
+- name: Download and extract Mysql_exporter packages
+  unarchive:
+    src: 'https://github.com/prometheus/mysqld_exporter/releases/download/{{release.tag}}/mysqld_exporter-{{mysqld_exporter_latest_version}}.linux-amd64.tar.gz'
+    dest: "{{mysqld_exporter_download_dir}}"
+    owner: root
+    group: root
+    remote_src: yes
+  when: not file_mysqld_exporter.stat.exists
+
+- name: Copy execute Mysqld_exporter file
+  copy:
+    src: "{{mysqld_exporter_dir}}/mysqld_exporter"
+    dest: "{{mysqld_exporter_execute_dir}}"
+    owner: root
+    group: root
+    mode: 0755
+    remote_src: yes
+
+- name: Create Mysqld_exporter service
+  template:
+    src: mysqld-exporter.service.j2
+    dest: "{{mysqld_exporter_service_dir}}/mysqld-exporter.service"
+
+- name: Make sure Mysqld_exporter service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: mysqld-exporter
+    enabled: yes
