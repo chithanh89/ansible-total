@@ -1,7 +1,5 @@
 # Ansible Role: MySQL
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-mysql.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-mysql)
-
 Installs and configures MySQL or MariaDB server on RHEL/CentOS or Debian/Ubuntu servers.
 
 ## Requirements
@@ -10,8 +8,7 @@ No special requirements; note that this role requires root access, so either run
 
     - hosts: database
       roles:
-        - role: geerlingguy.mysql
-          become: yes
+        - role: mysql
 
 ## Role Variables
 
@@ -43,7 +40,7 @@ Whether MySQL should be enabled on startup.
 
     mysql_config_file: *default value depends on OS*
     mysql_config_include_dir: *default value depends on OS*
-    
+
 The main my.cnf configuration file and include directory.
 
     overwrite_global_mycnf: yes
@@ -121,29 +118,13 @@ The rest of the settings in `defaults/main.yml` control MySQL's memory usage and
     mysql_replication_user: []
 
 Replication settings. Set `mysql_server_id` and `mysql_replication_role` by server (e.g. the master would be ID `1`, with the `mysql_replication_role` of `master`, and the slave would be ID `2`, with the `mysql_replication_role` of `slave`). The `mysql_replication_user` uses the same keys as `mysql_users`, and is created on master servers, and used to replicate on all the slaves.
+    replication: false
 
-### Later versions of MySQL on CentOS 7
-
-If you want to install MySQL from the official repository instead of installing the system default MariaDB equivalents, you can add the following `pre_tasks` task in your playbook:
-
-```yaml
-  pre_tasks:
-    - name: Install the MySQL repo.
-      yum:
-        name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-        state: present
-      when: ansible_os_family == "RedHat"
-  
-    - name: Override variables for MySQL (RedHat).
-      set_fact:
-        mysql_daemon: mysqld
-        mysql_packages: ['mysql-server']
-        mysql_log_error: /var/log/mysqld.err
-        mysql_syslog_tag: mysqld
-        mysql_pid_file: /var/run/mysqld/mysqld.pid
-        mysql_socket: /var/lib/mysql/mysql.sock
-      when: ansible_os_family == "RedHat"
-```
+### Later versions of MySQL
+#### Define true/false to setup MySQL version 8 on Ubuntu Distribution
+    install_mysql_v8: false
+#### Define MySQL version to setup on RedHat Distribution
+    mysql_rh_version: "57"
 
 ### MariaDB usage
 
@@ -167,27 +148,15 @@ None.
     - hosts: db-servers
       become: yes
       vars_files:
-        - vars/main.yml
+        - vars/security.yml
       roles:
-        - { role: geerlingguy.mysql }
+        - mysql
 
-*Inside `vars/main.yml`*:
+*Inside `vars/security.yml`*:
+    ####  Define user,password root user and vars to create user,database
 
-    mysql_root_password: super-secure-password
-    mysql_databases:
-      - name: example_db
-        encoding: latin1
-        collation: latin1_general_ci
-    mysql_users:
-      - name: example_user
-        host: "%"
-        password: similarly-secure-password
-        priv: "example_db.*:ALL"
-
+### Setup mysqld-exporter to monitor
+    mysqld_exporter: false
 ## License
 
 MIT / BSD
-
-## Author Information
-
-This role was created in 2014 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
