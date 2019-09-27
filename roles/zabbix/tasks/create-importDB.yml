@@ -36,7 +36,23 @@
 
 - name: Import DB UserStore & Registry
   mysql_db:
+<<<<<<< HEAD
     name: "{{DBName}}"
+=======
+    name: "{{item}}"
+    state: import
+    target: "{{zb_dbpath}}/create.sql.gz"
+    login_user: "{{mysql_root_username}}"
+    login_password: "{{mysql_root_password}}"
+    login_host: "{{mysqlhost}}"
+  with_items:
+    - "{{ DB1 }}"
+  when: dbcreate is changed and ansible_os_family == 'Debian'
+
+- name: Import DB UserStore & Registry
+  mysql_db:
+    name: "{{item}}"
+>>>>>>> 129cd482ba21ca82e4b02a4025cba993e012e5b2
     state: import
     target: "{{zb_dbpath}}/create.sql.gz"
     login_user: "{{mysql_root_username}}"
