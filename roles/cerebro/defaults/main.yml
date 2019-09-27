@@ -1,9 +1,8 @@
 ---
 # defaults file for cerebro
-# Define version
-cerebro_version: 0.8.3
 # Define directory execute
-cerebro_dir: /home/cerebro-{{cerebro_version}}
+cerebro_dest: /home
+cerebro_dir: "{{cerebro_dest}}/cerebro-{{cerebro_latest_version}}"
 cerebro_execute_dir: "{{cerebro_dir}}/bin"
-# Define url to download
-cerebro_url: https://github.com/lmenezes/cerebro/releases/download/v{{cerebro_version}}/cerebro-{{cerebro_version}}.zip
+# Define port to run
+cerebro_port: 1234

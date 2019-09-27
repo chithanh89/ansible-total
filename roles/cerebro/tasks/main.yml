@@ -1,5 +1,28 @@
 ---
 # tasks file for cerebro
+- name: Install github python lib
+  pip:
+    name: github3.py
+
+- name: Get latest release of Cerebro repository
+  github_release:
+    user: lmenezes
+    repo: cerebro
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set Cerebro latest version to download
+  set_fact:
+    cerebro_latest_version: "{{release.tag | regex_replace('v','')}}"
+
+- name: Define url of Cerebro latest version to download
+  set_fact:
+    cerebro_url: 'https://github.com/lmenezes/cerebro/releases/download/{{release.tag}}/cerebro-{{cerebro_latest_version}}.zip'
+
 - name: Check Cerebro file
   stat: path="{{cerebro_dir}}"
   register: file_cerebro
@@ -7,7 +30,7 @@
 - name: Extract Cerebro
   unarchive:
     src: "{{cerebro_url}}"
-    dest: /home
+    dest: "{{cerebro_dest}}"
     owner: root
     group: root
     remote_src: yes

@@ -5,7 +5,7 @@ Description=Cerebro
 Type=simple
 User=root
 Group=root
-ExecStart={{cerebro_execute_dir}}/cerebro "-Dpidfile.path=/var/run/cerebro.pid"
+ExecStart={{cerebro_execute_dir}}/cerebro "-Dpidfile.path=/var/run/cerebro.pid" -Dhttp.port={{cerebro_port}}
 Restart=always
 WorkingDirectory={{cerebro_execute_dir}}
 
