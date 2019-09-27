@@ -1,5 +1,24 @@
 ---
 # tasks file for docker
+- name: Install github python lib
+  pip:
+    name: github3.py
+
+- name: Get latest release of repository
+  github_release:
+    user: docker
+    repo: compose
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set docker-compose latest version to download
+  set_fact:
+    docker_compose_latest_version: "{{release.tag | regex_replace('v','')}}"
+
 - name: Check current docker-compose version.
   command: docker-compose --version
   register: docker_compose_current_version
@@ -12,10 +31,15 @@
     state: absent
   when: >
     docker_compose_current_version.stdout is defined
-    and docker_compose_version not in docker_compose_current_version.stdout
+    and docker_compose_latest_version != docker_compose_current_version.stdout
 
-- name: Install Docker Compose (if configured).
+- name: Check docker-compose directory
+  stat: path="{{docker_compose_path}}"
+  register: dir_docker_compose
+
+- name: Download and extract docker-compose packages
   get_url:
-    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
-    dest: "{{ docker_compose_path }}"
+    url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_latest_version }}/docker-compose-Linux-x86_64'
+    dest: "{{docker_compose_path}}"
     mode: 0755
+  when: not dir_docker_compose.stat.exists

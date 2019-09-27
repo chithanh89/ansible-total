@@ -21,8 +21,9 @@
 - name: Ensure handlers are notified now to avoid firewall conflicts.
   meta: flush_handlers
 
-- include_tasks: docker-compose.yml
+- import_tasks: docker-compose.yml
   when: docker_install_compose
+  tags: docker-compose
 
 - include_tasks: docker-user.yml
   when: docker_user
