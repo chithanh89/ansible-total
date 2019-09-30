@@ -36,9 +36,7 @@
 
 - name: Import DB UserStore & Registry
   mysql_db:
-<<<<<<< HEAD
     name: "{{DBName}}"
-=======
     name: "{{item}}"
     state: import
     target: "{{zb_dbpath}}/create.sql.gz"
@@ -52,7 +50,6 @@
 - name: Import DB UserStore & Registry
   mysql_db:
     name: "{{item}}"
->>>>>>> 129cd482ba21ca82e4b02a4025cba993e012e5b2
     state: import
     target: "{{zb_dbpath}}/create.sql.gz"
     login_user: "{{mysql_root_username}}"
