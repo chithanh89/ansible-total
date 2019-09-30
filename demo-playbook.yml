@@ -5,20 +5,12 @@
 ##  Setup python( if none) before run roles
   pre_tasks:
     - name: Setup python on Ubuntu server
-<<<<<<< HEAD
       raw: test -e /usr/bin/python || (apt-get update && apt install -y python)
-=======
-      raw: test -e /usr/bin/python || (apt install -y python)
->>>>>>> 129cd482ba21ca82e4b02a4025cba993e012e5b2
       ignore_errors: yes
       no_log: yes
       register: python_Debian
     - name: Setup python on Centos server
-<<<<<<< HEAD
       raw: test -e /usr/bin/python || (yum update -y && yum install -y python)
-=======
-      raw: test -e /usr/bin/python || (yum install -y python)
->>>>>>> 129cd482ba21ca82e4b02a4025cba993e012e5b2
       when: python_Debian is failed
 
     - name: Gather facts from remote server
@@ -35,20 +27,17 @@
 #      private: no ## Show variable when typing
   roles:
    - base
-#   - mongodb
+   - mongodb
 #   - nginx
 #   - grafana-prometheus
-<<<<<<< HEAD
-   - apache2
-   - mysql
-   - php
-   - zabbix
-=======
 #   - apache2
 #   - mysql
 #   - php
 #   - zabbix
->>>>>>> 129cd482ba21ca82e4b02a4025cba993e012e5b2
+#   - apache2
+#   - mysql
+#   - php
+#   - zabbix
 #   - certbot
 #   - nodejs
 #   - java
@@ -59,11 +48,7 @@
 #   - wordpress
 #   - haproxy
 #   - node_exporter
-<<<<<<< HEAD
 #   - zabbix-agent
-=======
-   - zabbix-agent
->>>>>>> 129cd482ba21ca82e4b02a4025cba993e012e5b2
 #   - elasticsearch
 #   - kibana
 #   - logstash
