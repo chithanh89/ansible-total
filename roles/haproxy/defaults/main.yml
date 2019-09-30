@@ -1,5 +1,12 @@
 ---
+<<<<<<< HEAD
+<<<<<<< HEAD
 # Define build from source
+=======
+>>>>>>> 129cd482ba21ca82e4b02a4025cba993e012e5b2
+=======
+# Define build from source
+>>>>>>> master
 install_from_source: no
 haproxy_socket: /var/lib/haproxy/stats
 haproxy_chroot: /var/lib/haproxy

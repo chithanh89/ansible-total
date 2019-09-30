@@ -1,6 +1,5 @@
 ---
 # vars file for zabbix
-DB1: zabbixdb
 DBHost: localhost
 DBName: zabbixdb
 DBUser: zabbix
