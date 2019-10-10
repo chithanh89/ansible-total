@@ -52,4 +52,5 @@ alertmanager_receivers: []
 #    - channel: "#test-grafana"
 
 # Add this line below "channel" line.
-## text: "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
+## title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
+## text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"
