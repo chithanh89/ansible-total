@@ -30,12 +30,15 @@ nginx_client_max_body_size: "200m"
 nginx_server_names_hash_bucket_size: "64"
 nginx_proxy_cache_path: "/etc/nginx/proxy.conf"
 nginx_ssl_path: "/etc/nginx/ssl.conf"
+nginx_status_config: "nginx_status.conf"
 nginx_extra_conf_options: ""
 nginx_extra_http_options: ""
 nginx_vhosts: []
 #  - server_name: test.vn
 #    root_path: /home
+#    acme_path: .well-known/acme-challenge
 #    log_path: /var/log/nginx
+
 nginx_upstreams: []
 nginx_log_format: |-
   main_ext  '$remote_addr - $remote_user [$time_local] "$request" '

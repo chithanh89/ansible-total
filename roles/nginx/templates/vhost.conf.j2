@@ -66,9 +66,13 @@ add_header Strict-Transport-Security max-age=31536000;
 #    }
 ### End load balancing config block
 
-  location ^~ /.well-known {
+  location ^~ /.well-known/acme-challenge/ {
     root  {{item.root_path}}/{{item.server_name}};
     allow all;
+    }
+
+  location = /.well-known/acme-challenge/ {
+    return 404;
     }
 
   location / {

@@ -2,6 +2,10 @@
   file: path="{{item.root_path}}/{{item.server_name}}" state=directory mode=0755 owner="{{nginx_user}}"
   with_items: "{{nginx_vhosts}}"
 
+- name: Creates letsencrypt acme challenge for domain verification
+  file: path="{{item.root_path}}/{{item.server_name}}/{{item.acme_path}}" state=directory mode=0755 owner="{{nginx_user}}"
+  with_items: "{{nginx_vhosts}}"
+
 - name: Add vhost domain configured
   template:
     src: "{{nginx_vhost_template}}"
