@@ -63,7 +63,7 @@
 - name: Copy nginx_status configuration in place to monitor.
   template:
     src: nginx_status.conf.j2
-    dest: "{{ nginx_vhost_path }}"
+    dest: "{{ nginx_vhost_path }}/{{ nginx_status_config}}"
     owner: root
     group: "{{ root_group }}"
     mode: 0644
