@@ -1,5 +1,8 @@
 ---
 # defaults file for zabbix-agent
+zb_version: "4.0"
+zabbix_deb_url: https://repo.zabbix.com/zabbix/{{zb_version}}/ubuntu/pool/main/z/zabbix-release/zabbix-release_{{zb_version}}-2+{{ansible_distribution_release}}_all.deb
+zabbix_rpm_url: https://repo.zabbix.com/zabbix/{{zb_version}}/rhel/7/x86_64/zabbix-release-{{zb_version}}-1.el7.noarch.rpm
 zabbix_conf_paths: /etc/zabbix/zabbix_agentd.conf
 zabbix_host: ""
 zabbix_server: "192.168.2.55"
