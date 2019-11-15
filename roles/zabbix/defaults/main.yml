@@ -1,10 +1,8 @@
 ---
 # defaults file for zabbix
+zb_version: "4.0"
 zb_docpath: /usr/share/doc
-zb_url_rpm: https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-1.el7.noarch.rpm
-zb_url_deb:
-  "bionic": https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-2+bionic_all.deb
-  "xenial": https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-2+xenial_all.deb
-zb_repo:
-  "bionic": zabbix-release_4.0-2+bionic_all.deb
-  "xenial": zabbix-release_4.0-2+xenial_all.deb
+zb_download_path: /tmp
+zb_url_rpm: https://repo.zabbix.com/zabbix/{{zb_version}}/rhel/7/x86_64/zabbix-release-{{zb_version}}-1.el7.noarch.rpm
+zb_url_deb: https://repo.zabbix.com/zabbix/{{zb_version}}/ubuntu/pool/main/z/zabbix-release/zabbix-release_{{zb_version}}-2+{{ansible_distribution_release}}_all.deb
+zb_repo:  zabbix-release_{{zb_version}}-2+{{ansible_distribution_release}}_all.deb
