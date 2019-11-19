@@ -1,0 +1,82 @@
+---
+# tasks file for blackbox-exporter
+- name: create blackbox_exporter group
+  group: name={{ blackbox_exporter_group }} state=present
+
+- name: create blackbox_exporter user
+  user:
+    name: "{{ blackbox_exporter_user }}"
+    group: "{{ blackbox_exporter_group }}"
+    create_home: no
+    shell: /sbin/nologin
+    comment: "blackbox_exporter User"
+    state: present
+
+- name: create blackbox_exporter config directory
+  file:
+    path: "{{blackbox_exporter_conf_dir}}"
+    owner: "{{blackbox_exporter_user}}"
+    group: "{{blackbox_exporter_group}}"
+    state: directory
+
+#- name: Install github python lib
+#  pip:
+#    name: github3.py
+
+- name: Get latest release of repository
+  github_release:
+    user: prometheus
+    repo: blackbox_exporter
+    action: latest_release
+  register: release
+
+- name: Print latest release of repository
+  debug:
+    var: release.tag
+
+- name: Set blackbox_exporter latest version to download
+  set_fact:
+    blackbox_exporter_latest_version: "{{release.tag | regex_replace('v','')}}"
+
+- name: Check blackbox_exporter directory
+  stat: path="{{blackbox_exporter_dir}}"
+  register: dir_blackbox_exporter
+
+- name: Download and extract blackbox_exporter packages
+  unarchive:
+    src: 'https://github.com/prometheus/blackbox_exporter/releases/download/{{release.tag}}/blackbox_exporter-{{blackbox_exporter_latest_version}}.linux-amd64.tar.gz'
+    dest: "{{blackbox_exporter_download_dir}}"
+    owner: "{{blackbox_exporter_user}}"
+    group: "{{blackbox_exporter_group}}"
+    remote_src: yes
+  when: not dir_blackbox_exporter.stat.exists
+
+- name: Copy execute blackbox_exporter file
+  copy:
+    src: "{{blackbox_exporter_dir}}/{{item}}"
+    dest: "{{blackbox_exporter_execute_dir}}"
+    owner: "{{blackbox_exporter_user}}"
+    group: "{{blackbox_exporter_group}}"
+    remote_src: yes
+    mode: 0755
+  with_items:
+    - blackbox_exporter
+
+- name: Create blackbox_exporter config file
+  template:
+    src: blackbox.yml.j2
+    dest: "{{blackbox_exporter_conf_dir}}/blackbox.yml"
+    owner: "{{blackbox_exporter_user}}"
+    group: "{{blackbox_exporter_group}}"
+
+- name: Create blackbox-exporter service
+  template:
+    src: blackbox-exporter.service.j2
+    dest: "{{blackbox_exporter_service_dir}}/blackbox-exporter.service"
+
+- name: Make sure blackbox_exporter service is running
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: blackbox-exporter
+    enabled: yes

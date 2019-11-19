@@ -1,0 +1,9 @@
+---
+# defaults file for blackbox-exporter
+blackbox_exporter_user: blackbox_exporter
+blackbox_exporter_group: blackbox_exporter
+blackbox_exporter_download_dir: /tmp
+blackbox_exporter_dir: "{{blackbox_exporter_download_dir}}/blackbox_exporter-{{blackbox_exporter_latest_version}}.linux-amd64"
+blackbox_exporter_conf_dir: /etc/blackbox_exporter
+blackbox_exporter_execute_dir: /usr/local/bin
+blackbox_exporter_service_dir: /etc/systemd/system
