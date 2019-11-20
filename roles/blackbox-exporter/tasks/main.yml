@@ -19,9 +19,9 @@
     group: "{{blackbox_exporter_group}}"
     state: directory
 
-#- name: Install github python lib
-#  pip:
-#    name: github3.py
+- name: Install github python lib
+  pip:
+    name: github3.py
 
 - name: Get latest release of repository
   github_release:
