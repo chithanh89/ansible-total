@@ -1,5 +1,24 @@
 ---
 # tasks file for elasticsearch
+- name: Check hosts group before run config cluster playbook
+  fail:
+    msg: "Please define hostgroup {{item}} in ansible hosts file before run playbook"
+  when:
+    - "'{{item}}' not in groups"
+    - cluster|bool
+  with_items:
+    - es_master
+    - es_node
+
+- name: Check java installed
+  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: java_result
+  changed_when: False
+
+- fail:
+    msg: "Java is not installed on this machines"
+  when: "java_result.rc == 0"
+
 - include_tasks: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
 
