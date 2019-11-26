@@ -5,16 +5,16 @@
   register: res
   failed_when: res.rc != 70 and res.rc != 0
   changed_when: res.rc != 70
-  when: inventory_hostname in groups['rabbit_master']
+  when: inventory_hostname == groups["rabbit_cluster"][0]
 
 - name: set admin permissions for user
   shell: rabbitmqctl set_user_tags {{rabbitmq_user}} administrator
-  when: inventory_hostname in groups['rabbit_master']
+  when: inventory_hostname == groups["rabbit_cluster"][0]
 
 - name: set permissions on / vhost
   shell: rabbitmqctl set_permissions {{rabbitmq_user}} ".*" ".*" ".*"
-  when: inventory_hostname in groups['rabbit_master']
+  when: inventory_hostname == groups["rabbit_cluster"][0]
 
 - name: Remove the guest user
   rabbitmq_user: name=guest state=absent
-  when: remove_guest and inventory_hostname in groups['rabbit_master']
+  when: remove_guest and inventory_hostname == groups["rabbit_cluster"][0]
