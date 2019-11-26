@@ -17,7 +17,7 @@
 
 - fail:
     msg: "Java is not installed on this machines"
-  when: "java_result.rc == 0"
+  when: "java_result.stdout == ''"
 
 - include_tasks: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
