@@ -1,3 +1,13 @@
+- name: Check hosts group before run config cluster playbook
+  fail:
+    msg: "Please define hostgroup {{item}} in ansible hosts file before run playbook"
+  when:
+    - "'{{item}}' not in groups"
+    - mongodb_replication|bool
+  with_items:
+    - mongo_master
+    - mongo_node
+
 - include_tasks: set_facts.yml
 
 - include_vars: "{{ ansible_os_family }}.yml"
