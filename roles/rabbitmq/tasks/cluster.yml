@@ -25,16 +25,16 @@
 
 - name: stop rabbitmq app
   command: rabbitmqctl stop_app
-  when: inventory_hostname in groups['rabbit_node']
+  when: inventory_hostname != groups["rabbit-cluster"][0]
 
 - name: reset rabbitmq app
   command: rabbitmqctl reset
-  when: inventory_hostname in groups['rabbit_node']
+  when: inventory_hostname != groups["rabbit-cluster"][0]
 
 - name: add this node to cluster
   command: rabbitmqctl join_cluster rabbit@{{ hostvars[item]['ansible_hostname'] }}
-  with_items: "{{ groups['rabbit_master'] }}"
-  when: inventory_hostname in groups['rabbit_node']
+  with_items: "{{ groups['rabbit-cluster'][0] }}"
+  when: inventory_hostname != groups["rabbit-cluster"][0]
 
 - name: start rabbitmq app
   command: rabbitmqctl start_app
