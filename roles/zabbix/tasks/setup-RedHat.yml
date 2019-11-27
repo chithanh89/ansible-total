@@ -1,5 +1,32 @@
 ---
 # tasks file for zabbix
+- name: Check Apache installed
+  shell: httpd -v 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: httpd_result
+  changed_when: False
+
+- fail:
+    msg: "Apache is not installed on this machines"
+  when: "httpd_result.stdout == ''"
+
+- name: Check MySQL installed
+  shell: mysql --version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: mysql_result
+  changed_when: False
+
+- fail:
+    msg: "MySQL is not installed on this machines"
+  when: "mysql_result.stdout == ''"
+
+- name: Check PHP installed
+  shell: php -v 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: php_result
+  changed_when: False
+
+- fail:
+    msg: "PHP is not installed on this machines"
+  when: "php_result.stdout == ''"
+
 - name: Install the Zabbix repo.
   yum:
    name: "{{zb_url_rpm}}"
