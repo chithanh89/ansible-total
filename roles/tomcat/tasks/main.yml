@@ -1,5 +1,14 @@
 ---
 # tasks file for tomcat
+- name: Check java installed
+  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: java_result
+  changed_when: False
+
+- fail:
+    msg: "Java is not installed on this machines"
+  when: "java_result.stdout == ''"
+  
 - name: Create Tomcat Group
   group:
     name: "{{ tomcat_group }}"
