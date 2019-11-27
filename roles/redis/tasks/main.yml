@@ -1,5 +1,12 @@
 ---
 # tasks file for redis
+- name: Check hosts group before run config cluster playbook
+  fail:
+    msg: "Please define hostgroup 'redis' in ansible hosts file before run playbook"
+  when:
+    - "'redis' not in groups"
+    - redis_sentinel|bool
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
@@ -38,6 +45,10 @@
     name: net.core.somaxconn
     value: 65535
     state: present
+  retries: 3
+  delay: 3
+  register: result
+  until: result is success
 
 - name: Update vm.overcommit_memory
   sysctl:
@@ -51,7 +62,10 @@
     path: "{{redis_conf_dir}}/redis.conf"
     regexp: "^replicaof"
     state: absent
-  when: inventory_hostname == groups["redis"][0]
+  when:
+    - "'redis' in groups"
+    - inventory_hostname == groups["redis"][0]
+    - redis_sentinel|bool
 
 - name: Make sure Redis service is running
   systemd:

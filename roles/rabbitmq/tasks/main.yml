@@ -1,5 +1,12 @@
 ---
 # tasks file for rabbitmq
+- name: Check hosts group before run config cluster playbook
+  fail:
+    msg: "Please define hostgroup 'rabbit-cluster' in ansible hosts file before run playbook"
+  when:
+    - "'rabbit-cluster' not in groups"
+    - cluster|bool
+
 - include_tasks: setup-erlang.yml
 
 - include_tasks: setup-RedHat.yml
@@ -20,5 +27,5 @@
     enabled: "{{ rabbitmq_enabled }}"
 
 - import_tasks: rabbitmq_exporter.yml
-  when: rabbitmq_exporter and inventory_hostname in groups['rabbit_master']
+  when: rabbitmq_exporter and inventory_hostname == groups["rabbit_cluster"][0]
   tags: rabbitmq-exporter
