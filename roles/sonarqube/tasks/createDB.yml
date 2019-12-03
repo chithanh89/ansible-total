@@ -8,7 +8,7 @@
     name: "{{sonar_db}}"
     state: present
 
-- name: Create Sonarqube user
+- name: Create Sonarqube MySQL user
   mysql_user:
     login_user: "{{mysql_root_username}}"
     login_password: "{{mysql_root_password}}"

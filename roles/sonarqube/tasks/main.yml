@@ -1,5 +1,24 @@
 ---
 # tasks file for sonarqube
+- name: Check java installed
+  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: java_result
+  changed_when: False
+
+- fail:
+    msg: "Java is not installed on this machines"
+  when: "java_result.stdout == ''"
+
+- name: Check MySQL installed
+  shell: mysql --version
+  register: mysql_result
+  ignore_errors: true
+  changed_when: False
+
+- fail:
+    msg: "MySQL is not installed on this machines"
+  when: "mysql_result.stdout == ''"
+
 - include_tasks: createDB.yml
 
 - name: create Sonarqube group
@@ -53,7 +72,7 @@
     owner: "{{ sonar_user }}"
     group: "{{ sonar_group }}"
 
-- name: Make sure SonarQube service is running
+- name: Make sure Sonarqube service is running
   systemd:
     daemon_reload: yes
     state: restarted
