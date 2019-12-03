@@ -2,4 +2,5 @@
 # vars file for sonarqube
 sonar_db: sonarqube
 sonar_db_user: sonarqube
-sonar_db_password: sonarqube123@@
+#All lower characters does not satisfy Mysql password policy
+sonar_db_password: Sonarqube123@@

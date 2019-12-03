@@ -10,7 +10,7 @@
   when: "apache_result.stdout == ''"
 
 - name: Check MySQL installed
-  shell: mysql --version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  shell: mysql --version
   register: mysql_result
   changed_when: False
 
@@ -19,7 +19,7 @@
   when: "mysql_result.stdout == ''"
 
 - name: Check PHP installed
-  shell: php -v 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  shell: php -v
   register: php_result
   changed_when: False
 
