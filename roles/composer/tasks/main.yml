@@ -1,5 +1,14 @@
 ---
 # tasks file for composer
+- name: Check PHP installed
+  shell: php -v
+  register: php_result
+  changed_when: False
+
+- fail:
+    msg: "PHP is not installed on this machines"
+  when: "php_result.stdout == ''"
+  
 - name: Set php_executable variable to a default if not defined.
   set_fact:
     php_executable: php
