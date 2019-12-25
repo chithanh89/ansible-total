@@ -10,6 +10,9 @@
   apt_key:
     url: "{{ jenkins_repo_key_url }}"
     state: present
+  register: apt_key
+  retries: 3
+  until: apt_key is success
 
 - name: Add Jenkins apt repository.
   apt_repository:
@@ -22,19 +25,22 @@
   get_url:
     url: "{{ jenkins_pkg_url }}/jenkins_{{ jenkins_version }}_all.deb"
     dest: "/tmp/jenkins_{{ jenkins_version }}_all.deb"
-  when: jenkins_version is defined
+  when: jenkins_version is defined and jenkins_version != ''
 
 - name: Check if we downloaded a specific version of Jenkins.
   stat:
     path: "/tmp/jenkins_{{ jenkins_version }}_all.deb"
   register: specific_version
-  when: jenkins_version is defined
+  when: jenkins_version is defined and jenkins_version != ''
 
 - name: Install our specific version of Jenkins.
   apt:
     deb: "/tmp/jenkins_{{ jenkins_version }}_all.deb"
     state: present
-  when: jenkins_version is defined and specific_version.stat.exists
+  when:
+    - jenkins_version is defined
+    - jenkins_version != ''
+    - specific_version.stat.exists
   notify: configure default users
 
 - name: Ensure Jenkins is installed.

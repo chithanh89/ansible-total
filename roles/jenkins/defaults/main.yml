@@ -1,5 +1,7 @@
 ---
 # defaults file for jenkins
+# Define jenkins version to download and install, empty to default latest version
+jenkins_version: "2.201"
 jenkins_package_state: present
 
 jenkins_connection_delay: 5
