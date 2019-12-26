@@ -19,6 +19,7 @@
 - include_tasks: cluster.yml
   when: cluster
 - include_tasks: users.yml
+  when: (cluster and inventory_hostname == groups["rabbit_cluster"][0]) or (not cluster)
 
 - name: Ensure rabbitmq is started and enabled (if configured).
   service:
@@ -27,5 +28,5 @@
     enabled: "{{ rabbitmq_enabled }}"
 
 - import_tasks: rabbitmq_exporter.yml
-  when: rabbitmq_exporter and inventory_hostname == groups["rabbit_cluster"][0]
+  when: (rabbitmq_exporter and cluster and inventory_hostname == groups["rabbit_cluster"][0]) or (rabbitmq_exporter and not cluster)
   tags: rabbitmq-exporter

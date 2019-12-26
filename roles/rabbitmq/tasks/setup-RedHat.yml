@@ -10,3 +10,4 @@
   yum:
     name: "{{rabbitmq_package}}"
     state: latest
+    update_cache: true
