@@ -3,7 +3,34 @@
 - name: Set timezone
   timezone:
     name: "{{ timezone }}"
+  when: ansible_os_family == 'Debian'
+
+- name: Install ntp and chrony
+  yum:
+    name: "{{packages}}"
+    state: latest
+  vars:
+    packages:
+    - ntp
+    - chrony
+  when: ansible_os_family == 'RedHat'
 
 - name: Set timezone
-  command: ntpdate "{{ ntp_server }}"
+  command: timedatectl set-timezone "{{ timezone }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Enable synchronized
+  command: timedatectl set-ntp true
+  when: ansible_os_family == 'RedHat'
+
+- name: Enable and start chrony service
+  systemd:
+    name: chronyd
+    state: restarted
+    enabled: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: sleep for 10 seconds and continue with play
+  wait_for:
+    timeout: 10
   when: ansible_os_family == 'RedHat'
