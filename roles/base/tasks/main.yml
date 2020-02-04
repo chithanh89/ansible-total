@@ -5,61 +5,19 @@
 
 # Setup/install tasks.
 - include_tasks: "setup-{{ ansible_os_family }}.yml"
+
 - import_tasks: hostname.yml
   tags: hostname
+
 - import_tasks: timezone.yml
   tags: timezone
+
+- import_tasks: optimize.yml
+  tags: optimize
 
 - name: Install AWS CLI
   pip:
     name: awscli
     extra_args: "{{ item }}"
   with_items: "{{ extra_args }}"
-
-- name: Increase the limited max number of connections
-  blockinfile:
-    path: /etc/sysctl.conf
-    block: |
-      net.ipv4.netfilter.ip_conntrack_max = 1048576
-      net.nf_conntrack_max = 1048576
-      net.core.somaxconn = 65535
-      vm.overcommit_memory = 1
-    backup: yes
-
-- name: Increase the limited max number of open files
-  blockinfile:
-    path: /etc/security/limits.conf
-    block: |
-      * soft nofile 1000000
-      * hard nofile 1000000
-      root soft nofile 1000000
-      root hard nofile 1000000
-    backup: yes
-
-- name: Limit resource per user
-  lineinfile:
-    path: /etc/pam.d/common-session
-    line: session required  pam_limits.so
-  when: ansible_os_family == 'Debian'
-
-- name: Update ssh config for security
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    line: "{{ item }}"
-    insertafter: 'Protocol 2'
-  with_items:
-    - 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
-    - 'MACs hmac-sha1,umac-64@openssh.com,hmac-ripemd160'
-  when: ansible_os_family == 'Debian'
-  notify: restart ssh
-
-- name: Update ssh config for security
-  blockinfile:
-    path: /etc/ssh/sshd_config
-    block: |
-      Protocol 2
-      Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-      MACs hmac-sha1,umac-64@openssh.com,hmac-ripemd160
-    backup: yes
-  when: ansible_os_family == 'RedHat'
-  notify: restart ssh
+  tags: awscli
