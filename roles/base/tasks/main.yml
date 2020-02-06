@@ -15,6 +15,11 @@
 - import_tasks: optimize.yml
   tags: optimize
 
+- name: Upgrade pip version
+  pip:
+    name: pip
+    extra_args: --upgrade
+    
 - name: Install AWS CLI
   pip:
     name: awscli
