@@ -1,4 +1,4 @@
 ---
 # vars file for base
-packages: wget,curl,htop,vim,nano,git,zip,unzip,build-essential,python3-pip
+packages: wget,curl,htop,vim,nano,git,zip,unzip,build-essential,python3-pip,python3-setuptools
 ssh_daemon: ssh
