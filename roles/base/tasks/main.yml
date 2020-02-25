@@ -15,11 +15,23 @@
 - import_tasks: optimize.yml
   tags: optimize
 
+- name: Define pip verson to install
+  set_fact:
+    python_pip_version: "{% if 'python3' in ansible_python_interpreter|default('') %}python3-pip,python3-setuptools{% else %}python-pip,python-setuptools{% endif %}"
+
+- debug:
+    var: python_pip_version
+    
+- name: Install pip
+  apt:
+    name: "{{ python_pip_version }}"
+    state: present
+
 - name: Upgrade pip version
   pip:
     name: pip
     extra_args: --upgrade
-    
+
 - name: Install AWS CLI
   pip:
     name: awscli

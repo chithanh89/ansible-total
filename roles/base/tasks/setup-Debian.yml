@@ -23,7 +23,6 @@
       LC_MEASUREMENT="en_US.UTF-8"
       LC_IDENTIFICATION="en_US.UTF-8"
       LC_ALL=C
-      alias python=python3
 
 - name: Export locale var
   shell: source ~/.bashrc
