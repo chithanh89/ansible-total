@@ -21,9 +21,9 @@
 
 - debug:
     var: python_pip_version
-    
+
 - name: Install pip
-  apt:
+  package:
     name: "{{ python_pip_version }}"
     state: present
 
