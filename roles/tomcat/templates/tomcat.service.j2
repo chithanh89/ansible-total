@@ -9,7 +9,7 @@ Environment=JAVA_HOME={{java_home}}
 Environment=CATALINA_PID={{tomcat_catalina_home}}/temp/tomcat.pid
 Environment=CATALINA_HOME={{tomcat_catalina_home}}
 Environment=CATALINA_BASE={{tomcat_catalina_home}}
-Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+Environment='CATALINA_OPTS=-Xms{{tomcat_xms}} -Xmx{{tomcat_xmx}} -server -XX:+UseParallelGC'
 Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom -XX:+CrashOnOutOfMemoryError'
 
 ExecStart={{tomcat_catalina_home}}/bin/startup.sh
