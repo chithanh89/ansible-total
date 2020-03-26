@@ -11,13 +11,8 @@ kubernetes_packages:
     state: present
 # Define roles to install
 kubernetes_role: master
-# Define to setup kubernetes kompose
-kompose_state: false
 selinux_state: true
-# Define to setup kubernetes dashboard
-kuber_dashboard: false
-
-kubernetes_kubelet_extra_args: ""
+kubernetes_kubelet_extra_args: "--fail-swap-on=false"
 kubernetes_kubeadm_init_extra_opts: ""
 # Define kubernetes create pod on master node
 kubernetes_allow_pods_on_master: true
@@ -38,4 +33,4 @@ kubernetes_yum_arch: x86_64
 
 # Flannel config files.
 kubernetes_flannel_manifest_file_rbac: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
-kubernetes_flannel_manifest_file: https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+kubernetes_flannel_manifest_file: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
