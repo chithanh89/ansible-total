@@ -41,12 +41,6 @@
 - include_tasks: master-setup.yml
   when: kubernetes_role == 'master'
 
-- include_tasks: kompose.yml
-  when: kompose_state
-
-- include_tasks: dashboard.yml
-  when: kuber_dashboard
-
 # Set up nodes.
 - name: Get the kubeadm join command from the Kubernetes master.
   shell: kubeadm token create --print-join-command
