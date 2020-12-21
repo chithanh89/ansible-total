@@ -1,4 +1,9 @@
 ---
+- name: Install software-properties-common
+  apt:
+    name: software-properties-common
+    state: present
+
 - name: Add PPA for Nginx.
   apt_repository:
     repo: 'ppa:nginx/{{ nginx_ppa_version }}'
@@ -10,5 +15,5 @@
 - name: Ensure nginx is installed.
   apt:
     name: "{{ nginx_package_name }}"
-    state: latest
+    state: present
   when: nginx_ppa_added.changed
